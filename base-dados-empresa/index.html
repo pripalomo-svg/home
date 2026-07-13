@@ -135,7 +135,18 @@
 
   .mono { font-family: "SFMono-Regular", Consolas, monospace; font-size: .86em; }
   .file { font-weight: 600; }
+  .file a { color: var(--ink); text-decoration: none; }
+  .file a:hover { color: var(--brand); text-decoration: underline; }
   .desc { color: var(--muted); font-size: .86rem; margin-top: 3px; }
+  a.dl {
+    display: block;
+    margin-top: 6px;
+    font-size: .78rem;
+    color: var(--brand);
+    text-decoration: none;
+    font-weight: 600;
+  }
+  a.dl:hover { text-decoration: underline; }
 
   .note {
     font-size: .84rem;
@@ -269,7 +280,7 @@ const DADOS = {
       desc: "Ciência da necessidade de parecer municipal de viabilidade e do Certificado de Licenciamento Integrado (Decreto Estadual nº 55.660/2010)." },
     { arquivo: "Licenciamento_assinado.pdf", tipo: "Declaração de Licenciamento", data: "—", destinatario: "Via Rápida Empresa / JUCESP", assinado: true,
       desc: "Versão assinada da declaração de licenciamento." }
-  ]
+  ].map(d => ({ ...d, href: "documentos/" + d.arquivo }))
 };
 
 function el(tag, cls, html) {
@@ -336,14 +347,18 @@ const docBox = document.getElementById("documentos");
 DADOS.documentos.forEach(d => {
   const tr = el("tr");
   const td1 = el("td");
-  td1.appendChild(el("div", "file", d.arquivo));
+  td1.appendChild(el("div", "file", `<a href="${d.href}" target="_blank" rel="noopener">${d.arquivo}</a>`));
   td1.appendChild(el("div", "desc", `${d.tipo} — ${d.desc}`));
   tr.appendChild(td1);
   tr.appendChild(el("td", "hide-sm", d.data));
   tr.appendChild(el("td", "hide-sm", d.destinatario));
-  tr.appendChild(el("td", "", d.assinado
-    ? '<span class="badge ok">Assinado</span>'
-    : '<span class="badge warn">Minuta</span>'));
+  const td4 = el("td");
+  td4.appendChild(el("span", d.assinado ? "badge ok" : "badge warn", d.assinado ? "Assinado" : "Minuta"));
+  const link = el("a", "dl", "&#8595; abrir");
+  link.href = d.href;
+  link.target = "_blank";
+  td4.appendChild(link);
+  tr.appendChild(td4);
   docBox.appendChild(tr);
 });
 </script>
