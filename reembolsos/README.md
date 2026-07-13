@@ -1,68 +1,93 @@
-# Reembolsos do Plano de Saúde
+# Reembolsos do Plano de Saúde — Família Palomo
 
-Banco de dados SQLite para registrar e acompanhar todas as solicitações de
-reembolso do plano de saúde, com uma ferramenta de linha de comando em Python
-(sem dependências externas — só a biblioteca padrão).
+Banco de dados SQLite com **todos os reembolsos médicos da família** (plano
+Cigna via McKinsey, titular Luisa Juliana Faria Ramalho de Souza), com os
+documentos digitalizados (notas fiscais, recibos, EOBs) **vinculados a cada
+claim** e um **painel visual** para consulta limpa.
+
+## Como visualizar
+
+Abra o arquivo **`index.html`** no navegador. Ele funciona offline e traz:
+
+- **Reembolsos** — tabela completa com filtros (beneficiário, status, ano,
+  tipo), busca livre, ordenação por coluna e detalhes ao clicar na linha
+  (nº do claim, comentário da Cigna, glosa, situação, documentos anexados).
+- **Documentos** — todos os PDFs organizados por categoria, com link direto.
+- **Detalhe EOBs Cigna** — cada linha de serviço dos Explanation of Benefits
+  (sessão a sessão, com câmbio, valores em USD e remark codes).
+- **Portal Cigna 2026** — submissões com nº de submissão e CLM.
+- **Resumo** — totais por beneficiário, status, prestador e ano.
 
 ## Estrutura
 
 | Arquivo | Descrição |
 | --- | --- |
-| `schema.sql` | Esquema do banco (tabelas, índices e visão consolidada) |
-| `reembolsos.py` | CLI para criar o banco, adicionar, listar, importar e atualizar reembolsos |
-| `template_importacao.csv` | Modelo de CSV para importação em lote |
-| `reembolsos.db` | O banco de dados em si (criado ao rodar `init`; não é versionado) |
+| `reembolsos.db` | Banco SQLite com todos os dados |
+| `index.html` | Painel visual (gerado a partir do banco) |
+| `schema.sql` | Esquema do banco |
+| `importar_dados.py` | Recria o banco a partir da planilha + documentos |
+| `gerar_dashboard.py` | Regenera o `index.html` a partir do banco |
+| `reembolsos.py` | CLI para adicionar/listar/atualizar reembolsos |
+| `documentos/` | Todos os PDFs, planilha e arquivos de referência |
+| `template_importacao.csv` | Modelo de CSV para importação em lote via CLI |
 
-### Tabelas
+### Pasta `documentos/`
 
-- **beneficiarios** — titular e dependentes cobertos pelo plano.
-- **prestadores** — médicos, clínicas, laboratórios e terapeutas.
-- **reembolsos** — cada solicitação, com valor pago, valor reembolsado,
-  datas (atendimento, solicitação, pagamento), protocolo da operadora,
-  nota fiscal e status (`solicitado`, `em_analise`, `pago`, `pago_parcial`, `negado`).
-- **vw_reembolsos** — visão que junta tudo e calcula a diferença entre o
-  valor pago e o reembolsado.
+- `notas-fiscais/` — NFs de consultas, exames e farmácia
+- `recibos/` — recibos de fisioterapia (Wendy Paola)
+- `eob-cigna/` — Explanation of Benefits da Cigna
+- `medicos/` — receitas, pedidos de exame e relatórios médicos
+- `planos/` — documentação dos planos Cigna/dental 2026
+- `referencia/` — planilha original, CSV de NFS-e, dashboard antigo, memória
 
-## Como usar
+### Tabelas do banco
+
+- **reembolsos** — cada claim: beneficiário, prestador, valores pago e
+  reembolsado, status, nº do claim (e nº de reconsideração), comentário da
+  Cigna, nota fiscal, situação atual.
+- **documentos** + **reembolso_documentos** — arquivos digitalizados e o
+  vínculo N:N com os claims (um EOB cobre vários claims).
+- **eob_itens** — linhas de serviço dos EOBs (44 itens: data, BRL, câmbio,
+  USD, pago, não coberto, remark code).
+- **submissoes_portal** — submissões do portal Cigna 2026 (nº submissão + CLM).
+- **beneficiarios** / **prestadores** — cadastro com CPF/CNPJ e especialidade.
+- **vw_reembolsos** — visão consolidada com documentos agregados.
+
+## Como atualizar
 
 ```bash
 cd reembolsos
 
-# 1. Criar o banco de dados
-python3 reembolsos.py init
+# Opção A: adicionar um reembolso novo pela CLI
+python3 reembolsos.py add --beneficiario "Priscila da Silva Herbas Palomo" \
+  --prestador "Fleury S.A." --tipo exame --data 2026-07-10 --valor 500
 
-# 2. Adicionar um reembolso (modo direto)
-python3 reembolsos.py add \
-  --beneficiario "Titular" \
-  --prestador "Dra. Maria" --especialidade "Dermatologia" \
-  --tipo consulta --data 2026-07-01 --valor 450 \
-  --protocolo PRT-98765 --nota-fiscal NF-123
+# Opção B: editar importar_dados.py (listas PORTAL_2026 / EOB_ITENS / extras)
+# e recriar o banco do zero:
+python3 importar_dados.py
 
-# ...ou em modo interativo (pergunta os campos obrigatórios)
-python3 reembolsos.py add
-
-# 3. Importar vários de uma vez a partir de um CSV
-python3 reembolsos.py importar template_importacao.csv
-
-# 4. Consultar
-python3 reembolsos.py listar
-python3 reembolsos.py listar --status em_analise
-python3 reembolsos.py listar --ano 2026 --beneficiario "Titular"
-python3 reembolsos.py resumo
-
-# 5. Atualizar quando a operadora pagar
-python3 reembolsos.py atualizar 3 --status pago --valor-reembolsado 315.00 --data-pagamento 2026-07-20
+# Sempre que o banco mudar, regenerar o painel:
+python3 gerar_dashboard.py
 ```
 
-Também é possível consultar diretamente com o SQLite:
+Consultas diretas no SQLite:
 
 ```bash
-sqlite3 reembolsos.db "SELECT * FROM vw_reembolsos ORDER BY data_atendimento DESC;"
+sqlite3 reembolsos.db "SELECT * FROM vw_reembolsos WHERE status='em_analise';"
+sqlite3 reembolsos.db "SELECT * FROM eob_itens WHERE n_claim='137076305';"
 ```
 
-## Importação em lote
+## Fontes dos dados
 
-Preencha um CSV com o mesmo cabeçalho de `template_importacao.csv`.
-Campos obrigatórios: `beneficiario`, `tipo`, `data_atendimento` (formato
-`YYYY-MM-DD`) e `valor_pago`. Os demais podem ficar em branco. Beneficiários
-e prestadores novos são cadastrados automaticamente.
+1. Planilha `12_2025 - Reembolsos Médicos - LUISA...xlsx`, aba "Reembolso
+   Cigna" (62 linhas de claims 2024–2026; linhas de reconsideração do mesmo
+   claim foram mescladas ao registro original).
+2. Print do portal Cigna 2026 (10 submissões com nº de submissão/CLM).
+3. Três EOBs da Cigna em PDF (set/2025, nov/2025 e jan/2026), extraídos
+   linha a linha.
+4. Notas fiscais e recibos em PDF, vinculados aos claims correspondentes
+   pela coluna DOCUMENTO da planilha, pelo nº da NF ou pelo valor/data.
+
+Observação: o claim 137973185 aparecia na planilha com data 02/10/2026
+(formato americano); foi registrado como 10/02/2026 com nota no campo de
+observações.

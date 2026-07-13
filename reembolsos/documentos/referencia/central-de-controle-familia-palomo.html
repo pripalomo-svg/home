@@ -1,0 +1,802 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Central de Controle · Família Palomo · v2 Editável</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Segoe UI', Arial, sans-serif; background: #f5f6fa; color: #1a1a2e; }
+
+  header {
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 60%, #0f3460 100%);
+    color: white;
+    padding: 20px 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+  }
+  header h1 { font-size: 1.5rem; font-weight: 700; }
+  header h1 span { color: #e94560; }
+  .header-sub { font-size: 0.8rem; color: rgba(255,255,255,0.55); margin-top: 3px; }
+  .badge { background: #e94560; font-size: 0.7rem; padding: 3px 12px; border-radius: 20px; font-weight: 700; }
+
+  /* PERSON TABS */
+  .person-tabs {
+    background: #1a1a2e;
+    display: flex;
+    padding: 0 32px;
+    gap: 2px;
+    border-bottom: 3px solid #e94560;
+  }
+  .person-tab {
+    padding: 12px 22px;
+    cursor: pointer;
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: rgba(255,255,255,0.5);
+    border-bottom: 3px solid transparent;
+    margin-bottom: -3px;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    white-space: nowrap;
+  }
+  .person-tab:hover { color: white; background: rgba(255,255,255,0.05); }
+  .person-tab.active { color: white; border-bottom-color: #e94560; background: rgba(233,69,96,0.1); }
+  .person-tab .avatar {
+    width: 28px; height: 28px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.8rem; font-weight: 700; flex-shrink: 0;
+  }
+
+  /* SUB TABS */
+  .sub-tabs {
+    background: white;
+    display: flex;
+    padding: 0 32px;
+    gap: 4px;
+    border-bottom: 1px solid #e8eaed;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    overflow-x: auto;
+  }
+  .sub-tab {
+    padding: 11px 18px;
+    cursor: pointer;
+    font-size: 0.83rem;
+    font-weight: 500;
+    color: #6b7280;
+    border-bottom: 3px solid transparent;
+    margin-bottom: -1px;
+    white-space: nowrap;
+    transition: all 0.15s;
+  }
+  .sub-tab:hover { color: #0f3460; }
+  .sub-tab.active { color: #e94560; border-bottom-color: #e94560; font-weight: 700; }
+
+  .container { max-width: 1200px; margin: 0 auto; padding: 24px 32px; }
+
+  /* CARDS STATS */
+  .stats-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-bottom: 24px; }
+  .stat { background: white; border-radius: 12px; padding: 18px 20px; box-shadow: 0 1px 6px rgba(0,0,0,0.07); border-top: 4px solid; }
+  .stat.s1 { border-color: #3b82f6; }
+  .stat.s2 { border-color: #10b981; }
+  .stat.s3 { border-color: #f59e0b; }
+  .stat.s4 { border-color: #e94560; }
+  .stat-label { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.6px; color: #9ca3af; margin-bottom: 6px; }
+  .stat-val { font-size: 1.7rem; font-weight: 800; color: #1a1a2e; }
+  .stat-desc { font-size: 0.72rem; color: #9ca3af; margin-top: 3px; }
+
+  /* FILE GRID */
+  .section-head { font-size: 1rem; font-weight: 700; color: #374151; margin: 20px 0 12px; display: flex; align-items: center; gap: 10px; }
+  .section-head .cnt { background: #f3f4f6; color: #9ca3af; font-size: 0.72rem; padding: 2px 10px; border-radius: 20px; }
+  .file-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); gap: 10px; }
+
+  .fc {
+    background: white; border-radius: 10px; padding: 13px 15px;
+    display: flex; align-items: center; gap: 11px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06); border: 1px solid #f0f2f5;
+    text-decoration: none; color: inherit;
+    transition: all 0.18s; cursor: pointer;
+  }
+  .fc:hover { box-shadow: 0 4px 14px rgba(0,0,0,0.11); border-color: #dbeafe; transform: translateY(-1px); }
+
+  .fi { width: 38px; height: 38px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 1.15rem; flex-shrink: 0; }
+  .fi.pdf  { background: #fef2f2; }
+  .fi.xlsx { background: #f0fdf4; }
+  .fi.csv  { background: #f0fdfa; }
+  .fi.img  { background: #fdf4ff; }
+  .fi.doc  { background: #eff6ff; }
+
+  .fname { font-size: 0.82rem; font-weight: 600; color: #1a1a2e; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .fmeta { font-size: 0.72rem; color: #9ca3af; margin-top: 1px; }
+
+  .open-btn {
+    font-size: 0.72rem; background: #f3f4f6; color: #6b7280;
+    border: none; padding: 5px 10px; border-radius: 6px;
+    cursor: pointer; white-space: nowrap; flex-shrink: 0;
+    text-decoration: none; display: inline-block;
+    transition: all 0.15s;
+  }
+  .open-btn:hover { background: #e94560; color: white; }
+
+  /* FIX EXCEL: download button */
+  .dl-btn {
+    font-size: 0.72rem; background: #dcfce7; color: #16a34a;
+    border: none; padding: 5px 10px; border-radius: 6px;
+    cursor: pointer; white-space: nowrap; flex-shrink: 0;
+    text-decoration: none; display: inline-block;
+    transition: all 0.15s; font-weight: 600;
+  }
+  .dl-btn:hover { background: #16a34a; color: white; }
+
+  .search-wrap { background: white; border-radius: 10px; padding: 10px 16px; display: flex; align-items: center; gap: 9px; box-shadow: 0 1px 4px rgba(0,0,0,0.06); border: 1px solid #e5e7eb; margin-bottom: 18px; }
+  .search-wrap input { border: none; outline: none; font-size: 0.88rem; flex: 1; color: #1a1a2e; }
+  .search-wrap input::placeholder { color: #9ca3af; }
+
+  /* SECTIONS */
+  .person-section { display: none; }
+  .person-section.active { display: block; }
+  .sub-section { display: none; }
+  .sub-section.active { display: block; }
+
+  .tip { background: #fffbeb; border: 1px solid #fde68a; border-radius: 8px; padding: 10px 14px; font-size: 0.8rem; color: #92400e; margin-bottom: 16px; display: flex; gap: 8px; align-items: center; }
+
+  @media (max-width: 768px) {
+    .stats-row { grid-template-columns: repeat(2, 1fr); }
+    .file-grid { grid-template-columns: 1fr; }
+    .container { padding: 16px; }
+    header { padding: 14px 16px; }
+    .person-tabs, .sub-tabs { padding: 0 12px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div>
+    <h1>Central de Controle · <span>Família Palomo</span></h1>
+    <div class="header-sub">Documentos médicos · Reembolsos · Notas fiscais · Histórico</div>
+  </div>
+  <span class="badge">v2 Editável · 2026</span>
+</header>
+
+<!-- PERSON TABS -->
+<div class="person-tabs">
+  <div class="person-tab active" onclick="showPerson('priscila', this)">
+    <div class="avatar" style="background:#e94560">P</div> Priscila
+  </div>
+  <div class="person-tab" onclick="showPerson('joao', this)">
+    <div class="avatar" style="background:#3b82f6">J</div> João Guilherme
+  </div>
+  <div class="person-tab" onclick="showPerson('analuisa', this)">
+    <div class="avatar" style="background:#8b5cf6">A</div> Ana Luisa
+  </div>
+  <div class="person-tab" onclick="showPerson('luisa', this)">
+    <div class="avatar" style="background:#10b981">L</div> Luisa / Geral
+  </div>
+  <div class="person-tab" onclick="showPerson('historico', this)">
+    <div class="avatar" style="background:#f59e0b">📁</div> Histórico 2020–25
+  </div>
+</div>
+
+<!-- ==================== PRISCILA ==================== -->
+<div class="person-section active" id="priscila">
+  <div class="sub-tabs">
+    <div class="sub-tab active" onclick="showSub('priscila', 'p-docs', this)">📄 Documentos</div>
+    <div class="sub-tab" onclick="showSub('priscila', 'p-exames', this)">🔬 Exames & Receitas</div>
+    <div class="sub-tab" onclick="showSub('priscila', 'p-plano', this)">🏥 Plano de Saúde</div>
+  </div>
+  <div class="container">
+
+    <div class="sub-section active" id="p-docs">
+      <div class="stats-row">
+        <div class="stat s1"><div class="stat-label">Documentos</div><div class="stat-val">12</div><div class="stat-desc">arquivos ativos</div></div>
+        <div class="stat s2"><div class="stat-label">Plano</div><div class="stat-val">Cigna</div><div class="stat-desc">2026 em vigor</div></div>
+        <div class="stat s3"><div class="stat-label">Últimos exames</div><div class="stat-val">Fleury</div><div class="stat-desc">sangue 2026</div></div>
+        <div class="stat s4"><div class="stat-label">Dr. Principal</div><div class="stat-val">Dr. Leo</div><div class="stat-desc">clínico geral</div></div>
+      </div>
+
+      <div class="section-head">Documentos Principais <span class="cnt">12</span></div>
+      <div class="file-grid">
+
+        <a class="fc" href="fleury ecames de sanguepriscila palomo.pdf" target="_blank">
+          <div class="fi pdf">🩸</div>
+          <div style="flex:1;min-width:0"><div class="fname">Fleury — Exames de Sangue</div><div class="fmeta">PDF · Laboratório 2026</div></div>
+          <span class="open-btn">Abrir</span>
+        </a>
+
+        <a class="fc" href="NFleonardo - PRISCILAja pedi no cigna 25.05.26.pdf" target="_blank">
+          <div class="fi pdf">📄</div>
+          <div style="flex:1;min-width:0"><div class="fname">NF Leonardo — Cigna (mai/26)</div><div class="fmeta">PDF · Nota fiscal Cigna</div></div>
+          <span class="open-btn">Abrir</span>
+        </a>
+
+        <a class="fc" href="nf remedios dr leo.pdf" target="_blank">
+          <div class="fi pdf">💊</div>
+          <div style="flex:1;min-width:0"><div class="fname">NF Remédios — Dr. Leonardo</div><div class="fmeta">PDF · Medicação</div></div>
+          <span class="open-btn">Abrir</span>
+        </a>
+
+        <a class="fc" href="receita dr leonardo priscila.pdf" target="_blank">
+          <div class="fi pdf">💊</div>
+          <div style="flex:1;min-width:0"><div class="fname">Receita Dr. Leonardo</div><div class="fmeta">PDF · Prescrição</div></div>
+          <span class="open-btn">Abrir</span>
+        </a>
+
+        <a class="fc" href="pedido de exames medicos Dr Luis Anthero Rugoni Peloso para Priscila Palomo.pdf" target="_blank">
+          <div class="fi pdf">📋</div>
+          <div style="flex:1;min-width:0"><div class="fname">Pedido de Exames — Dr. Luis Rugoni</div><div class="fmeta">PDF · Solicitação médica</div></div>
+          <span class="open-btn">Abrir</span>
+        </a>
+
+        <a class="fc" href="Dr Luis Anthero Rugoni Peloso pdf.pdf" target="_blank">
+          <div class="fi pdf">📄</div>
+          <div style="flex:1;min-width:0"><div class="fname">Dr. Luis Anthero Rugoni Peloso</div><div class="fmeta">PDF</div></div>
+          <span class="open-btn">Abrir</span>
+        </a>
+
+        <a class="fc" href="Explanation of Benefits.pdf137076320.pdf" target="_blank">
+          <div class="fi pdf">📄</div>
+          <div style="flex:1;min-width:0"><div class="fname">Explanation of Benefits — Cigna</div><div class="fmeta">PDF · Cobertura</div></div>
+          <span class="open-btn">Abrir</span>
+        </a>
+
+        <a class="fc" href="Pequenos hormonios servicos medicos.pdf" target="_blank">
+          <div class="fi pdf">💉</div>
+          <div style="flex:1;min-width:0"><div class="fname">Pequenos Hormônios — Serviços Médicos</div><div class="fmeta">PDF</div></div>
+          <span class="open-btn">Abrir</span>
+        </a>
+
+        <a class="fc" href="notaprintpdf.pdf" target="_blank">
+          <div class="fi pdf">📄</div>
+          <div style="flex:1;min-width:0"><div class="fname">Nota Fiscal (impressão)</div><div class="fmeta">PDF</div></div>
+          <span class="open-btn">Abrir</span>
+        </a>
+
+        <a class="fc" href="clarissanotaprintpdf.aspx" target="_blank">
+          <div class="fi doc">📝</div>
+          <div style="flex:1;min-width:0"><div class="fname">Dra. Clarissa — Nota Fiscal</div><div class="fmeta">ASPX · Nota eletrônica</div></div>
+          <span class="open-btn">Abrir</span>
+        </a>
+
+        <a class="fc" href="imagem da tela.jpeg" target="_blank">
+          <div class="fi img">🖼️</div>
+          <div style="flex:1;min-width:0"><div class="fname">Imagem de Comprovante</div><div class="fmeta">JPEG · Captura de tela</div></div>
+          <span class="open-btn">Abrir</span>
+        </a>
+
+      </div>
+    </div><!-- /p-docs -->
+
+    <div class="sub-section" id="p-exames">
+      <div class="file-grid">
+        <a class="fc" href="Nota Fiscal (2020-2025)/Receita Priscila Palomo.pdf" target="_blank">
+          <div class="fi pdf">💊</div>
+          <div style="flex:1;min-width:0"><div class="fname">Receita — Priscila Palomo</div><div class="fmeta">PDF</div></div>
+          <span class="open-btn">Abrir</span>
+        </a>
+        <a class="fc" href="Nota Fiscal (2020-2025)/Receita utrogestan priscila.pdf" target="_blank">
+          <div class="fi pdf">💊</div>
+          <div style="flex:1;min-width:0"><div class="fname">Receita — Utrogestan</div><div class="fmeta">PDF</div></div>
+          <span class="open-btn">Abrir</span>
+        </a>
+        <a class="fc" href="Nota Fiscal (2020-2025)/Receita vitaminas priscila.pdf" target="_blank">
+          <div class="fi pdf">💊</div>
+          <div style="flex:1;min-width:0"><div class="fname">Receita — Vitaminas</div><div class="fmeta">PDF</div></div>
+          <span class="open-btn">Abrir</span>
+        </a>
+        <a class="fc" href="Nota Fiscal (2020-2025)/receita clexane 40 mg.pdf" target="_blank">
+          <div class="fi pdf">💊</div>
+          <div style="flex:1;min-width:0"><div class="fname">Receita — Clexane 40mg</div><div class="fmeta">PDF</div></div>
+          <span class="open-btn">Abrir</span>
+        </a>
+        <a class="fc" href="Nota Fiscal (2020-2025)/receita vitamina ferro e b12.pdf" target="_blank">
+          <div class="fi pdf">💊</div>
+          <div style="flex:1;min-width:0"><div class="fname">Receita — Ferro e B12</div><div class="fmeta">PDF</div></div>
+          <span class="open-btn">Abrir</span>
+        </a>
+        <a class="fc" href="Nota Fiscal (2020-2025)/Pedido Priscila Palomo.pdf" target="_blank">
+          <div class="fi pdf">📋</div>
+          <div style="flex:1;min-width:0"><div class="fname">Pedido de Exames — Priscila</div><div class="fmeta">PDF</div></div>
+          <span class="open-btn">Abrir</span>
+        </a>
+        <a class="fc" href="Nota Fiscal (2020-2025)/250,00 exame ultrassom endovaginal priscila.pdf" target="_blank">
+          <div class="fi pdf">📄</div>
+          <div style="flex:1;min-width:0"><div class="fname">R$ 250 — Ultrassom Endovaginal</div><div class="fmeta">PDF</div></div>
+          <span class="open-btn">Abrir</span>
+        </a>
+        <a class="fc" href="Nota Fiscal (2020-2025)/relatddimeropriscilapalomo.pdf" target="_blank">
+          <div class="fi pdf">📋</div>
+          <div style="flex:1;min-width:0"><div class="fname">Relatório D-dímero</div><div class="fmeta">PDF</div></div>
+          <span class="open-btn">Abrir</span>
+        </a>
+        <a class="fc" href="Nota Fiscal (2020-2025)/Relatório  médico- Priscila 11 de maio 2020.pdf" target="_blank">
+          <div class="fi pdf">📋</div>
+          <div style="flex:1;min-width:0"><div class="fname">Relatório Médico (11/05/2020)</div><div class="fmeta">PDF</div></div>
+          <span class="open-btn">Abrir</span>
+        </a>
+        <a class="fc" href="Nota Fiscal (2020-2025)/Pedido RASTREAMENTO BIOQUIMICO PRIMEIRO TRIMESTRE Priscila Palomo.pdf" target="_blank">
+          <div class="fi pdf">📋</div>
+          <div style="flex:1;min-width:0"><div class="fname">Pedido Rastreamento Bioquímico 1º Tri</div><div class="fmeta">PDF</div></div>
+          <span class="open-btn">Abrir</span>
+        </a>
+      </div>
+    </div><!-- /p-exames -->
+
+    <div class="sub-section" id="p-plano">
+      <div class="file-grid">
+        <a class="fc" href="novos planos cigna 2026.pdf" target="_blank">
+          <div class="fi pdf">🏥</div>
+          <div style="flex:1;min-width:0"><div class="fname">Novos Planos Cigna 2026</div><div class="fmeta">PDF · Vigente</div></div>
+          <span class="open-btn">Abrir</span>
+        </a>
+        <a class="fc" href="dental 2026novos planos.pdf" target="_blank">
+          <div class="fi pdf">🦷</div>
+          <div style="flex:1;min-width:0"><div class="fname">Plano Dental 2026</div><div class="fmeta">PDF · Odontológico</div></div>
+          <span class="open-btn">Abrir</span>
+        </a>
+        <a class="fc" href="novos planos.html" target="_blank">
+          <div class="fi doc">🌐</div>
+          <div style="flex:1;min-width:0"><div class="fname">Portal Cigna — Página Salva</div><div class="fmeta">HTML · Membro Cigna</div></div>
+          <span class="open-btn">Abrir</span>
+        </a>
+        <a class="fc" href="Explanation of Benefits.pdf137076320.pdf" target="_blank">
+          <div class="fi pdf">📄</div>
+          <div style="flex:1;min-width:0"><div class="fname">Explanation of Benefits</div><div class="fmeta">PDF · Resumo cobertura</div></div>
+          <span class="open-btn">Abrir</span>
+        </a>
+        <a class="fc" href="Nota Fiscal (2020-2025)/Explanation_of_benefits_135340.pdf" target="_blank">
+          <div class="fi pdf">📄</div>
+          <div style="flex:1;min-width:0"><div class="fname">Explanation of Benefits 135340</div><div class="fmeta">PDF · Histórico Cigna</div></div>
+          <span class="open-btn">Abrir</span>
+        </a>
+      </div>
+    </div><!-- /p-plano -->
+
+  </div>
+</div><!-- /priscila -->
+
+<!-- ==================== JOÃO GUILHERME ==================== -->
+<div class="person-section" id="joao">
+  <div class="sub-tabs">
+    <div class="sub-tab active" onclick="showSub('joao', 'j-docs', this)">📄 Documentos</div>
+    <div class="sub-tab" onclick="showSub('joao', 'j-historico', this)">📅 Histórico</div>
+  </div>
+  <div class="container">
+
+    <div class="sub-section active" id="j-docs">
+      <div class="stats-row">
+        <div class="stat s1"><div class="stat-label">Médicos</div><div class="stat-val">4</div><div class="stat-desc">especialistas ativos</div></div>
+        <div class="stat s2"><div class="stat-label">Especialidades</div><div class="stat-val">Urologia</div><div class="stat-desc">+ Oftalmologia</div></div>
+        <div class="stat s3"><div class="stat-label">Cirurgião</div><div class="stat-val">Dr. André</div><div class="stat-desc">cirurgia pediátrica</div></div>
+        <div class="stat s4"><div class="stat-label">Dra. Fabiane</div><div class="stat-val">Ativa</div><div class="stat-desc">acompanhamento</div></div>
+      </div>
+
+      <div class="section-head">Documentos — João Guilherme</div>
+      <div class="file-grid">
+        <a class="fc" href="Dr. Andre Luis para Joao Guilherme.pdf" target="_blank">
+          <div class="fi pdf">⚕️</div>
+          <div style="flex:1;min-width:0"><div class="fname">Dr. André Luis — João Guilherme</div><div class="fmeta">PDF · Cirurgia pediátrica</div></div>
+          <span class="open-btn">Abrir</span>
+        </a>
+        <a class="fc" href="Dr Ricardo Urologista Pediatra cirurgiao Joao Guilher.pdf" target="_blank">
+          <div class="fi pdf">⚕️</div>
+          <div style="flex:1;min-width:0"><div class="fname">Dr. Ricardo — Urologista Pediátrico</div><div class="fmeta">PDF · Urologia</div></div>
+          <span class="open-btn">Abrir</span>
+        </a>
+        <a class="fc" href="Dra Fabiane Joao guilherme.pdf" target="_blank">
+          <div class="fi pdf">⚕️</div>
+          <div style="flex:1;min-width:0"><div class="fname">Dra. Fabiane — João Guilherme</div><div class="fmeta">PDF · Pediatra</div></div>
+          <span class="open-btn">Abrir</span>
+        </a>
+        <a class="fc" href="dr. Marcelo Cavalcante Costa Oftaumologista Joao.pdf" target="_blank">
+          <div class="fi pdf">👁️</div>
+          <div style="flex:1;min-width:0"><div class="fname">Dr. Marcelo — Oftalmologista</div><div class="fmeta">PDF · Oftalmologia</div></div>
+          <span class="open-btn">Abrir</span>
+        </a>
+        <a class="fc" href="dr marcelo cavalcante costa joao guilherme.pdf" target="_blank">
+          <div class="fi pdf">📄</div>
+          <div style="flex:1;min-width:0"><div class="fname">Dr. Marcelo Cavalcante Costa — João</div><div class="fmeta">PDF</div></div>
+          <span class="open-btn">Abrir</span>
+        </a>
+        <a class="fc" href="draclarissaalergologistaparajoaoguilnermenotaprintpdf.aspx" target="_blank">
+          <div class="fi doc">🤧</div>
+          <div style="flex:1;min-width:0"><div class="fname">Dra. Clarissa — Alergologista (João)</div><div class="fmeta">ASPX · Nota fiscal</div></div>
+          <span class="open-btn">Abrir</span>
+        </a>
+        <a class="fc" href="Nota Fiscal (2020-2025)/451.80 exame JG junto com o morfologico.pdf" target="_blank">
+          <div class="fi pdf">📋</div>
+          <div style="flex:1;min-width:0"><div class="fname">R$ 451,80 — Exame JG + Morfológico</div><div class="fmeta">PDF · Exame histórico</div></div>
+          <span class="open-btn">Abrir</span>
+        </a>
+      </div>
+    </div><!-- /j-docs -->
+
+    <div class="sub-section" id="j-historico">
+      <div class="file-grid">
+        <a class="fc" href="Nota Fiscal (2020-2025)/1 pediatra.pdf" target="_blank">
+          <div class="fi pdf">👶</div>
+          <div style="flex:1;min-width:0"><div class="fname">Pediatra — NF histórica</div><div class="fmeta">PDF · 2020</div></div>
+          <span class="open-btn">Abrir</span>
+        </a>
+        <a class="fc" href="Nota Fiscal (2020-2025)/David_Wilson_Psiquiatra_avaliação Luisa Souza.pdf" target="_blank">
+          <div class="fi pdf">🧠</div>
+          <div style="flex:1;min-width:0"><div class="fname">Dr. David Wilson — Psiquiatra (Avaliação)</div><div class="fmeta">PDF</div></div>
+          <span class="open-btn">Abrir</span>
+        </a>
+      </div>
+    </div><!-- /j-historico -->
+
+  </div>
+</div><!-- /joao -->
+
+<!-- ==================== ANA LUISA ==================== -->
+<div class="person-section" id="analuisa">
+  <div class="sub-tabs">
+    <div class="sub-tab active" onclick="showSub('analuisa', 'a-docs', this)">📄 Documentos</div>
+  </div>
+  <div class="container">
+    <div class="sub-section active" id="a-docs">
+      <div class="stats-row">
+        <div class="stat s1"><div class="stat-label">Médicos</div><div class="stat-val">2</div><div class="stat-desc">ativos</div></div>
+        <div class="stat s2"><div class="stat-label">Oftalmologia</div><div class="stat-val">Dr. Marcelo</div><div class="stat-desc">acompanhamento</div></div>
+        <div class="stat s3"><div class="stat-label">Pediatra</div><div class="stat-val">Dra. Fabiane</div><div class="stat-desc">acompanhamento</div></div>
+        <div class="stat s4"><div class="stat-label">Status</div><div class="stat-val">Ok</div><div class="stat-desc">documentos em dia</div></div>
+      </div>
+      <div class="section-head">Documentos — Ana Luisa</div>
+      <div class="file-grid">
+        <a class="fc" href="Dra Fabiane - Ana Luisa.pdf" target="_blank">
+          <div class="fi pdf">⚕️</div>
+          <div style="flex:1;min-width:0"><div class="fname">Dra. Fabiane — Ana Luisa</div><div class="fmeta">PDF · Pediatra</div></div>
+          <span class="open-btn">Abrir</span>
+        </a>
+        <a class="fc" href="dr marcelo cavalcante costa analuisa consulta.pdf" target="_blank">
+          <div class="fi pdf">👁️</div>
+          <div style="flex:1;min-width:0"><div class="fname">Dr. Marcelo — Consulta Ana Luisa</div><div class="fmeta">PDF · Oftalmologia</div></div>
+          <span class="open-btn">Abrir</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</div><!-- /analuisa -->
+
+<!-- ==================== LUISA / GERAL ==================== -->
+<div class="person-section" id="luisa">
+  <div class="sub-tabs">
+    <div class="sub-tab active" onclick="showSub('luisa', 'l-reembolso', this)">💰 Reembolsos</div>
+    <div class="sub-tab" onclick="showSub('luisa', 'l-nf', this)">📋 Notas Fiscais 2026</div>
+  </div>
+  <div class="container">
+
+    <div class="sub-section active" id="l-reembolso">
+      <div class="stats-row">
+        <div class="stat s1"><div class="stat-label">Planilha</div><div class="stat-val">Excel</div><div class="stat-desc">dez/2025</div></div>
+        <div class="stat s2"><div class="stat-label">NFSe CSV</div><div class="stat-val">2026</div><div class="stat-desc">jan–jun</div></div>
+        <div class="stat s3"><div class="stat-label">Seguro</div><div class="stat-val">Cigna</div><div class="stat-desc">plano ativo</div></div>
+        <div class="stat s4"><div class="stat-label">Status</div><div class="stat-val">✓</div><div class="stat-desc">documentos ok</div></div>
+      </div>
+
+      <div class="tip">
+        💡 <strong>Dica:</strong> Arquivos Excel precisam ser baixados para abrir no Excel. Clique em <strong>"Baixar"</strong> (botão verde).
+      </div>
+
+      <div class="section-head">Planilhas & Dados Financeiros</div>
+      <div class="file-grid">
+
+        <!-- EXCEL FIX: use download attribute -->
+        <div class="fc" onclick="downloadFile('12_2025 - Reembolsos Médicos - LUISA JULIANA FARIA RAMALHO DE SOUZA.xlsx')">
+          <div class="fi xlsx">📊</div>
+          <div style="flex:1;min-width:0">
+            <div class="fname">Reembolsos Médicos — Luisa (dez/2025)</div>
+            <div class="fmeta">Excel · Planilha de reembolsos</div>
+          </div>
+          <span class="dl-btn">⬇ Baixar</span>
+        </div>
+
+        <div class="fc" onclick="downloadFile('NFSe_00000000_20260101_20260630.csv')">
+          <div class="fi csv">📋</div>
+          <div style="flex:1;min-width:0">
+            <div class="fname">NFSe Jan–Jun 2026</div>
+            <div class="fmeta">CSV · Notas fiscais de serviços</div>
+          </div>
+          <span class="dl-btn">⬇ Baixar</span>
+        </div>
+
+        <a class="fc" href="Nota Fiscal (2020-2025)/04_2020 - Reembolsos Médicos - LUISA JULIANA FARIA RAMALHO DE SOUZA.pdf" target="_blank">
+          <div class="fi pdf">📄</div>
+          <div style="flex:1;min-width:0"><div class="fname">Reembolsos Médicos — Luisa (abr/2020)</div><div class="fmeta">PDF · Histórico</div></div>
+          <span class="open-btn">Abrir</span>
+        </a>
+
+        <a class="fc" href="Nota Fiscal (2020-2025)/3.511 reais honorarios lucas luisa.pdf" target="_blank">
+          <div class="fi pdf">📄</div>
+          <div style="flex:1;min-width:0"><div class="fname">R$ 3.511 — Honorários Lucas (Luisa)</div><div class="fmeta">PDF · FIV</div></div>
+          <span class="open-btn">Abrir</span>
+        </a>
+
+        <a class="fc" href="Nota Fiscal (2020-2025)/6.410 reais Laboratorio biopsia de 4 embrioes e cropreservacao luisa.pdf" target="_blank">
+          <div class="fi pdf">🧬</div>
+          <div style="flex:1;min-width:0"><div class="fname">R$ 6.410 — Lab. Biópsia 4 Embriões (Luisa)</div><div class="fmeta">PDF · FIV</div></div>
+          <span class="open-btn">Abrir</span>
+        </a>
+
+        <a class="fc" href="Nota Fiscal (2020-2025)/relatddimeroluisasouza.pdf" target="_blank">
+          <div class="fi pdf">📋</div>
+          <div style="flex:1;min-width:0"><div class="fname">Relatório D-dímero — Luisa Souza</div><div class="fmeta">PDF</div></div>
+          <span class="open-btn">Abrir</span>
+        </a>
+
+        <a class="fc" href="Nota Fiscal (2020-2025)/Relatório  médico luisa tratamento fiv e fertilizacao.pdf" target="_blank">
+          <div class="fi pdf">🧬</div>
+          <div style="flex:1;min-width:0"><div class="fname">Relatório Médico — Luisa (FIV)</div><div class="fmeta">PDF · Histórico FIV</div></div>
+          <span class="open-btn">Abrir</span>
+        </a>
+
+      </div>
+    </div><!-- /l-reembolso -->
+
+    <div class="sub-section" id="l-nf">
+      <div class="file-grid">
+        <a class="fc" href="novos planos cigna 2026.pdf" target="_blank">
+          <div class="fi pdf">🏥</div>
+          <div style="flex:1;min-width:0"><div class="fname">Novos Planos Cigna 2026</div><div class="fmeta">PDF</div></div>
+          <span class="open-btn">Abrir</span>
+        </a>
+        <a class="fc" href="dental 2026novos planos.pdf" target="_blank">
+          <div class="fi pdf">🦷</div>
+          <div style="flex:1;min-width:0"><div class="fname">Plano Dental 2026</div><div class="fmeta">PDF</div></div>
+          <span class="open-btn">Abrir</span>
+        </a>
+        <a class="fc" href="Nota Fiscal (2020-2025)/DANFE_1012156.pdf" target="_blank">
+          <div class="fi pdf">📄</div>
+          <div style="flex:1;min-width:0"><div class="fname">DANFE 1012156</div><div class="fmeta">PDF · NF-e</div></div>
+          <span class="open-btn">Abrir</span>
+        </a>
+        <a class="fc" href="Nota Fiscal (2020-2025)/DAS-PGMEI-30814393000138.pdf" target="_blank">
+          <div class="fi pdf">📄</div>
+          <div style="flex:1;min-width:0"><div class="fname">DAS-PGMEI — Simples Nacional</div><div class="fmeta">PDF</div></div>
+          <span class="open-btn">Abrir</span>
+        </a>
+      </div>
+    </div><!-- /l-nf -->
+
+  </div>
+</div><!-- /luisa -->
+
+<!-- ==================== HISTÓRICO 2020-2025 ==================== -->
+<div class="person-section" id="historico">
+  <div class="sub-tabs">
+    <div class="sub-tab active" onclick="showSub('historico', 'h-fiv', this)">🧬 FIV / Fertilização</div>
+    <div class="sub-tab" onclick="showSub('historico', 'h-medicamentos', this)">💊 Medicamentos</div>
+    <div class="sub-tab" onclick="showSub('historico', 'h-consultas', this)">👩‍⚕️ Consultas & Terapias</div>
+    <div class="sub-tab" onclick="showSub('historico', 'h-todos', this)">📁 Todos</div>
+  </div>
+  <div class="container">
+
+    <div class="sub-section active" id="h-fiv">
+      <div class="section-head">Tratamento FIV & Fertilização <span class="cnt">14</span></div>
+      <div class="file-grid">
+        <a class="fc" href="Nota Fiscal (2020-2025)/4.850 nota fiscal fiv priscila 4850 reais.pdf" target="_blank">
+          <div class="fi pdf">🧬</div><div style="flex:1;min-width:0"><div class="fname">R$ 4.850 — FIV Priscila</div><div class="fmeta">PDF</div></div><span class="open-btn">Abrir</span>
+        </a>
+        <a class="fc" href="Nota Fiscal (2020-2025)/4.850 reais coleta de ovulos fiv priscila 10 marco de 2020.pdf" target="_blank">
+          <div class="fi pdf">🧬</div><div style="flex:1;min-width:0"><div class="fname">R$ 4.850 — Coleta de Óvulos (mar/20)</div><div class="fmeta">PDF</div></div><span class="open-btn">Abrir</span>
+        </a>
+        <a class="fc" href="Nota Fiscal (2020-2025)/4190 reais Nata fiscal priscila Biopsia 2 embrioes e congelamento Priscila.pdf" target="_blank">
+          <div class="fi pdf">🧬</div><div style="flex:1;min-width:0"><div class="fname">R$ 4.190 — Biópsia 2 Embriões + Congelamento</div><div class="fmeta">PDF</div></div><span class="open-btn">Abrir</span>
+        </a>
+        <a class="fc" href="Nota Fiscal (2020-2025)/1.800 reais exame de triagem pre implementação por embrião Priscila Palomo.pdf" target="_blank">
+          <div class="fi pdf">🧬</div><div style="flex:1;min-width:0"><div class="fname">R$ 1.800 — Triagem Pré-Implementação</div><div class="fmeta">PDF</div></div><span class="open-btn">Abrir</span>
+        </a>
+        <a class="fc" href="Nota Fiscal (2020-2025)/1.800 reais nota fiscal biopsia e analise genética embriao priscila palomo clinica genomika.pdf" target="_blank">
+          <div class="fi pdf">🧬</div><div style="flex:1;min-width:0"><div class="fname">R$ 1.800 — Biópsia + Genética (Genomika)</div><div class="fmeta">PDF</div></div><span class="open-btn">Abrir</span>
+        </a>
+        <a class="fc" href="Nota Fiscal (2020-2025)/1047,60 transferencia embrionaria.pdf" target="_blank">
+          <div class="fi pdf">🧬</div><div style="flex:1;min-width:0"><div class="fname">R$ 1.047,60 — Transferência Embrionária</div><div class="fmeta">PDF</div></div><span class="open-btn">Abrir</span>
+        </a>
+        <a class="fc" href="Nota Fiscal (2020-2025)/1.284 reais honorários médicos tratamento fertilização Priscila.pdf" target="_blank">
+          <div class="fi pdf">📄</div><div style="flex:1;min-width:0"><div class="fname">R$ 1.284 — Honorários Médicos (Fertilização)</div><div class="fmeta">PDF</div></div><span class="open-btn">Abrir</span>
+        </a>
+        <a class="fc" href="Nota Fiscal (2020-2025)/2.296 reais honorarios lucas priscila.pdf" target="_blank">
+          <div class="fi pdf">📄</div><div style="flex:1;min-width:0"><div class="fname">R$ 2.296 — Honorários Lucas (Priscila)</div><div class="fmeta">PDF</div></div><span class="open-btn">Abrir</span>
+        </a>
+        <a class="fc" href="Nota Fiscal (2020-2025)/5.100 honorarios lucas priscila.pdf" target="_blank">
+          <div class="fi pdf">📄</div><div style="flex:1;min-width:0"><div class="fname">R$ 5.100 — Honorários Lucas (Priscila)</div><div class="fmeta">PDF</div></div><span class="open-btn">Abrir</span>
+        </a>
+        <a class="fc" href="Nota Fiscal (2020-2025)/6.410 reais Laboratorio biopsia de 4 embrioes e cropreservacao luisa.pdf" target="_blank">
+          <div class="fi pdf">🧬</div><div style="flex:1;min-width:0"><div class="fname">R$ 6.410 — Lab. 4 Embriões Luisa</div><div class="fmeta">PDF</div></div><span class="open-btn">Abrir</span>
+        </a>
+        <a class="fc" href="Nota Fiscal (2020-2025)/Declaração CCB- tratamento de fertilizacao.pdf" target="_blank">
+          <div class="fi pdf">📄</div><div style="flex:1;min-width:0"><div class="fname">Declaração CCB — Fertilização</div><div class="fmeta">PDF</div></div><span class="open-btn">Abrir</span>
+        </a>
+        <a class="fc" href="Nota Fiscal (2020-2025)/Priscila e Luisa Juliana transferencia de embrião priscila.pdf" target="_blank">
+          <div class="fi pdf">🧬</div><div style="flex:1;min-width:0"><div class="fname">Transferência Embrião — Priscila e Luisa</div><div class="fmeta">PDF</div></div><span class="open-btn">Abrir</span>
+        </a>
+        <a class="fc" href="Nota Fiscal (2020-2025)/Pedido de exames priscila transferencia.pdf" target="_blank">
+          <div class="fi pdf">📋</div><div style="flex:1;min-width:0"><div class="fname">Pedido Exames — Transferência</div><div class="fmeta">PDF</div></div><span class="open-btn">Abrir</span>
+        </a>
+        <a class="fc" href="Nota Fiscal (2020-2025)/Relatório  médico priscila tratamento fiv e fertilizacao.pdf" target="_blank">
+          <div class="fi pdf">📄</div><div style="flex:1;min-width:0"><div class="fname">Relatório Médico — FIV e Fertilização</div><div class="fmeta">PDF</div></div><span class="open-btn">Abrir</span>
+        </a>
+      </div>
+    </div><!-- /h-fiv -->
+
+    <div class="sub-section" id="h-medicamentos">
+      <div class="section-head">Medicamentos & Receitas <span class="cnt">15</span></div>
+      <div class="file-grid">
+        <a class="fc" href="Nota Fiscal (2020-2025)/624 medicacao lupron.pdf" target="_blank"><div class="fi pdf">💊</div><div style="flex:1;min-width:0"><div class="fname">R$ 624 — Lupron (Medicação)</div><div class="fmeta">PDF</div></div><span class="open-btn">Abrir</span></a>
+        <a class="fc" href="Nota Fiscal (2020-2025)/Lupron depot.pdf" target="_blank"><div class="fi pdf">💊</div><div style="flex:1;min-width:0"><div class="fname">Lupron Depot</div><div class="fmeta">PDF</div></div><span class="open-btn">Abrir</span></a>
+        <a class="fc" href="Nota Fiscal (2020-2025)/3.914 notafiscal 26929 reais medicamentos priscila.pdf" target="_blank"><div class="fi pdf">💊</div><div style="flex:1;min-width:0"><div class="fname">R$ 3.914 — Medicamentos (NF 26929)</div><div class="fmeta">PDF</div></div><span class="open-btn">Abrir</span></a>
+        <a class="fc" href="Nota Fiscal (2020-2025)/426,98 crinone nf.pdf" target="_blank"><div class="fi pdf">💊</div><div style="flex:1;min-width:0"><div class="fname">R$ 426,98 — Crinone (NF)</div><div class="fmeta">PDF</div></div><span class="open-btn">Abrir</span></a>
+        <a class="fc" href="Nota Fiscal (2020-2025)/626,87 crinone priscila.pdf" target="_blank"><div class="fi pdf">💊</div><div style="flex:1;min-width:0"><div class="fname">R$ 626,87 — Crinone (Priscila)</div><div class="fmeta">PDF</div></div><span class="open-btn">Abrir</span></a>
+        <a class="fc" href="Nota Fiscal (2020-2025)/NF CRINONE.pdf" target="_blank"><div class="fi pdf">💊</div><div style="flex:1;min-width:0"><div class="fname">NF — Crinone</div><div class="fmeta">PDF</div></div><span class="open-btn">Abrir</span></a>
+        <a class="fc" href="Nota Fiscal (2020-2025)/110 reais choriomon nota fiscal medicacao.pdf" target="_blank"><div class="fi pdf">💊</div><div style="flex:1;min-width:0"><div class="fname">R$ 110 — Choriomon</div><div class="fmeta">PDF</div></div><span class="open-btn">Abrir</span></a>
+        <a class="fc" href="Nota Fiscal (2020-2025)/clexane 40 mg.pdf" target="_blank"><div class="fi pdf">💊</div><div style="flex:1;min-width:0"><div class="fname">Clexane 40mg</div><div class="fmeta">PDF</div></div><span class="open-btn">Abrir</span></a>
+        <a class="fc" href="Nota Fiscal (2020-2025)/receita clexane 40 mg.pdf" target="_blank"><div class="fi pdf">💊</div><div style="flex:1;min-width:0"><div class="fname">Receita — Clexane 40mg</div><div class="fmeta">PDF</div></div><span class="open-btn">Abrir</span></a>
+        <a class="fc" href="Nota Fiscal (2020-2025)/77,95 fisiogen.pdf" target="_blank"><div class="fi pdf">💊</div><div style="flex:1;min-width:0"><div class="fname">R$ 77,95 — Fisiogen</div><div class="fmeta">PDF</div></div><span class="open-btn">Abrir</span></a>
+        <a class="fc" href="Nota Fiscal (2020-2025)/79,99 vitaminas priscila.pdf" target="_blank"><div class="fi pdf">💊</div><div style="flex:1;min-width:0"><div class="fname">R$ 79,99 — Vitaminas</div><div class="fmeta">PDF</div></div><span class="open-btn">Abrir</span></a>
+        <a class="fc" href="Nota Fiscal (2020-2025)/nasonex.pdf" target="_blank"><div class="fi pdf">💊</div><div style="flex:1;min-width:0"><div class="fname">Nasonex</div><div class="fmeta">PDF</div></div><span class="open-btn">Abrir</span></a>
+        <a class="fc" href="Nota Fiscal (2020-2025)/drugs valor somado 178.pdf" target="_blank"><div class="fi pdf">💊</div><div style="flex:1;min-width:0"><div class="fname">Medicamentos — R$ 178</div><div class="fmeta">PDF</div></div><span class="open-btn">Abrir</span></a>
+        <a class="fc" href="Nota Fiscal (2020-2025)/dipirona medicine.pdf" target="_blank"><div class="fi pdf">💊</div><div style="flex:1;min-width:0"><div class="fname">Dipirona</div><div class="fmeta">PDF</div></div><span class="open-btn">Abrir</span></a>
+        <a class="fc" href="Nota Fiscal (2020-2025)/receitas priscila/NF26799 receita priscila medicação.pdf" target="_blank"><div class="fi pdf">💊</div><div style="flex:1;min-width:0"><div class="fname">NF 26799 — Receita Medicação</div><div class="fmeta">PDF</div></div><span class="open-btn">Abrir</span></a>
+      </div>
+    </div><!-- /h-medicamentos -->
+
+    <div class="sub-section" id="h-consultas">
+      <div class="section-head">Consultas, Terapias & Fisioterapia <span class="cnt">20</span></div>
+      <div class="file-grid">
+        <a class="fc" href="Nota Fiscal (2020-2025)/1.200 Rosana_psicologa_luisa mes_de março 2020.pdf" target="_blank"><div class="fi pdf">🧠</div><div style="flex:1;min-width:0"><div class="fname">R$ 1.200 — Rosana Psicóloga (Luisa, mar/20)</div><div class="fmeta">PDF</div></div><span class="open-btn">Abrir</span></a>
+        <a class="fc" href="Nota Fiscal (2020-2025)/1.400 recibo psicóloga priscila fevereiro 2020.pdf" target="_blank"><div class="fi pdf">🧠</div><div style="flex:1;min-width:0"><div class="fname">R$ 1.400 — Psicóloga Priscila (fev/20)</div><div class="fmeta">PDF</div></div><span class="open-btn">Abrir</span></a>
+        <a class="fc" href="Nota Fiscal (2020-2025)/1.600 Rosana psicóloga luisa mês de Fevereiro 2020.pdf" target="_blank"><div class="fi pdf">🧠</div><div style="flex:1;min-width:0"><div class="fname">R$ 1.600 — Rosana Psicóloga Luisa (fev/20)</div><div class="fmeta">PDF</div></div><span class="open-btn">Abrir</span></a>
+        <a class="fc" href="Nota Fiscal (2020-2025)/1.750 psicologa Priscila março 2020pdf.pdf" target="_blank"><div class="fi pdf">🧠</div><div style="flex:1;min-width:0"><div class="fname">R$ 1.750 — Psicóloga Priscila (mar/20)</div><div class="fmeta">PDF</div></div><span class="open-btn">Abrir</span></a>
+        <a class="fc" href="Nota Fiscal (2020-2025)/2.000 rosana abril 2020.pdf" target="_blank"><div class="fi pdf">🧠</div><div style="flex:1;min-width:0"><div class="fname">R$ 2.000 — Rosana (abr/20)</div><div class="fmeta">PDF</div></div><span class="open-btn">Abrir</span></a>
+        <a class="fc" href="Nota Fiscal (2020-2025)/2000 rosana junho.pdf" target="_blank"><div class="fi pdf">🧠</div><div style="flex:1;min-width:0"><div class="fname">R$ 2.000 — Rosana (jun/20)</div><div class="fmeta">PDF</div></div><span class="open-btn">Abrir</span></a>
+        <a class="fc" href="Nota Fiscal (2020-2025)/1600 rosana agosto.pdf" target="_blank"><div class="fi pdf">🧠</div><div style="flex:1;min-width:0"><div class="fname">R$ 1.600 — Rosana (ago/20)</div><div class="fmeta">PDF</div></div><span class="open-btn">Abrir</span></a>
+        <a class="fc" href="Nota Fiscal (2020-2025)/1600 rosana julho.pdf" target="_blank"><div class="fi pdf">🧠</div><div style="flex:1;min-width:0"><div class="fname">R$ 1.600 — Rosana (jul/20)</div><div class="fmeta">PDF</div></div><span class="open-btn">Abrir</span></a>
+        <a class="fc" href="Nota Fiscal (2020-2025)/rosana março 1600.pdf" target="_blank"><div class="fi pdf">🧠</div><div style="flex:1;min-width:0"><div class="fname">R$ 1.600 — Rosana (mar/20)</div><div class="fmeta">PDF</div></div><span class="open-btn">Abrir</span></a>
+        <a class="fc" href="Nota Fiscal (2020-2025)/1400 arina maio.pdf" target="_blank"><div class="fi pdf">🧠</div><div style="flex:1;min-width:0"><div class="fname">R$ 1.400 — Arina (mai/20)</div><div class="fmeta">PDF</div></div><span class="open-btn">Abrir</span></a>
+        <a class="fc" href="Nota Fiscal (2020-2025)/1400 arina mês abril 2020.pdf" target="_blank"><div class="fi pdf">🧠</div><div style="flex:1;min-width:0"><div class="fname">R$ 1.400 — Arina (abr/20)</div><div class="fmeta">PDF</div></div><span class="open-btn">Abrir</span></a>
+        <a class="fc" href="Nota Fiscal (2020-2025)/Arina set.pdf" target="_blank"><div class="fi pdf">🧠</div><div style="flex:1;min-width:0"><div class="fname">Arina (set/20)</div><div class="fmeta">PDF</div></div><span class="open-btn">Abrir</span></a>
+        <a class="fc" href="Nota Fiscal (2020-2025)/1000 fisioterapia pri junho 2020.pdf" target="_blank"><div class="fi pdf">🏃</div><div style="flex:1;min-width:0"><div class="fname">R$ 1.000 — Fisioterapia (jun/20)</div><div class="fmeta">PDF</div></div><span class="open-btn">Abrir</span></a>
+        <a class="fc" href="Nota Fiscal (2020-2025)/400 fisio agosto 2020.pdf" target="_blank"><div class="fi pdf">🏃</div><div style="flex:1;min-width:0"><div class="fname">R$ 400 — Fisioterapia (ago/20)</div><div class="fmeta">PDF</div></div><span class="open-btn">Abrir</span></a>
+        <a class="fc" href="Nota Fiscal (2020-2025)/fisiotepia dez 2020.pdf" target="_blank"><div class="fi pdf">🏃</div><div style="flex:1;min-width:0"><div class="fname">Fisioterapia (dez/20)</div><div class="fmeta">PDF</div></div><span class="open-btn">Abrir</span></a>
+        <a class="fc" href="Nota Fiscal (2020-2025)/450 recibo nutricionista_Priscila Palomo.pdf" target="_blank"><div class="fi pdf">🥗</div><div style="flex:1;min-width:0"><div class="fname">R$ 450 — Nutricionista (Priscila)</div><div class="fmeta">PDF</div></div><span class="open-btn">Abrir</span></a>
+        <a class="fc" href="Nota Fiscal (2020-2025)/150 consulta medica dr Leonardo Valadao.pdf" target="_blank"><div class="fi pdf">📄</div><div style="flex:1;min-width:0"><div class="fname">R$ 150 — Consulta Dr. Leonardo Valadão</div><div class="fmeta">PDF</div></div><span class="open-btn">Abrir</span></a>
+        <a class="fc" href="Nota Fiscal (2020-2025)/400 Leonardo Valadao.pdf" target="_blank"><div class="fi pdf">📄</div><div style="flex:1;min-width:0"><div class="fname">R$ 400 — Dr. Leonardo Valadão</div><div class="fmeta">PDF</div></div><span class="open-btn">Abrir</span></a>
+        <a class="fc" href="Nota Fiscal (2020-2025)/700 miriam moraes dermatologista.pdf" target="_blank"><div class="fi pdf">📄</div><div style="flex:1;min-width:0"><div class="fname">R$ 700 — Miriam Moraes, Dermatologista</div><div class="fmeta">PDF</div></div><span class="open-btn">Abrir</span></a>
+        <a class="fc" href="Nota Fiscal (2020-2025)/1.400 recibo dermatologista retirada de cisto.pdf" target="_blank"><div class="fi pdf">📄</div><div style="flex:1;min-width:0"><div class="fname">R$ 1.400 — Dermatologista, Cisto</div><div class="fmeta">PDF</div></div><span class="open-btn">Abrir</span></a>
+      </div>
+    </div><!-- /h-consultas -->
+
+    <div class="sub-section" id="h-todos">
+      <div class="search-wrap">
+        <span>🔍</span>
+        <input type="text" placeholder="Buscar em todos os documentos históricos..." oninput="filterCards('h-todos-grid', this.value)">
+      </div>
+      <div class="file-grid" id="h-todos-grid">
+        <!-- populated by JS -->
+      </div>
+    </div>
+
+  </div>
+</div><!-- /historico -->
+
+<script>
+// ---- Navigation ----
+function showPerson(id, el) {
+  document.querySelectorAll('.person-section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.person-tab').forEach(t => t.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  el.classList.add('active');
+}
+
+function showSub(person, subId, el) {
+  const parent = document.getElementById(person);
+  parent.querySelectorAll('.sub-section').forEach(s => s.classList.remove('active'));
+  parent.querySelectorAll('.sub-tab').forEach(t => t.classList.remove('active'));
+  parent.querySelector('#' + subId).classList.add('active');
+  el.classList.add('active');
+
+  if (subId === 'h-todos') populateHTodos();
+}
+
+// ---- EXCEL FIX: create a download link dynamically ----
+function downloadFile(filename) {
+  const a = document.createElement('a');
+  a.href = filename;
+  a.download = filename;  // triggers download dialog → opens in Excel
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+}
+
+// ---- Search filter ----
+function filterCards(gridId, query) {
+  const q = query.toLowerCase().trim();
+  document.querySelectorAll('#' + gridId + ' .fc').forEach(card => {
+    card.style.display = (!q || card.textContent.toLowerCase().includes(q)) ? '' : 'none';
+  });
+}
+
+// ---- Populate "Todos" tab in Histórico ----
+function populateHTodos() {
+  const grid = document.getElementById('h-todos-grid');
+  if (grid.children.length > 0) return;
+  ['h-fiv','h-medicamentos','h-consultas'].forEach(secId => {
+    document.querySelectorAll('#' + secId + ' .fc').forEach(card => {
+      grid.appendChild(card.cloneNode(true));
+    });
+  });
+  // Also add remaining historical docs
+  const extra = [
+    ['Nota Fiscal (2020-2025)/Albert Einstein hospital covid.pdf','🏥','Albert Einstein — Hospital COVID','PDF'],
+    ['Nota Fiscal (2020-2025)/atestado covid priscila.pdf','🦠','Atestado COVID — Priscila','PDF'],
+    ['Nota Fiscal (2020-2025)/exame covid luisa.pdf','🦠','Exame COVID — Luisa','PDF'],
+    ['Nota Fiscal (2020-2025)/exame covid priscila.pdf','🦠','Exame COVID — Priscila','PDF'],
+    ['Nota Fiscal (2020-2025)/270 reais recibo dentista.pdf','🦷','R$ 270 — Dentista','PDF'],
+    ['Nota Fiscal (2020-2025)/dentista 1.pdf','🦷','Dentista (1)','PDF'],
+    ['Nota Fiscal (2020-2025)/dentista 3.pdf','🦷','Dentista (3)','PDF'],
+    ['Nota Fiscal (2020-2025)/ricardo restauracao dez 20.pdf','🦷','Ricardo — Restauração (dez/20)','PDF'],
+    ['Nota Fiscal (2020-2025)/985,85.pdf','📄','R$ 985,85 — NF','PDF'],
+    ['Nota Fiscal (2020-2025)/1607359936603.pdf','📄','NF 2020','PDF'],
+    ['Nota Fiscal (2020-2025)/relatorio tati.pdf','📋','Relatório — Tati','PDF'],
+    ['Nota Fiscal (2020-2025)/2.000 reais ultrasson priscila.pdf','📄','R$ 2.000 — Ultrassom Priscila','PDF'],
+    ['Nota Fiscal (2020-2025)/600 reaispriscila anestesia nota fiscal.pdf','💉','R$ 600 — Anestesia (Priscila)','PDF'],
+    ['Nota Fiscal (2020-2025)/termometro.pdf','🌡️','Termômetro','PDF'],
+    ['Nota Fiscal (2020-2025)/Melina covid janeiro 2021.pdf','📄','Melina — COVID (jan/21)','PDF'],
+    ['Nota Fiscal (2020-2025)/valadao 06.01.20.pdf','📄','Dr. Valadão (06/01/20)','PDF'],
+    ['Nota Fiscal (2020-2025)/valadao 12.11.20.pdf','📄','Dr. Valadão (12/11/20)','PDF'],
+    ['Nota Fiscal (2020-2025)/valadao dez 20.pdf','📄','Dr. Valadão (dez/20)','PDF'],
+    ['Nota Fiscal (2020-2025)/Dra Marina janeiro.pdf','🤱','Dra. Marina (jan)','PDF'],
+    ['Nota Fiscal (2020-2025)/obstetra marina 25.02.pdf','🤱','Obstetra Marina (25/02)','PDF'],
+    ['Nota Fiscal (2020-2025)/dr Marina obstetra 03 de março.pdf','🤱','Dra. Marina (03/03)','PDF'],
+    ['Nota Fiscal (2020-2025)/nf p reembolso/obstetra atendimento medico.pdf','🤱','Obstetra — Atendimento (NF)','PDF'],
+    ['Nota Fiscal (2020-2025)/nf p reembolso/obstetra ultrassomm.pdf','🤱','Obstetra — Ultrassom (NF)','PDF'],
+    ['Nota Fiscal (2020-2025)/150 ultrassom dr. leonardo valadao.pdf','📄','R$ 150 — Ultrassom Valadão','PDF'],
+    ['Nota Fiscal (2020-2025)/pedido de endoscopia luisa dez 2020.pdf','📋','Pedido Endoscopia — Luisa','PDF'],
+    ['Nota Fiscal (2020-2025)/pedido de exame de pele luisa dezembro 2020.pdf','📋','Pedido Exame Pele — Luisa','PDF'],
+    ['Nota Fiscal (2020-2025)/faltam os de documento de tres pedidos de reembolso 2 medicamentos priscila e lucas honorario.pdf','⚠️','Pendências — 3 Pedidos Reembolso','PDF'],
+    ['Nota Fiscal (2020-2025)/relatorio medico dentista.pdf','🦷','Relatório Médico — Dentista','PDF'],
+    ['Nota Fiscal (2020-2025)/relatorio medico justificando consulta com fisioterapeuta.pdf','🏃','Relatório — Justifica Fisioterapia','PDF'],
+    ['Nota Fiscal (2020-2025)/relatorio medico miriam.pdf','📋','Relatório Médico — Miriam','PDF'],
+    ['Nota Fiscal (2020-2025)/Relatorio medico medicação valor de 3914.pdf','📋','Relatório Médico — Medicação R$3.914','PDF'],
+    ['Nota Fiscal (2020-2025)/indicação médica de necessidade de fisioterapia priscila.pdf','🏃','Indicação — Fisioterapia (Priscila)','PDF'],
+    ['Nota Fiscal (2020-2025)/indicação médica de sessões de fisioterapia Priscila.pdf','🏃','Indicação — Sessões Fisioterapia','PDF'],
+    ['Nota Fiscal (2020-2025)/atestado medico.pdf','📄','Atestado Médico','PDF'],
+    ['Nota Fiscal (2020-2025)/comprovante hospital.pdf','🏥','Comprovante Hospital','PDF'],
+    ['Nota Fiscal (2020-2025)/recibo hospital albert einstein sao paulo pescoco.pdf','🏥','Albert Einstein — Pescoço','PDF'],
+    ['Nota Fiscal (2020-2025)/ferro nov 20/1.pdf','💊','Ferro nov/20 — 1','PDF'],
+    ['Nota Fiscal (2020-2025)/ferro nov 20/2.pdf','💊','Ferro nov/20 — 2','PDF'],
+    ['Nota Fiscal (2020-2025)/ferro nov 20/3.pdf','💊','Ferro nov/20 — 3','PDF'],
+    ['Nota Fiscal (2020-2025)/ferro nov 20/4.pdf','💊','Ferro nov/20 — 4','PDF'],
+    ['Nota Fiscal (2020-2025)/DANFE_1012156.pdf','📄','DANFE 1012156','PDF'],
+    ['Nota Fiscal (2020-2025)/DAS-PGMEI-30814393000138.pdf','📄','DAS-PGMEI','PDF'],
+    ['Nota Fiscal (2020-2025)/receitas priscila/NF 26929 Receita remédios Priscila.pdf','💊','NF 26929 — Receita Remédios','PDF'],
+    ['Nota Fiscal (2020-2025)/relatddimeroluisasouza.pdf','📋','D-dímero — Luisa Souza','PDF'],
+    ['Nota Fiscal (2020-2025)/pedido medico zica virus priscila.pdf','📋','Pedido — Zika Vírus','PDF'],
+    ['Nota Fiscal (2020-2025)/470 reais zica nf.pdf','📄','R$ 470 — Zika (NF)','PDF'],
+    ['Nota Fiscal (2020-2025)/470 zica virus priscila.pdf','📄','R$ 470 — Zika Vírus','PDF'],
+    ['Nota Fiscal (2020-2025)/dra carolina 620.pdf','📄','Dra. Carolina — R$ 620','PDF'],
+    ['Nota Fiscal (2020-2025)/Pedido de exames priscila transferencia.pdf','📋','Pedido Exames — Transferência FIV','PDF'],
+    ['Nota Fiscal (2020-2025)/TCLE COVID tratamentos VBV.pdf','📄','TCLE COVID — VBV','PDF'],
+    ['Nota Fiscal (2020-2025)/relatorio tati (1).docx','📝','Relatório Tati (DOCX)','DOCX'],
+  ];
+  extra.forEach(([href, icon, name, type]) => {
+    const card = document.createElement('a');
+    card.className = 'fc';
+    card.href = href;
+    card.target = '_blank';
+    card.innerHTML = `<div class="fi ${type==='PDF'?'pdf':'doc'}">${icon}</div><div style="flex:1;min-width:0"><div class="fname">${name}</div><div class="fmeta">${type}</div></div><span class="open-btn">Abrir</span>`;
+    grid.appendChild(card);
+  });
+}
+</script>
+
+</body>
+</html>

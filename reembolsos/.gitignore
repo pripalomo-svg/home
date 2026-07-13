@@ -1,1 +1,2 @@
-reembolsos.db
+# (o banco reembolsos.db e o index.html são versionados propositalmente)
+__pycache__/
