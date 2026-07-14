@@ -29,6 +29,20 @@ Abra **`index.html`** no navegador.
 
 ## Preencher com seus dados reais
 
+### Opção A — Formulário visual (recomendado)
+
+Abra **`cadastro_pacientes.html`** no navegador. Preencha os 20 pacientes, exporte o CSV e importe:
+
+```bash
+# Salve o arquivo exportado como templates/pacientes.csv
+python3 importar_dados.py pacientes templates/pacientes.csv
+python3 gerar_dashboard.py
+```
+
+O formulário salva rascunho automaticamente no navegador.
+
+### Opção B — Editar CSV direto
+
 Edite os arquivos na pasta **`templates/`** (separador `;`, encoding UTF-8) e importe:
 
 ```bash
@@ -42,8 +56,9 @@ python3 gerar_dashboard.py   # regenere o painel após cada importação
 
 ### Templates disponíveis
 
-- `templates/pacientes.csv` — 20 pacientes (nome, telefone, horário, valor, prontuário…)
+- `templates/pacientes.csv` — 20 pacientes com horários já distribuídos na semana
 - `templates/atendimentos.csv` — sessões (data, hora, status, valor, pago)
+- `templates/prontuarios.csv` — registros clínicos em texto
 - `templates/financas.csv` — receitas e despesas
 - `templates/youtube_videos.csv` — vídeos do canal
 - `templates/agenda.csv` — compromissos
@@ -52,25 +67,29 @@ python3 gerar_dashboard.py   # regenere o painel após cada importação
 
 ## Pacientes — substituir os 20 slots
 
-O banco já vem com **PAC-001 a PAC-020** como placeholders. Para colocar seus pacientes reais:
+O banco já vem com **PAC-001 a PAC-020** com horários da semana pré-definidos. Para colocar seus pacientes reais:
 
-1. Abra `templates/pacientes.csv`
-2. Substitua os nomes (mantenha os códigos PAC-001…PAC-020 ou crie novos)
-3. Preencha: `dia_horario`, `frequencia`, `valor_sessao`, `prontuario_path`
-4. Importe e regenere o painel
+1. Abra `cadastro_pacientes.html` **ou** `templates/pacientes.csv`
+2. Preencha nome, telefone e queixa de cada um
+3. Importe e regenere o painel
 
-## Prontuários
+## Importar do Notion
 
-Os prontuários ficam na tabela `prontuarios` (conteúdo clínico + caminho do arquivo PDF). Por segurança, **não** vão para o CSV de importação — adicione direto no banco ou peça ajuda para criar um importador.
+Sim. Exporte no Notion: `⋯` → **Export** → **Markdown & CSV** → extraia o ZIP em `notion/`:
 
-Exemplo SQL:
-
-```sql
-INSERT INTO prontuarios (paciente_id, data_registro, tipo, titulo, conteudo)
-VALUES (1, '2026-07-08', 'evolucao', 'Sessão 12', 'Paciente relatou melhora na exposição gradual...');
+```bash
+python3 importar_notion.py zip ~/Downloads/Export.zip
+# ou, se já extraiu:
+python3 importar_notion.py auto notion/
+python3 organizacao.py notion          # atalho (usa pasta notion/)
+python3 gerar_dashboard.py
 ```
 
-## Integração com reembolsos
+O script reconhece databases pelo **nome do arquivo** (Pacientes, Finanças, YouTube…) ou pelas **colunas** (Nome, Data, Valor…). Páginas `.md` viram notas.
+
+Guia completo: [`notion/README.md`](notion/README.md)
+
+## Prontuários em PDF
 
 O painel já linka para o sistema de reembolsos em `../reembolsos/index.html` e a Central de Controle Familiar.
 
@@ -79,7 +98,9 @@ O painel já linka para o sistema de reembolsos em `../reembolsos/index.html` e 
 ```bash
 python3 organizacao.py status    # resumo no terminal
 python3 organizacao.py gerar     # regenere o HTML
-python3 organizacao.py init --recriar   # recria banco do zero (cuidado!)
+python3 organizacao.py prontuarios --extrair  # importa PDFs
+python3 organizacao.py notion               # importa export Notion
+python3 organizacao.py init --recriar       # recria banco do zero (cuidado!)
 ```
 
 ## Estrutura
@@ -90,7 +111,11 @@ organizacao/
 ├── seed.sql             # dados iniciais (família, áreas, 20 pacientes)
 ├── organizacao.db       # banco SQLite (gerado, não versionado)
 ├── organizacao.py       # init / status / gerar
-├── importar_dados.py    # importação CSV
+├── importar_prontuarios.py # importação de PDFs e CSV clínico
+├── cadastro_pacientes.html # formulário visual dos 20 pacientes
+├── documentos/prontuarios/ # pastas PAC-001 … PAC-020 para PDFs
+├── importar_notion.py      # importação do Notion (ZIP / CSV / Markdown)
+├── notion/                 # coloque aqui o export do Notion
 ├── gerar_dashboard.py   # gera index.html
 ├── index.html           # painel visual (gerado)
 └── templates/           # CSVs para preencher

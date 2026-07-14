@@ -9,6 +9,7 @@ Uso:
   python3 importar_dados.py agenda templates/agenda.csv
   python3 importar_dados.py projetos templates/projetos.csv
   python3 importar_dados.py arquivos templates/arquivos.csv
+  python3 importar_dados.py prontuarios templates/prontuarios.csv
   python3 importar_dados.py todos   # importa todos os CSV da pasta templates/
 """
 
@@ -254,6 +255,16 @@ def importar_arquivos(conn, path):
     print(f"  ✓ arquivos ← {path.name}")
 
 
+def importar_prontuarios_csv(conn, path):
+    """Delega para importar_prontuarios.py (evita duplicar lógica)."""
+    import subprocess
+    subprocess.run(
+        [sys.executable, str(BASE / "importar_prontuarios.py"), "csv", str(path)],
+        check=True,
+    )
+    print(f"  ✓ prontuarios ← {path.name}")
+
+
 IMPORTADORES = {
     "pacientes": importar_pacientes,
     "atendimentos": importar_atendimentos,
@@ -262,6 +273,7 @@ IMPORTADORES = {
     "agenda": importar_agenda,
     "projetos": importar_projetos,
     "arquivos": importar_arquivos,
+    "prontuarios": importar_prontuarios_csv,
 }
 
 MAPA_TODOS = [
@@ -272,6 +284,7 @@ MAPA_TODOS = [
     ("agenda", "agenda.csv"),
     ("projetos", "projetos.csv"),
     ("arquivos", "arquivos.csv"),
+    ("prontuarios", "prontuarios.csv"),
 ]
 
 

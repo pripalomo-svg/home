@@ -134,6 +134,11 @@ TEMPLATE = r"""<!DOCTYPE html>
     <p>Priscila Palomo · Família · Consultório · YouTube · Finanças · Projetos</p>
   </div>
   <span class="badge" id="dataHoje"></span>
+  <div style="display:flex;gap:8px;flex-wrap:wrap">
+    <a href="cadastro_pacientes.html" style="font-size:.78rem;color:#fff;background:rgba(255,255,255,.12);padding:6px 14px;border-radius:8px;text-decoration:none;font-weight:600">✏️ Cadastrar pacientes</a>
+    <a href="notion_ajuda.html" style="font-size:.78rem;color:#fff;background:rgba(255,255,255,.12);padding:6px 14px;border-radius:8px;text-decoration:none;font-weight:600">📥 Importar Notion</a>
+    <a href="../reembolsos/index.html" style="font-size:.78rem;color:#fff;background:rgba(255,255,255,.12);padding:6px 14px;border-radius:8px;text-decoration:none;font-weight:600">🏥 Reembolsos</a>
+  </div>
 </header>
 
 <nav class="nav" id="nav">

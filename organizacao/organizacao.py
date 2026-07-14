@@ -5,6 +5,8 @@ Uso:
   python3 organizacao.py init          # cria/recria o banco
   python3 organizacao.py status        # resumo rápido
   python3 organizacao.py gerar         # gera index.html
+  python3 organizacao.py prontuarios   # importa PDFs de documentos/prontuarios/
+  python3 organizacao.py notion        # importa export do Notion (pasta notion/)
 """
 
 import sqlite3
@@ -64,6 +66,17 @@ def gerar():
     subprocess.run([sys.executable, str(script)], check=True)
 
 
+def prontuarios(extrair=False, atualizar=False):
+    script = BASE / "importar_prontuarios.py"
+    pasta = BASE / "documentos" / "prontuarios"
+    args = [sys.executable, str(script), "pasta", str(pasta)]
+    if extrair:
+        args.append("--extrair-texto")
+    if atualizar:
+        args.append("--atualizar")
+    subprocess.run(args, check=True)
+
+
 def main():
     if len(sys.argv) < 2:
         print(__doc__)
@@ -75,6 +88,19 @@ def main():
         status()
     elif cmd == "gerar":
         gerar()
+    elif cmd == "prontuarios":
+        prontuarios(
+            extrair="--extrair" in sys.argv or "--extrair-texto" in sys.argv,
+            atualizar="--atualizar" in sys.argv,
+        )
+    elif cmd == "notion":
+        script = BASE / "importar_notion.py"
+        pasta = BASE / "notion"
+        args = [sys.executable, str(script), "auto", str(pasta)]
+        if len(sys.argv) > 2 and not sys.argv[2].startswith("--"):
+            args[2] = "zip" if sys.argv[2].endswith(".zip") else "auto"
+            args[3] = str(Path(sys.argv[2]).resolve() if Path(sys.argv[2]).is_absolute() else BASE / sys.argv[2])
+        subprocess.run(args, check=True)
     else:
         print(f"Comando desconhecido: {cmd}")
         sys.exit(1)
