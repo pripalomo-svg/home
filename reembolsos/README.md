@@ -5,9 +5,32 @@ Cigna via McKinsey, titular Luisa Juliana Faria Ramalho de Souza), com os
 documentos digitalizados (notas fiscais, recibos, EOBs) **vinculados a cada
 claim** e um **painel visual** para consulta limpa.
 
-## Como visualizar
+## Como usar no dia a dia
 
-Abra o arquivo **`index.html`** no navegador. Ele funciona offline e traz:
+- **`controle.html`** — template **editável** para controlar tudo: adicionar,
+  editar e excluir reembolsos, mudar status direto na tabela, anotar a
+  próxima ação de cada pendência. As alterações são salvas automaticamente
+  no navegador (localStorage) e podem ser exportadas em CSV/JSON.
+- **`index.html`** — painel de **visualização** (somente leitura), gerado a
+  partir do banco.
+
+### Fluxo do controle editável
+
+1. Abra `controle.html` no navegador.
+2. Edite à vontade: "➕ Novo reembolso", ✏️ em cada linha, ou mude o status
+   pelo seletor da própria tabela (marcar como "Pago" preenche o valor
+   reembolsado automaticamente se estiver vazio).
+3. Na aba **⏳ Pendências**, os claims aguardando resposta aparecem do mais
+   antigo para o mais novo, com contador de dias (vermelho acima de 45) e um
+   campo "próxima ação" para suas anotações.
+4. Para levar as alterações de volta ao banco: exporte o **JSON** e rode
+   `python3 importar_controle.py arquivo.json`, depois regenere os painéis.
+5. "↺ Restaurar original" descarta as edições locais e volta aos dados do
+   banco embutidos no arquivo.
+
+## O painel de visualização (`index.html`)
+
+Funciona offline e traz:
 
 - **Reembolsos** — tabela completa com filtros (beneficiário, status, ano,
   tipo), busca livre, ordenação por coluna e detalhes ao clicar na linha
@@ -23,10 +46,13 @@ Abra o arquivo **`index.html`** no navegador. Ele funciona offline e traz:
 | Arquivo | Descrição |
 | --- | --- |
 | `reembolsos.db` | Banco SQLite com todos os dados |
-| `index.html` | Painel visual (gerado a partir do banco) |
+| `controle.html` | Template editável de controle (gerado a partir do banco) |
+| `index.html` | Painel visual somente leitura (gerado a partir do banco) |
 | `schema.sql` | Esquema do banco |
 | `importar_dados.py` | Recria o banco a partir da planilha + documentos |
 | `gerar_dashboard.py` | Regenera o `index.html` a partir do banco |
+| `gerar_controle.py` | Regenera o `controle.html` a partir do banco |
+| `importar_controle.py` | Aplica no banco o JSON exportado do controle |
 | `reembolsos.py` | CLI para adicionar/listar/atualizar reembolsos |
 | `documentos/` | Todos os PDFs, planilha e arquivos de referência |
 | `template_importacao.csv` | Modelo de CSV para importação em lote via CLI |
