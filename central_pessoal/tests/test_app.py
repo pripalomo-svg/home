@@ -116,6 +116,14 @@ class CentralPessoalTest(unittest.TestCase):
         with self.assertRaises(HTTPError) as context:
             self.request("/api/projects", "POST", {"nome": ""})
         self.assertEqual(context.exception.code, 400)
+        patient_id = self.request("/api/patients")[1][0]["id"]
+        with self.assertRaises(HTTPError) as context:
+            self.request(
+                "/api/appointments",
+                "POST",
+                {"paciente_id": patient_id, "data_hora": "72026-07-21T14:30"},
+            )
+        self.assertEqual(context.exception.code, 400)
 
 
 if __name__ == "__main__":

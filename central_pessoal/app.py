@@ -223,6 +223,11 @@ def create_resource(connection: sqlite3.Connection, resource: str, data: dict) -
     missing = [field for field in config["required"] if data.get(field) in (None, "")]
     if missing:
         raise ValueError(f"Campos obrigatórios: {', '.join(missing)}")
+    if resource == "appointments":
+        try:
+            datetime.fromisoformat(str(data["data_hora"]))
+        except (TypeError, ValueError) as error:
+            raise ValueError("Data ou horário do atendimento inválido") from error
     values = {field: data[field] for field in config["fields"] if field in data}
     values.update(config.get("fixed", {}))
     columns = list(values)

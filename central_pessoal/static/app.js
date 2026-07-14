@@ -62,7 +62,7 @@ const forms = {
   ],
   appointments: [
     field("paciente_id", "Paciente", "patient", {required: true}),
-    field("appointment_date", "Data", "date", {required: true}),
+    field("appointment_date", "Data (DD/MM/AAAA)", "text", {required: true, placeholder: "21/07/2026"}),
     field("appointment_time", "Horário", "time", {required: true}),
     field("tipo", "Tipo", "select", {options: ["consulta", "retorno", "avaliacao", "outro"]}),
     field("status", "Status", "select", {options: ["agendado", "confirmado", "realizado", "cancelado", "faltou"]}),
@@ -214,7 +214,7 @@ function renderField(config) {
   if (config.type === "textarea") control = `<textarea name="${config.name}" ${common}></textarea>`;
   else if (config.type === "select") control = `<select name="${config.name}" ${common}>${config.options.map(value => `<option value="${value}">${esc(labels[value] || value)}</option>`).join("")}</select>`;
   else if (["area", "patient", "project"].includes(config.type)) control = `<select name="${config.name}" ${common}>${optionMarkup(config.type)}</select>`;
-  else control = `<input name="${config.name}" type="${config.type}" ${common}>`;
+  else control = `<input name="${config.name}" type="${config.type}" ${common} ${config.placeholder ? `placeholder="${esc(config.placeholder)}"` : ""}>`;
   return `<div class="field ${config.full ? "full" : ""}"><label>${esc(config.label)}</label>${control}</div>`;
 }
 
@@ -234,7 +234,7 @@ async function openModal(resource = currentResource, presets = {}) {
   const defaults = {
     data: new Date().toISOString().slice(0, 10),
     data_registro: new Date().toISOString().slice(0, 10),
-    appointment_date: new Date().toISOString().slice(0, 10),
+    appointment_date: new Date().toLocaleDateString("pt-BR"),
     appointment_time: "09:00",
     status: resource === "finances" ? "previsto" : undefined,
     ...presets,
@@ -255,16 +255,23 @@ async function submitForm(event) {
   event.preventDefault();
   const formData = new FormData(event.currentTarget);
   const data = Object.fromEntries([...formData.entries()].filter(([, value]) => value !== ""));
-  ["area_id", "projeto_id", "paciente_id", "atendimento_id"].forEach(key => {
-    if (data[key]) data[key] = Number(data[key]);
-  });
-  if (currentResource === "appointments") {
-    data.data_hora = `${data.appointment_date}T${data.appointment_time}`;
-    delete data.appointment_date;
-    delete data.appointment_time;
-  }
-  if (data.valor !== undefined) data.valor = Number(data.valor);
   try {
+    ["area_id", "projeto_id", "paciente_id", "atendimento_id"].forEach(key => {
+      if (data[key]) data[key] = Number(data[key]);
+    });
+    if (currentResource === "appointments") {
+      const parts = data.appointment_date.match(/^(\d{2})\/(\d{2})\/(\d{4})$/);
+      if (!parts) throw new Error("Use a data no formato DD/MM/AAAA.");
+      const isoDate = `${parts[3]}-${parts[2]}-${parts[1]}`;
+      const check = new Date(`${isoDate}T12:00:00`);
+      if (Number.isNaN(check.getTime()) || check.toISOString().slice(0, 10) !== isoDate) {
+        throw new Error("Informe uma data válida.");
+      }
+      data.data_hora = `${isoDate}T${data.appointment_time}`;
+      delete data.appointment_date;
+      delete data.appointment_time;
+    }
+    if (data.valor !== undefined) data.valor = Number(data.valor);
     await api(currentResource, {method: "POST", body: JSON.stringify(data)});
     closeModal();
     showToast("Registro salvo com sucesso.");
