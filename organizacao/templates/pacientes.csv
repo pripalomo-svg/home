@@ -1,0 +1,5 @@
+codigo;nome;telefone;email;data_nascimento;convenio;queixa_principal;status;frequencia;dia_horario;valor_sessao;data_inicio;prontuario_path;observacoes
+PAC-001;Maria Silva;(11) 99999-0001;maria@email.com;1985-03-15;particular;ansiedade social;ativo;semanal;terça 14h;250;2025-01-10;C:\prontuarios\PAC-001;;
+PAC-002;João Santos;(11) 99999-0002;;;particular;fobia de avião;ativo;quinzenal;quinta 10h;280;2025-02-01;C:\prontuarios\PAC-002;;
+PAC-003;Ana Costa;(11) 99999-0003;;;particular;fobia de dirigir;ativo;semanal;segunda 16h;250;2025-03-05;;;
+;;;;;;;ativo;semanal;;;;Substitua pelos seus pacientes reais
