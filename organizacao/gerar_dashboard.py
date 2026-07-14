@@ -250,7 +250,8 @@ TEMPLATE = r"""<!DOCTYPE html>
     <div style="font-size:2.5rem;margin-bottom:12px">📈</div>
     <h2 style="font-size:1.2rem;margin-bottom:8px">Carteira de Investimentos</h2>
     <p style="color:var(--mut);font-size:.85rem;margin-bottom:20px;max-width:480px;margin-left:auto;margin-right:auto">
-      Itaú VGBL · XPML11 · Tesouro Pré e mais. Visualize sua carteira e simule quanto terá em 20 anos.
+      Itaú VGBL · XPML11 · Tesouro Pré e mais. Aplicações pessoais da Priscila (sem relação com pacientes).
+      Visualize sua carteira e simule quanto terá em 20 anos.
     </p>
     <a href="investimentos.html" style="display:inline-block;background:var(--green);color:#fff;padding:12px 28px;border-radius:10px;text-decoration:none;font-weight:700;font-size:.9rem">Abrir painel de investimentos →</a>
     <p style="color:var(--mut);font-size:.74rem;margin-top:16px">Edite <code>templates/investimentos.csv</code> para adicionar ativos</p>
