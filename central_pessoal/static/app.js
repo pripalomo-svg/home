@@ -62,7 +62,8 @@ const forms = {
   ],
   appointments: [
     field("paciente_id", "Paciente", "patient", {required: true}),
-    field("data_hora", "Data e hora", "datetime-local", {required: true}),
+    field("appointment_date", "Data", "date", {required: true}),
+    field("appointment_time", "Horário", "time", {required: true}),
     field("tipo", "Tipo", "select", {options: ["consulta", "retorno", "avaliacao", "outro"]}),
     field("status", "Status", "select", {options: ["agendado", "confirmado", "realizado", "cancelado", "faltou"]}),
     field("valor", "Valor", "number", {step: ".01", min: "0"}),
@@ -233,6 +234,8 @@ async function openModal(resource = currentResource, presets = {}) {
   const defaults = {
     data: new Date().toISOString().slice(0, 10),
     data_registro: new Date().toISOString().slice(0, 10),
+    appointment_date: new Date().toISOString().slice(0, 10),
+    appointment_time: "09:00",
     status: resource === "finances" ? "previsto" : undefined,
     ...presets,
   };
@@ -255,6 +258,11 @@ async function submitForm(event) {
   ["area_id", "projeto_id", "paciente_id", "atendimento_id"].forEach(key => {
     if (data[key]) data[key] = Number(data[key]);
   });
+  if (currentResource === "appointments") {
+    data.data_hora = `${data.appointment_date}T${data.appointment_time}`;
+    delete data.appointment_date;
+    delete data.appointment_time;
+  }
   if (data.valor !== undefined) data.valor = Number(data.valor);
   try {
     await api(currentResource, {method: "POST", body: JSON.stringify(data)});
