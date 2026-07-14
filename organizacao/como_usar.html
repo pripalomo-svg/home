@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Como usar · Central de Organização</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Segoe UI',system-ui,sans-serif;background:#f4f6fb;color:#17203a;line-height:1.65;max-width:800px;margin:0 auto;padding:24px 20px 60px}
+  h1{font-size:1.5rem;margin-bottom:6px} h1 em{color:#e94560;font-style:normal}
+  .sub{color:#8a93a8;font-size:.88rem;margin-bottom:28px}
+  .passo{background:#fff;border-radius:14px;padding:20px 22px;margin-bottom:16px;box-shadow:0 1px 8px rgba(0,0,0,.06);border-left:5px solid #7c5cde;position:relative}
+  .passo.ver{border-color:#22c55e}.passo.verd{border-color:#3b82f6}.passo.lar{border-color:#f59e0b}
+  .num{position:absolute;top:16px;right:18px;background:#f0f2f8;color:#8a93a8;font-size:.72rem;font-weight:800;padding:4px 10px;border-radius:20px}
+  h2{font-size:1.05rem;margin-bottom:10px}
+  code{background:#eef0f7;padding:2px 8px;border-radius:6px;font-size:.88em;color:#7c5cde}
+  pre{background:#1a1a2e;color:#e2e8f0;padding:14px 16px;border-radius:10px;font-size:.82rem;overflow-x:auto;margin:10px 0}
+  .btn{display:inline-block;background:#7c5cde;color:#fff;padding:10px 20px;border-radius:9px;text-decoration:none;font-weight:700;font-size:.88rem;margin:4px 6px 4px 0}
+  .btn:hover{filter:brightness(1.1)}
+  .btn-g{background:#22c55e}.btn-b{background:#3b82f6}.btn-o{background:#f59e0b}
+  .links{margin:24px 0;display:flex;flex-wrap:wrap;gap:8px}
+  table{width:100%;border-collapse:collapse;font-size:.85rem;margin:12px 0}
+  th,td{border:1px solid #e6e9f2;padding:8px 12px;text-align:left}
+  th{background:#f7f8fc;font-size:.75rem;text-transform:uppercase;color:#8a93a8}
+  .dica{background:#fffbeb;border:1px solid #fde68a;border-radius:10px;padding:14px 16px;font-size:.85rem;margin:20px 0}
+  ul{padding-left:20px;margin:8px 0}
+  li{margin:4px 0}
+</style>
+</head>
+<body>
+
+<h1>Como usar a <em>Central de Organização</em></h1>
+<p class="sub">Guia passo a passo · não precisa ser programadora</p>
+
+<div class="links">
+  <a class="btn btn-g" href="index.html">🏠 Painel principal</a>
+  <a class="btn btn-b" href="investimentos.html">📈 Investimentos</a>
+  <a class="btn btn-o" href="cadastro_pacientes.html">✏️ Cadastrar pacientes</a>
+</div>
+
+<div class="dica">
+  <b>Resumo em 1 frase:</b> você edita um arquivo de planilha (CSV), roda 1 comando, e abre o painel no navegador de novo.
+</div>
+
+<!-- PASSO 1 -->
+<div class="passo ver">
+  <span class="num">PASSO 1</span>
+  <h2>👀 Ver como está ficando (só olhar)</h2>
+  <p>Abra estas pastas no seu computador e <b>dê duplo-clique</b> nos arquivos HTML:</p>
+  <table>
+    <tr><th>Arquivo</th><th>O que mostra</th></tr>
+    <tr><td><code>organizacao/index.html</code></td><td>Tudo: família, pacientes, finanças, agenda</td></tr>
+    <tr><td><code>organizacao/investimentos.html</code></td><td>Sua carteira + projeção 20 anos</td></tr>
+    <tr><td><code>organizacao/cadastro_pacientes.html</code></td><td>Formulário para preencher pacientes</td></tr>
+  </table>
+  <p>Funciona <b>offline</b>, sem internet. Se abrir no Chrome/Edge, está certo.</p>
+</div>
+
+<!-- PASSO 2 -->
+<div class="passo verd">
+  <span class="num">PASSO 2</span>
+  <h2>✏️ Adicionar ou mudar informação</h2>
+  <p>Os dados ficam em arquivos <code>.csv</code> (planilhas simples) na pasta <code>organizacao/templates/</code>.</p>
+  <p>Abra com <b>Excel</b>, <b>Google Sheets</b> ou <b>Bloco de Notas</b>:</p>
+  <table>
+    <tr><th>Quer mudar…</th><th>Edite este arquivo</th></tr>
+    <tr><td>Investimentos (Itaú, XPML11, Tesouro…)</td><td><code>templates/investimentos.csv</code></td></tr>
+    <tr><td>Pacientes do consultório</td><td><code>templates/pacientes.csv</code> ou use o formulário visual</td></tr>
+    <tr><td>Finanças (receitas/despesas)</td><td><code>templates/financas.csv</code></td></tr>
+    <tr><td>Agenda / compromissos</td><td><code>templates/agenda.csv</code></td></tr>
+    <tr><td>YouTube</td><td><code>templates/youtube_videos.csv</code></td></tr>
+  </table>
+  <p><b>Exemplo — adicionar um CDB no Itaú:</b> abra <code>investimentos.csv</code>, vá na última linha e adicione:</p>
+  <pre>CDB Itaú 120%;cdb;Itaú;;;5000;5000;;;12.5;;2026-07-14;100;#ec7000;CDB 2 anos</pre>
+  <p>Salve o arquivo. As colunas são separadas por <b>;</b> (ponto e vírgula).</p>
+</div>
+
+<!-- PASSO 3 -->
+<div class="passo lar">
+  <span class="num">PASSO 3</span>
+  <h2>🔄 Atualizar o painel (depois de editar)</h2>
+  <p>Depois de salvar o CSV, rode estes comandos no terminal.</p>
+  <p><b>No Windows:</b> abra o PowerShell ou Terminal, vá até a pasta:</p>
+  <pre>cd C:\Users\pripa\OneDrive\...\organizacao</pre>
+  <p>(ou o caminho onde está a pasta <code>organizacao</code> no seu PC)</p>
+  <p><b>Para investimentos:</b></p>
+  <pre>python importar_investimentos.py templates/investimentos.csv
+python gerar_investimentos.py</pre>
+  <p><b>Para o painel geral (pacientes, finanças, agenda…):</b></p>
+  <pre>python importar_dados.py todos
+python gerar_dashboard.py</pre>
+  <p><b>Para tudo de uma vez (investimentos + geral):</b></p>
+  <pre>python importar_investimentos.py templates/investimentos.csv
+python importar_dados.py todos
+python gerar_investimentos.py
+python gerar_dashboard.py</pre>
+  <p>Depois: volte ao <b>PASSO 1</b> e abra o HTML de novo (F5 para atualizar se já estiver aberto).</p>
+</div>
+
+<!-- PASSO 4 -->
+<div class="passo">
+  <span class="num">PASSO 4</span>
+  <h2>🧠 Pacientes — jeito mais fácil (sem CSV)</h2>
+  <ol>
+    <li>Abra <a href="cadastro_pacientes.html"><code>cadastro_pacientes.html</code></a></li>
+    <li>Preencha nome, telefone, queixa de cada paciente</li>
+    <li>Clique <b>Exportar CSV</b></li>
+    <li>Salve como <code>templates/pacientes.csv</code></li>
+    <li>Rode: <code>python importar_dados.py pacientes templates/pacientes.csv</code></li>
+    <li>Rode: <code>python gerar_dashboard.py</code></li>
+  </ol>
+</div>
+
+<!-- PASSO 5 -->
+<div class="passo ver">
+  <span class="num">PASSO 5</span>
+  <h2>📈 Investimentos — testar projeção</h2>
+  <ol>
+    <li>Abra <a href="investimentos.html"><code>investimentos.html</code></a></li>
+    <li>Mova o slider <b>Aporte mensal</b> (ex.: R$ 500, R$ 1.000)</li>
+    <li>Veja quanto terá em 5, 10 e 20 anos — atualiza na hora, sem rodar comando</li>
+    <li>Para mudar valores dos ativos: edite o CSV (Passo 2) e regenere (Passo 3)</li>
+  </ol>
+</div>
+
+<div class="dica">
+  <b>Problemas comuns</b>
+  <ul>
+    <li><b>"python não encontrado"</b> → instale Python em python.org, marque "Add to PATH"</li>
+    <li><b>Planilha bagunçou as colunas</b> → use ponto e vírgula (;) como separador no Excel ao salvar CSV</li>
+    <li><b>Painel não mudou</b> → rodou o comando <code>gerar_...</code>? Deu F5 no navegador?</li>
+    <li><b>Primeira vez</b> → rode <code>python organizacao.py init</code> uma vez só</li>
+  </ul>
+</div>
+
+<div class="links">
+  <a class="btn" href="index.html">← Voltar ao painel</a>
+</div>
+
+</body>
+</html>
