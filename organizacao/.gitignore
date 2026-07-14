@@ -1,0 +1,12 @@
+__pycache__/
+*.pyc
+
+# Exports gerados pelo painel (arquivos temporários de ida/volta dos dados)
+organizacao_export.json
+_teste_export.json
+
+# Se você preferir NÃO versionar seus dados reais (recomendado quando houver
+# dados de pacientes/prontuários), descomente as linhas abaixo. Assim o banco e
+# o painel ficam só no seu computador e não sobem para o Git.
+# organizacao.db
+# painel.html

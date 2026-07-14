@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Meu Hub de Organização</title>
+<style>
+:root{
+  --bg:#0f172a; --panel:#1e293b; --panel2:#273449; --line:#334155;
+  --txt:#e2e8f0; --muted:#94a3b8; --accent:#6366f1; --accent2:#8b5cf6;
+  --green:#22c55e; --red:#ef4444; --amber:#f59e0b; --blue:#3b82f6;
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  background:var(--bg);color:var(--txt);font-size:14px}
+header{display:flex;align-items:center;gap:14px;padding:14px 20px;
+  background:linear-gradient(90deg,#4f46e5,#7c3aed);color:#fff;position:sticky;top:0;z-index:30}
+header h1{font-size:18px;margin:0;font-weight:700}
+header .sub{font-size:12px;opacity:.85}
+header .actions{margin-left:auto;display:flex;gap:8px;flex-wrap:wrap}
+button{font:inherit;cursor:pointer;border:none;border-radius:8px;padding:8px 12px;
+  background:var(--accent);color:#fff;transition:.15s}
+button:hover{filter:brightness(1.1)}
+button.ghost{background:rgba(255,255,255,.15)}
+button.sec{background:var(--panel2);color:var(--txt);border:1px solid var(--line)}
+button.danger{background:var(--red)}
+button.sm{padding:4px 8px;font-size:12px;border-radius:6px}
+nav{display:flex;gap:4px;overflow-x:auto;padding:10px 16px;background:var(--panel);
+  border-bottom:1px solid var(--line);position:sticky;top:52px;z-index:20}
+nav button{background:transparent;color:var(--muted);white-space:nowrap;font-weight:600}
+nav button.active{background:var(--panel2);color:#fff}
+main{padding:20px;max-width:1400px;margin:0 auto}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:18px;margin-bottom:18px}
+.card h2{margin:0 0 14px;font-size:16px;display:flex;align-items:center;gap:8px}
+.grid{display:grid;gap:14px}
+.kpis{grid-template-columns:repeat(auto-fit,minmax(180px,1fr))}
+.kpi{background:var(--panel2);border:1px solid var(--line);border-radius:12px;padding:16px}
+.kpi .v{font-size:26px;font-weight:800}
+.kpi .l{font-size:12px;color:var(--muted);margin-top:4px}
+.kpi .s{font-size:11px;margin-top:6px}
+.toolbar{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:12px}
+.toolbar input[type=search],.toolbar select,input,select,textarea{
+  background:var(--panel2);border:1px solid var(--line);color:var(--txt);
+  border-radius:8px;padding:8px 10px;font:inherit}
+.toolbar .spacer{flex:1}
+table{width:100%;border-collapse:collapse}
+th,td{text-align:left;padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+th{color:var(--muted);font-size:12px;text-transform:uppercase;letter-spacing:.03em;cursor:pointer;user-select:none}
+tbody tr:hover{background:var(--panel2)}
+td .cell{max-width:340px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.tag{display:inline-block;padding:2px 9px;border-radius:999px;font-size:12px;font-weight:600}
+.muted{color:var(--muted)}
+.right{text-align:right}
+.pill{padding:2px 8px;border-radius:999px;font-size:11px;font-weight:700}
+.bar{height:8px;background:var(--line);border-radius:999px;overflow:hidden;min-width:70px}
+.bar>i{display:block;height:100%;background:linear-gradient(90deg,var(--accent),var(--accent2))}
+.empty{color:var(--muted);padding:20px;text-align:center}
+.pos{color:var(--green)} .neg{color:var(--red)}
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,.6);display:none;align-items:flex-start;
+  justify-content:center;z-index:50;padding:30px 14px;overflow:auto}
+.overlay.open{display:flex}
+.modal{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:22px;
+  width:100%;max-width:620px}
+.modal h3{margin:0 0 16px}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.field{display:flex;flex-direction:column;gap:5px}
+.field.full{grid-column:1/-1}
+.field label{font-size:12px;color:var(--muted);font-weight:600}
+.field input,.field select,.field textarea{width:100%}
+.field textarea{min-height:70px;resize:vertical}
+.modal .buttons{display:flex;gap:8px;justify-content:flex-end;margin-top:18px}
+.chk{display:flex;align-items:center;gap:8px;font-size:13px}
+.chk input{width:auto}
+.list-item{padding:10px 0;border-bottom:1px solid var(--line)}
+.list-item:last-child{border:0}
+.two-col{display:grid;grid-template-columns:280px 1fr;gap:16px}
+@media(max-width:760px){.form-grid{grid-template-columns:1fr}.two-col{grid-template-columns:1fr}}
+.badge-toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);
+  background:#111827;border:1px solid var(--line);padding:10px 16px;border-radius:10px;
+  opacity:0;transition:.3s;z-index:60}
+.badge-toast.show{opacity:1}
+h3.section{font-size:14px;color:var(--muted);margin:18px 0 8px;text-transform:uppercase;letter-spacing:.04em}
+</style>
+</head>
+<body>
+<header>
+  <div>
+    <h1>🧭 Meu Hub de Organização</h1>
+    <div class="sub">Projetos · Finanças · YouTube · Consultório · Família — tudo em um lugar</div>
+  </div>
+  <div class="actions">
+    <button class="ghost" onclick="App.exportJSON()">⬇️ Exportar JSON</button>
+    <button class="ghost" onclick="App.restaurar()">↺ Restaurar original</button>
+  </div>
+</header>
+<nav id="nav"></nav>
+<main id="main"></main>
+
+<div class="overlay" id="overlay"><div class="modal" id="modal"></div></div>
+<div class="badge-toast" id="toast"></div>
+
+<script>
+const DADOS_ORIGINAIS = {"areas": [{"id": 1, "nome": "Financeiro", "icone": "💰", "cor": "#16a34a", "descricao": "Contas, receitas, despesas e metas", "ordem": 1}, {"id": 2, "nome": "YouTube", "icone": "🎬", "cor": "#dc2626", "descricao": "Canal, roteiros e publicações", "ordem": 2}, {"id": 3, "nome": "Consultório", "icone": "🩺", "cor": "#2563eb", "descricao": "Pacientes, prontuários e atendimentos", "ordem": 3}, {"id": 4, "nome": "Família", "icone": "👨‍👩‍👧‍👦", "cor": "#d97706", "descricao": "Esposa, filhos e datas importantes", "ordem": 4}, {"id": 5, "nome": "Pessoal", "icone": "🌱", "cor": "#7c3aed", "descricao": "Estudos, saúde e projetos pessoais", "ordem": 5}], "projetos": [{"id": 1, "area_id": 2, "titulo": "Reformular identidade visual do canal", "descricao": "Nova vinheta, thumbnails padronizadas e banner.", "status": "em_andamento", "prioridade": "alta", "progresso": 40, "data_inicio": "2026-06-24", "data_prazo": "2026-07-29", "data_conclusao": null, "proxima_acao": "Escolher paleta de cores e fonte", "observacoes": "", "criado_em": "2026-07-14 13:07:31"}, {"id": 2, "area_id": 3, "titulo": "Migrar prontuários para este sistema", "descricao": "Passar os 20 prontuários em papel para o banco.", "status": "em_andamento", "prioridade": "alta", "progresso": 25, "data_inicio": "2026-07-04", "data_prazo": "2026-08-13", "data_conclusao": null, "proxima_acao": "Digitar os 5 primeiros prontuários", "observacoes": "", "criado_em": "2026-07-14 13:07:31"}, {"id": 3, "area_id": 1, "titulo": "Montar reserva de emergência", "descricao": "Guardar 6 meses de custos fixos.", "status": "em_andamento", "prioridade": "media", "progresso": 55, "data_inicio": "2026-04-15", "data_prazo": "2026-11-11", "data_conclusao": null, "proxima_acao": "Transferir aporte do mês", "observacoes": "", "criado_em": "2026-07-14 13:07:31"}, {"id": 4, "area_id": 5, "titulo": "Curso de atualização profissional", "descricao": "Concluir a especialização até o fim do ano.", "status": "pausado", "prioridade": "media", "progresso": 60, "data_inicio": "2025-12-26", "data_prazo": "2026-12-21", "data_conclusao": null, "proxima_acao": "Retomar módulo 4", "observacoes": "", "criado_em": "2026-07-14 13:07:31"}, {"id": 5, "area_id": 4, "titulo": "Planejar férias em família", "descricao": "Viagem nas férias escolares das crianças.", "status": "ideia", "prioridade": "baixa", "progresso": 0, "data_inicio": null, "data_prazo": "2026-11-11", "data_conclusao": null, "proxima_acao": "Pesquisar destinos com as crianças", "observacoes": "", "criado_em": "2026-07-14 13:07:31"}], "tarefas": [{"id": 1, "projeto_id": 1, "area_id": 2, "titulo": "Definir paleta de cores", "status": "fazendo", "prioridade": "alta", "prazo": "2026-07-16", "concluida_em": null, "observacoes": ""}, {"id": 2, "projeto_id": 1, "area_id": 2, "titulo": "Criar 5 modelos de thumbnail", "status": "a_fazer", "prioridade": "media", "prazo": "2026-07-23", "concluida_em": null, "observacoes": ""}, {"id": 3, "projeto_id": 2, "area_id": 3, "titulo": "Digitar prontuários 1 a 5", "status": "a_fazer", "prioridade": "alta", "prazo": "2026-07-19", "concluida_em": null, "observacoes": ""}, {"id": 4, "projeto_id": 3, "area_id": 1, "titulo": "Automatizar transferência mensal", "status": "a_fazer", "prioridade": "media", "prazo": "2026-07-17", "concluida_em": null, "observacoes": ""}, {"id": 5, "projeto_id": null, "area_id": 4, "titulo": "Marcar dentista das crianças", "status": "a_fazer", "prioridade": "alta", "prazo": "2026-07-21", "concluida_em": null, "observacoes": ""}, {"id": 6, "projeto_id": null, "area_id": 5, "titulo": "Renovar CRM/registro profissional", "status": "feito", "prioridade": "media", "prazo": "2026-07-10", "concluida_em": "2026-07-10", "observacoes": ""}], "arquivos": [{"id": 1, "titulo": "Contrato do consultório", "caminho": "arquivos/contratos/aluguel-consultorio.pdf", "categoria": "contrato", "area_id": 3, "projeto_id": 2, "data_arquivo": "2025-09-17", "tags": "aluguel, consultório", "descricao": "Contrato de locação da sala"}, {"id": 2, "titulo": "Roteiro do próximo vídeo", "caminho": "arquivos/youtube/roteiro-video-08.docx", "categoria": "roteiro", "area_id": 2, "projeto_id": 1, "data_arquivo": "2026-07-12", "tags": "roteiro, youtube", "descricao": "Rascunho do episódio 8"}, {"id": 3, "titulo": "Planilha de imposto de renda", "caminho": "arquivos/financeiro/irpf-2026.xlsx", "categoria": "planilha", "area_id": 1, "projeto_id": null, "data_arquivo": "2026-06-14", "tags": "imposto, irpf", "descricao": "Base para a declaração"}, {"id": 4, "titulo": "Boletim escolar - 1º filho", "caminho": "arquivos/familia/boletim-1sem.pdf", "categoria": "documento", "area_id": 4, "projeto_id": null, "data_arquivo": "2026-06-29", "tags": "escola, boletim", "descricao": ""}], "contas": [{"id": 1, "nome": "Conta Corrente", "tipo": "corrente", "instituicao": "Banco principal", "saldo_inicial": 8500.0}, {"id": 2, "nome": "Poupança / Reserva", "tipo": "poupanca", "instituicao": "Banco principal", "saldo_inicial": 22000.0}, {"id": 3, "nome": "Cartão de Crédito", "tipo": "cartao", "instituicao": "Banco principal", "saldo_inicial": 0.0}, {"id": 4, "nome": "Dinheiro (consultório)", "tipo": "dinheiro", "instituicao": null, "saldo_inicial": 300.0}, {"id": 5, "nome": "Investimentos", "tipo": "investimento", "instituicao": "Corretora", "saldo_inicial": 45000.0}], "categorias_fin": [{"id": 1, "nome": "Consultório", "tipo": "receita", "grupo": "trabalho"}, {"id": 2, "nome": "Salário/Pró-labore", "tipo": "receita", "grupo": "trabalho"}, {"id": 3, "nome": "YouTube (AdSense)", "tipo": "receita", "grupo": "conteudo"}, {"id": 4, "nome": "Moradia", "tipo": "despesa", "grupo": "casa"}, {"id": 5, "nome": "Alimentação", "tipo": "despesa", "grupo": "casa"}, {"id": 6, "nome": "Educação dos filhos", "tipo": "despesa", "grupo": "familia"}, {"id": 7, "nome": "Saúde", "tipo": "despesa", "grupo": "familia"}, {"id": 8, "nome": "Consultório (custos)", "tipo": "despesa", "grupo": "trabalho"}, {"id": 9, "nome": "Lazer", "tipo": "despesa", "grupo": "familia"}, {"id": 10, "nome": "Investimento/Aporte", "tipo": "despesa", "grupo": "financeiro"}], "transacoes": [{"id": 1, "data": "2026-07-09", "descricao": "Atendimentos da semana", "tipo": "receita", "valor": 2400.0, "conta_id": 1, "categoria_id": 1, "projeto_id": 3, "status": "realizado", "recorrente": 0, "observacoes": ""}, {"id": 2, "data": "2026-07-11", "descricao": "Aluguel do consultório", "tipo": "despesa", "valor": 1800.0, "conta_id": 1, "categoria_id": 8, "projeto_id": 2, "status": "realizado", "recorrente": 1, "observacoes": ""}, {"id": 3, "data": "2026-07-12", "descricao": "Mercado do mês", "tipo": "despesa", "valor": 1650.0, "conta_id": 3, "categoria_id": 5, "projeto_id": null, "status": "realizado", "recorrente": 0, "observacoes": ""}, {"id": 4, "data": "2026-07-12", "descricao": "Mensalidade escolar (2 filhos)", "tipo": "despesa", "valor": 2200.0, "conta_id": 1, "categoria_id": 6, "projeto_id": null, "status": "realizado", "recorrente": 1, "observacoes": ""}, {"id": 5, "data": "2026-07-13", "descricao": "Receita AdSense YouTube", "tipo": "receita", "valor": 320.0, "conta_id": 1, "categoria_id": 3, "projeto_id": null, "status": "realizado", "recorrente": 0, "observacoes": ""}, {"id": 6, "data": "2026-07-15", "descricao": "Aporte reserva de emergência", "tipo": "despesa", "valor": 1000.0, "conta_id": 2, "categoria_id": 10, "projeto_id": 3, "status": "previsto", "recorrente": 1, "observacoes": ""}, {"id": 7, "data": "2026-07-18", "descricao": "Plano de saúde da família", "tipo": "despesa", "valor": 1400.0, "conta_id": 1, "categoria_id": 7, "projeto_id": null, "status": "previsto", "recorrente": 1, "observacoes": ""}], "metas": [{"id": 1, "area_id": 1, "titulo": "Reserva de emergência", "valor_alvo": 60000.0, "valor_atual": 22000.0, "unidade": "R$", "prazo": "2026-12-11", "observacoes": "6 meses de custos"}, {"id": 2, "area_id": 2, "titulo": "Inscritos no canal", "valor_alvo": 10000.0, "valor_atual": 3200.0, "unidade": "inscritos", "prazo": "2027-05-10", "observacoes": ""}, {"id": 3, "area_id": 3, "titulo": "Sessões por mês", "valor_alvo": 80.0, "valor_atual": 62.0, "unidade": "sessões", "prazo": null, "observacoes": ""}], "canais": [{"id": 1, "nome": "Meu Canal", "plataforma": "YouTube", "url": "https://youtube.com/@meucanal", "meta_inscritos": 10000, "observacoes": "Conteúdo da minha área"}], "videos": [{"id": 1, "canal_id": 1, "titulo": "Boas-vindas ao canal", "tema": "institucional", "status": "publicado", "data_ideia": "2026-06-04", "data_gravacao": "2026-06-06", "data_publicacao": "2026-06-09", "url": "https://youtu.be/exemplo1", "roteiro": "", "views": 1500, "observacoes": ""}, {"id": 2, "canal_id": 1, "titulo": "5 erros comuns que atrapalham seu tratamento", "tema": "educativo", "status": "edicao", "data_ideia": "2026-07-02", "data_gravacao": "2026-07-10", "data_publicacao": null, "url": "", "roteiro": "Gancho + 5 tópicos + chamada para inscrição", "views": 0, "observacoes": "Faltam legendas"}, {"id": 3, "canal_id": 1, "titulo": "Rotina de um dia no consultório", "tema": "bastidores", "status": "roteiro", "data_ideia": "2026-07-11", "data_gravacao": null, "data_publicacao": null, "url": "", "roteiro": "Roteiro em rascunho", "views": 0, "observacoes": ""}, {"id": 4, "canal_id": 1, "titulo": "Perguntas e respostas dos inscritos", "tema": "interação", "status": "ideia", "data_ideia": "2026-07-13", "data_gravacao": null, "data_publicacao": null, "url": "", "roteiro": "", "views": 0, "observacoes": "Coletar perguntas nos stories"}], "pacientes": [{"id": 1, "nome": "Paciente Exemplo 01", "data_nascimento": null, "telefone": "", "email": "", "responsavel": "", "convenio": "particular", "status": "ativo", "observacoes": "Cadastro de exemplo — preencher com dados reais", "criado_em": "2026-07-14 13:07:31"}, {"id": 2, "nome": "Paciente Exemplo 02", "data_nascimento": null, "telefone": "", "email": "", "responsavel": "", "convenio": "Plano Saúde X", "status": "ativo", "observacoes": "Cadastro de exemplo — preencher com dados reais", "criado_em": "2026-07-14 13:07:31"}, {"id": 3, "nome": "Paciente Exemplo 03", "data_nascimento": null, "telefone": "", "email": "", "responsavel": "", "convenio": "particular", "status": "ativo", "observacoes": "Cadastro de exemplo — preencher com dados reais", "criado_em": "2026-07-14 13:07:31"}, {"id": 4, "nome": "Paciente Exemplo 04", "data_nascimento": null, "telefone": "", "email": "", "responsavel": "", "convenio": "particular", "status": "ativo", "observacoes": "Cadastro de exemplo — preencher com dados reais", "criado_em": "2026-07-14 13:07:31"}, {"id": 5, "nome": "Paciente Exemplo 05", "data_nascimento": null, "telefone": "", "email": "", "responsavel": "", "convenio": "particular", "status": "ativo", "observacoes": "Cadastro de exemplo — preencher com dados reais", "criado_em": "2026-07-14 13:07:31"}, {"id": 6, "nome": "Paciente Exemplo 06", "data_nascimento": null, "telefone": "", "email": "", "responsavel": "", "convenio": "particular", "status": "ativo", "observacoes": "Cadastro de exemplo — preencher com dados reais", "criado_em": "2026-07-14 13:07:31"}, {"id": 7, "nome": "Paciente Exemplo 07", "data_nascimento": null, "telefone": "", "email": "", "responsavel": "", "convenio": "particular", "status": "ativo", "observacoes": "Cadastro de exemplo — preencher com dados reais", "criado_em": "2026-07-14 13:07:31"}, {"id": 8, "nome": "Paciente Exemplo 08", "data_nascimento": null, "telefone": "", "email": "", "responsavel": "", "convenio": "particular", "status": "ativo", "observacoes": "Cadastro de exemplo — preencher com dados reais", "criado_em": "2026-07-14 13:07:31"}, {"id": 9, "nome": "Paciente Exemplo 09", "data_nascimento": null, "telefone": "", "email": "", "responsavel": "", "convenio": "particular", "status": "ativo", "observacoes": "Cadastro de exemplo — preencher com dados reais", "criado_em": "2026-07-14 13:07:31"}, {"id": 10, "nome": "Paciente Exemplo 10", "data_nascimento": null, "telefone": "", "email": "", "responsavel": "", "convenio": "particular", "status": "ativo", "observacoes": "Cadastro de exemplo — preencher com dados reais", "criado_em": "2026-07-14 13:07:31"}, {"id": 11, "nome": "Paciente Exemplo 11", "data_nascimento": null, "telefone": "", "email": "", "responsavel": "", "convenio": "particular", "status": "ativo", "observacoes": "Cadastro de exemplo — preencher com dados reais", "criado_em": "2026-07-14 13:07:31"}, {"id": 12, "nome": "Paciente Exemplo 12", "data_nascimento": null, "telefone": "", "email": "", "responsavel": "", "convenio": "particular", "status": "ativo", "observacoes": "Cadastro de exemplo — preencher com dados reais", "criado_em": "2026-07-14 13:07:31"}, {"id": 13, "nome": "Paciente Exemplo 13", "data_nascimento": null, "telefone": "", "email": "", "responsavel": "", "convenio": "particular", "status": "ativo", "observacoes": "Cadastro de exemplo — preencher com dados reais", "criado_em": "2026-07-14 13:07:31"}, {"id": 14, "nome": "Paciente Exemplo 14", "data_nascimento": null, "telefone": "", "email": "", "responsavel": "", "convenio": "particular", "status": "ativo", "observacoes": "Cadastro de exemplo — preencher com dados reais", "criado_em": "2026-07-14 13:07:31"}, {"id": 15, "nome": "Paciente Exemplo 15", "data_nascimento": null, "telefone": "", "email": "", "responsavel": "", "convenio": "particular", "status": "ativo", "observacoes": "Cadastro de exemplo — preencher com dados reais", "criado_em": "2026-07-14 13:07:31"}, {"id": 16, "nome": "Paciente Exemplo 16", "data_nascimento": null, "telefone": "", "email": "", "responsavel": "", "convenio": "particular", "status": "ativo", "observacoes": "Cadastro de exemplo — preencher com dados reais", "criado_em": "2026-07-14 13:07:31"}, {"id": 17, "nome": "Paciente Exemplo 17", "data_nascimento": null, "telefone": "", "email": "", "responsavel": "", "convenio": "particular", "status": "ativo", "observacoes": "Cadastro de exemplo — preencher com dados reais", "criado_em": "2026-07-14 13:07:31"}, {"id": 18, "nome": "Paciente Exemplo 18", "data_nascimento": null, "telefone": "", "email": "", "responsavel": "", "convenio": "particular", "status": "ativo", "observacoes": "Cadastro de exemplo — preencher com dados reais", "criado_em": "2026-07-14 13:07:31"}, {"id": 19, "nome": "Paciente Exemplo 19", "data_nascimento": null, "telefone": "", "email": "", "responsavel": "", "convenio": "particular", "status": "ativo", "observacoes": "Cadastro de exemplo — preencher com dados reais", "criado_em": "2026-07-14 13:07:31"}, {"id": 20, "nome": "Paciente Exemplo 20", "data_nascimento": null, "telefone": "", "email": "", "responsavel": "", "convenio": "particular", "status": "ativo", "observacoes": "Cadastro de exemplo — preencher com dados reais", "criado_em": "2026-07-14 13:07:31"}], "prontuarios": [{"id": 1, "paciente_id": 1, "queixa_principal": "Ansiedade e insônia", "historico": "", "hipotese_diagnostica": "", "cid": "", "plano_terapeutico": "", "atualizado_em": "2026-07-14 13:07:31"}, {"id": 2, "paciente_id": 2, "queixa_principal": "Dores lombares recorrentes", "historico": "", "hipotese_diagnostica": "", "cid": "", "plano_terapeutico": "", "atualizado_em": "2026-07-14 13:07:31"}, {"id": 3, "paciente_id": 3, "queixa_principal": "Acompanhamento pós-cirúrgico", "historico": "", "hipotese_diagnostica": "", "cid": "", "plano_terapeutico": "", "atualizado_em": "2026-07-14 13:07:31"}, {"id": 4, "paciente_id": 4, "queixa_principal": "A preencher", "historico": "", "hipotese_diagnostica": "", "cid": "", "plano_terapeutico": "", "atualizado_em": "2026-07-14 13:07:31"}, {"id": 5, "paciente_id": 5, "queixa_principal": "A preencher", "historico": "", "hipotese_diagnostica": "", "cid": "", "plano_terapeutico": "", "atualizado_em": "2026-07-14 13:07:31"}, {"id": 6, "paciente_id": 6, "queixa_principal": "A preencher", "historico": "", "hipotese_diagnostica": "", "cid": "", "plano_terapeutico": "", "atualizado_em": "2026-07-14 13:07:31"}, {"id": 7, "paciente_id": 7, "queixa_principal": "A preencher", "historico": "", "hipotese_diagnostica": "", "cid": "", "plano_terapeutico": "", "atualizado_em": "2026-07-14 13:07:31"}, {"id": 8, "paciente_id": 8, "queixa_principal": "A preencher", "historico": "", "hipotese_diagnostica": "", "cid": "", "plano_terapeutico": "", "atualizado_em": "2026-07-14 13:07:31"}, {"id": 9, "paciente_id": 9, "queixa_principal": "A preencher", "historico": "", "hipotese_diagnostica": "", "cid": "", "plano_terapeutico": "", "atualizado_em": "2026-07-14 13:07:31"}, {"id": 10, "paciente_id": 10, "queixa_principal": "A preencher", "historico": "", "hipotese_diagnostica": "", "cid": "", "plano_terapeutico": "", "atualizado_em": "2026-07-14 13:07:31"}, {"id": 11, "paciente_id": 11, "queixa_principal": "A preencher", "historico": "", "hipotese_diagnostica": "", "cid": "", "plano_terapeutico": "", "atualizado_em": "2026-07-14 13:07:31"}, {"id": 12, "paciente_id": 12, "queixa_principal": "A preencher", "historico": "", "hipotese_diagnostica": "", "cid": "", "plano_terapeutico": "", "atualizado_em": "2026-07-14 13:07:31"}, {"id": 13, "paciente_id": 13, "queixa_principal": "A preencher", "historico": "", "hipotese_diagnostica": "", "cid": "", "plano_terapeutico": "", "atualizado_em": "2026-07-14 13:07:31"}, {"id": 14, "paciente_id": 14, "queixa_principal": "A preencher", "historico": "", "hipotese_diagnostica": "", "cid": "", "plano_terapeutico": "", "atualizado_em": "2026-07-14 13:07:31"}, {"id": 15, "paciente_id": 15, "queixa_principal": "A preencher", "historico": "", "hipotese_diagnostica": "", "cid": "", "plano_terapeutico": "", "atualizado_em": "2026-07-14 13:07:31"}, {"id": 16, "paciente_id": 16, "queixa_principal": "A preencher", "historico": "", "hipotese_diagnostica": "", "cid": "", "plano_terapeutico": "", "atualizado_em": "2026-07-14 13:07:31"}, {"id": 17, "paciente_id": 17, "queixa_principal": "A preencher", "historico": "", "hipotese_diagnostica": "", "cid": "", "plano_terapeutico": "", "atualizado_em": "2026-07-14 13:07:31"}, {"id": 18, "paciente_id": 18, "queixa_principal": "A preencher", "historico": "", "hipotese_diagnostica": "", "cid": "", "plano_terapeutico": "", "atualizado_em": "2026-07-14 13:07:31"}, {"id": 19, "paciente_id": 19, "queixa_principal": "A preencher", "historico": "", "hipotese_diagnostica": "", "cid": "", "plano_terapeutico": "", "atualizado_em": "2026-07-14 13:07:31"}, {"id": 20, "paciente_id": 20, "queixa_principal": "A preencher", "historico": "", "hipotese_diagnostica": "", "cid": "", "plano_terapeutico": "", "atualizado_em": "2026-07-14 13:07:31"}], "atendimentos": [{"id": 1, "paciente_id": 1, "data": "2026-06-30", "hora_inicio": "09:00", "hora_fim": "09:50", "tipo": "avaliacao", "modalidade": "presencial", "status": "realizado", "valor": 200.0, "pago": 1, "forma_pagamento": "Pix", "observacoes": ""}, {"id": 2, "paciente_id": 1, "data": "2026-07-07", "hora_inicio": "09:00", "hora_fim": "09:50", "tipo": "sessao", "modalidade": "presencial", "status": "realizado", "valor": 200.0, "pago": 1, "forma_pagamento": "Pix", "observacoes": ""}, {"id": 3, "paciente_id": 1, "data": "2026-07-16", "hora_inicio": "09:00", "hora_fim": "09:50", "tipo": "sessao", "modalidade": "presencial", "status": "confirmado", "valor": 200.0, "pago": 0, "forma_pagamento": "", "observacoes": ""}, {"id": 4, "paciente_id": 2, "data": "2026-07-11", "hora_inicio": "14:00", "hora_fim": "14:50", "tipo": "consulta", "modalidade": "online", "status": "realizado", "valor": 250.0, "pago": 1, "forma_pagamento": "Cartão", "observacoes": ""}, {"id": 5, "paciente_id": 2, "data": "2026-07-19", "hora_inicio": "14:00", "hora_fim": "14:50", "tipo": "retorno", "modalidade": "online", "status": "agendado", "valor": 250.0, "pago": 0, "forma_pagamento": "", "observacoes": ""}, {"id": 6, "paciente_id": 3, "data": "2026-07-15", "hora_inicio": "16:00", "hora_fim": "16:50", "tipo": "avaliacao", "modalidade": "presencial", "status": "agendado", "valor": 200.0, "pago": 0, "forma_pagamento": "", "observacoes": ""}], "evolucoes": [{"id": 1, "prontuario_id": 1, "atendimento_id": 1, "data": "2026-06-30", "conteudo": "Primeira avaliação. Queixa de ansiedade e dificuldade para dormir. Definido plano inicial.", "criado_em": "2026-07-14 13:07:31"}, {"id": 2, "prontuario_id": 1, "atendimento_id": 2, "data": "2026-07-07", "conteudo": "Relata leve melhora no sono. Mantido plano; orientações de higiene do sono.", "criado_em": "2026-07-14 13:07:31"}, {"id": 3, "prontuario_id": 2, "atendimento_id": 4, "data": "2026-07-11", "conteudo": "Avaliação da dor lombar. Solicitados exercícios e reavaliação em 8 dias.", "criado_em": "2026-07-14 13:07:31"}], "familiares": [{"id": 1, "nome": "Esposa (nome)", "parentesco": "esposa", "data_nascimento": "1991-07-23", "telefone": "", "observacoes": "Preencher nome e data reais"}, {"id": 2, "nome": "1º Filho (nome)", "parentesco": "filho", "data_nascimento": "2018-08-05", "telefone": "", "observacoes": "Preencher nome e data reais"}, {"id": 3, "nome": "2º Filho (nome)", "parentesco": "filho", "data_nascimento": "2021-08-09", "telefone": "", "observacoes": "Preencher nome e data reais"}], "eventos": [{"id": 1, "titulo": "Aniversário do 1º filho", "categoria": "aniversario", "familiar_id": 2, "area_id": 4, "data": "2026-08-03", "hora": null, "local": "Casa", "recorrente": 1, "concluido": 0, "observacoes": ""}, {"id": 2, "titulo": "Reunião de pais na escola", "categoria": "escola", "familiar_id": null, "area_id": 4, "data": "2026-07-20", "hora": "19:00", "local": "Escola", "recorrente": 0, "concluido": 0, "observacoes": "Levar boletim"}, {"id": 3, "titulo": "Consulta pediatra (2º filho)", "categoria": "saude", "familiar_id": 3, "area_id": 4, "data": "2026-07-24", "hora": "10:30", "local": "Clínica", "recorrente": 0, "concluido": 0, "observacoes": ""}, {"id": 4, "titulo": "Aniversário de casamento", "categoria": "aniversario", "familiar_id": 1, "area_id": 4, "data": "2026-08-28", "hora": null, "local": null, "recorrente": 1, "concluido": 0, "observacoes": ""}, {"id": 5, "titulo": "Gravação do vídeo do mês", "categoria": "reuniao", "familiar_id": null, "area_id": 2, "data": "2026-07-22", "hora": "15:00", "local": "Estúdio", "recorrente": 0, "concluido": 0, "observacoes": ""}, {"id": 6, "titulo": "Vencimento do plano de saúde", "categoria": "financeiro", "familiar_id": null, "area_id": 1, "data": "2026-07-18", "hora": null, "local": null, "recorrente": 1, "concluido": 0, "observacoes": ""}]};
+const CONFIG = {"areas": {"label": "Áreas", "icon": "🗂️", "labelField": "nome", "fields": [{"key": "nome", "label": "Nome", "type": "text"}, {"key": "icone", "label": "Ícone", "type": "text"}, {"key": "cor", "label": "Cor", "type": "color"}, {"key": "descricao", "label": "Descrição", "type": "textarea"}, {"key": "ordem", "label": "Ordem", "type": "number"}], "list": ["icone", "nome", "descricao", "ordem"]}, "projetos": {"label": "Projetos", "icon": "📌", "labelField": "titulo", "fields": [{"key": "titulo", "label": "Título", "type": "text"}, {"key": "area_id", "label": "Área", "type": "ref", "ref": "areas"}, {"key": "status", "label": "Status", "type": "select", "options": [{"value": "ideia", "label": "💡 Ideia"}, {"value": "em_andamento", "label": "🚧 Em andamento"}, {"value": "pausado", "label": "⏸️ Pausado"}, {"value": "concluido", "label": "✅ Concluído"}, {"value": "arquivado", "label": "📦 Arquivado"}]}, {"key": "prioridade", "label": "Prioridade", "type": "select", "options": [{"value": "baixa", "label": "Baixa"}, {"value": "media", "label": "Média"}, {"value": "alta", "label": "Alta"}]}, {"key": "progresso", "label": "Progresso (%)", "type": "number"}, {"key": "data_inicio", "label": "Início", "type": "date"}, {"key": "data_prazo", "label": "Prazo", "type": "date"}, {"key": "data_conclusao", "label": "Conclusão", "type": "date"}, {"key": "proxima_acao", "label": "Próxima ação", "type": "text"}, {"key": "descricao", "label": "Descrição", "type": "textarea"}, {"key": "observacoes", "label": "Observações", "type": "textarea"}], "list": ["titulo", "area_id", "status", "prioridade", "progresso", "data_prazo", "proxima_acao"]}, "tarefas": {"label": "Tarefas", "icon": "✅", "labelField": "titulo", "fields": [{"key": "titulo", "label": "Título", "type": "text"}, {"key": "status", "label": "Status", "type": "select", "options": [{"value": "a_fazer", "label": "A fazer"}, {"value": "fazendo", "label": "Fazendo"}, {"value": "feito", "label": "✅ Feito"}]}, {"key": "prioridade", "label": "Prioridade", "type": "select", "options": [{"value": "baixa", "label": "Baixa"}, {"value": "media", "label": "Média"}, {"value": "alta", "label": "Alta"}]}, {"key": "prazo", "label": "Prazo", "type": "date"}, {"key": "projeto_id", "label": "Projeto", "type": "ref", "ref": "projetos"}, {"key": "area_id", "label": "Área", "type": "ref", "ref": "areas"}, {"key": "observacoes", "label": "Observações", "type": "textarea"}], "list": ["titulo", "status", "prioridade", "prazo", "projeto_id", "area_id"]}, "arquivos": {"label": "Arquivos", "icon": "📎", "labelField": "titulo", "fields": [{"key": "titulo", "label": "Título", "type": "text"}, {"key": "categoria", "label": "Categoria", "type": "text"}, {"key": "area_id", "label": "Área", "type": "ref", "ref": "areas"}, {"key": "projeto_id", "label": "Projeto", "type": "ref", "ref": "projetos"}, {"key": "caminho", "label": "Caminho/URL", "type": "text"}, {"key": "data_arquivo", "label": "Data", "type": "date"}, {"key": "tags", "label": "Tags", "type": "text"}, {"key": "descricao", "label": "Descrição", "type": "textarea"}], "list": ["titulo", "categoria", "area_id", "projeto_id", "caminho", "data_arquivo"]}, "contas": {"label": "Contas", "icon": "🏦", "labelField": "nome", "fields": [{"key": "nome", "label": "Nome", "type": "text"}, {"key": "tipo", "label": "Tipo", "type": "select", "options": [{"value": "corrente", "label": "Corrente"}, {"value": "poupanca", "label": "Poupança"}, {"value": "cartao", "label": "Cartão"}, {"value": "dinheiro", "label": "Dinheiro"}, {"value": "investimento", "label": "Investimento"}, {"value": "outro", "label": "Outro"}]}, {"key": "instituicao", "label": "Instituição", "type": "text"}, {"key": "saldo_inicial", "label": "Saldo inicial", "type": "money"}], "list": ["nome", "tipo", "instituicao", "saldo_inicial"]}, "categorias_fin": {"label": "Categorias", "icon": "🏷️", "labelField": "nome", "fields": [{"key": "nome", "label": "Nome", "type": "text"}, {"key": "tipo", "label": "Tipo", "type": "select", "options": [{"value": "receita", "label": "Receita"}, {"value": "despesa", "label": "Despesa"}]}, {"key": "grupo", "label": "Grupo", "type": "text"}], "list": ["nome", "tipo", "grupo"]}, "transacoes": {"label": "Lançamentos", "icon": "💰", "labelField": "descricao", "fields": [{"key": "data", "label": "Data", "type": "date"}, {"key": "descricao", "label": "Descrição", "type": "text"}, {"key": "tipo", "label": "Tipo", "type": "select", "options": [{"value": "receita", "label": "Receita"}, {"value": "despesa", "label": "Despesa"}, {"value": "transferencia", "label": "Transferência"}]}, {"key": "valor", "label": "Valor", "type": "money"}, {"key": "conta_id", "label": "Conta", "type": "ref", "ref": "contas"}, {"key": "categoria_id", "label": "Categoria", "type": "ref", "ref": "categorias_fin"}, {"key": "projeto_id", "label": "Projeto", "type": "ref", "ref": "projetos"}, {"key": "status", "label": "Status", "type": "select", "options": [{"value": "previsto", "label": "Previsto"}, {"value": "realizado", "label": "Realizado"}]}, {"key": "recorrente", "label": "Recorrente", "type": "checkbox"}, {"key": "observacoes", "label": "Observações", "type": "textarea"}], "list": ["data", "descricao", "tipo", "valor", "conta_id", "categoria_id", "status"]}, "metas": {"label": "Metas", "icon": "🎯", "labelField": "titulo", "fields": [{"key": "titulo", "label": "Título", "type": "text"}, {"key": "area_id", "label": "Área", "type": "ref", "ref": "areas"}, {"key": "valor_atual", "label": "Valor atual", "type": "number"}, {"key": "valor_alvo", "label": "Valor alvo", "type": "number"}, {"key": "unidade", "label": "Unidade", "type": "text"}, {"key": "prazo", "label": "Prazo", "type": "date"}, {"key": "observacoes", "label": "Observações", "type": "textarea"}], "list": ["titulo", "area_id", "valor_atual", "valor_alvo", "unidade", "prazo"]}, "canais": {"label": "Canais", "icon": "📺", "labelField": "nome", "fields": [{"key": "nome", "label": "Nome", "type": "text"}, {"key": "plataforma", "label": "Plataforma", "type": "text"}, {"key": "url", "label": "URL", "type": "text"}, {"key": "meta_inscritos", "label": "Meta de inscritos", "type": "number"}, {"key": "observacoes", "label": "Observações", "type": "textarea"}], "list": ["nome", "plataforma", "url", "meta_inscritos"]}, "videos": {"label": "Vídeos", "icon": "🎬", "labelField": "titulo", "fields": [{"key": "titulo", "label": "Título", "type": "text"}, {"key": "canal_id", "label": "Canal", "type": "ref", "ref": "canais"}, {"key": "tema", "label": "Tema", "type": "text"}, {"key": "status", "label": "Status", "type": "select", "options": [{"value": "ideia", "label": "💡 Ideia"}, {"value": "roteiro", "label": "📝 Roteiro"}, {"value": "gravacao", "label": "🎥 Gravação"}, {"value": "edicao", "label": "✂️ Edição"}, {"value": "agendado", "label": "📅 Agendado"}, {"value": "publicado", "label": "✅ Publicado"}]}, {"key": "data_ideia", "label": "Ideia em", "type": "date"}, {"key": "data_gravacao", "label": "Gravação", "type": "date"}, {"key": "data_publicacao", "label": "Publicação", "type": "date"}, {"key": "url", "label": "URL", "type": "text"}, {"key": "views", "label": "Views", "type": "number"}, {"key": "roteiro", "label": "Roteiro", "type": "textarea"}, {"key": "observacoes", "label": "Observações", "type": "textarea"}], "list": ["titulo", "status", "tema", "data_publicacao", "views"]}, "pacientes": {"label": "Pacientes", "icon": "🧑‍⚕️", "labelField": "nome", "fields": [{"key": "nome", "label": "Nome", "type": "text"}, {"key": "data_nascimento", "label": "Nascimento", "type": "date"}, {"key": "telefone", "label": "Telefone", "type": "text"}, {"key": "email", "label": "E-mail", "type": "text"}, {"key": "responsavel", "label": "Responsável", "type": "text"}, {"key": "convenio", "label": "Convênio", "type": "text"}, {"key": "status", "label": "Status", "type": "select", "options": [{"value": "ativo", "label": "Ativo"}, {"value": "inativo", "label": "Inativo"}, {"value": "alta", "label": "Alta"}]}, {"key": "observacoes", "label": "Observações", "type": "textarea"}], "list": ["nome", "convenio", "status", "telefone"]}, "prontuarios": {"label": "Prontuários", "icon": "📋", "labelField": "paciente_id", "fields": [{"key": "paciente_id", "label": "Paciente", "type": "ref", "ref": "pacientes"}, {"key": "queixa_principal", "label": "Queixa principal", "type": "textarea"}, {"key": "historico", "label": "Histórico", "type": "textarea"}, {"key": "hipotese_diagnostica", "label": "Hipótese diagnóstica", "type": "textarea"}, {"key": "cid", "label": "CID", "type": "text"}, {"key": "plano_terapeutico", "label": "Plano terapêutico", "type": "textarea"}], "list": ["paciente_id", "queixa_principal", "cid"]}, "atendimentos": {"label": "Atendimentos", "icon": "📅", "labelField": "data", "fields": [{"key": "paciente_id", "label": "Paciente", "type": "ref", "ref": "pacientes"}, {"key": "data", "label": "Data", "type": "date"}, {"key": "hora_inicio", "label": "Início", "type": "time"}, {"key": "hora_fim", "label": "Fim", "type": "time"}, {"key": "tipo", "label": "Tipo", "type": "select", "options": [{"value": "avaliacao", "label": "Avaliação"}, {"value": "consulta", "label": "Consulta"}, {"value": "sessao", "label": "Sessão"}, {"value": "retorno", "label": "Retorno"}, {"value": "outro", "label": "Outro"}]}, {"key": "modalidade", "label": "Modalidade", "type": "select", "options": [{"value": "presencial", "label": "Presencial"}, {"value": "online", "label": "Online"}]}, {"key": "status", "label": "Status", "type": "select", "options": [{"value": "agendado", "label": "Agendado"}, {"value": "confirmado", "label": "Confirmado"}, {"value": "realizado", "label": "Realizado"}, {"value": "faltou", "label": "Faltou"}, {"value": "cancelado", "label": "Cancelado"}]}, {"key": "valor", "label": "Valor", "type": "money"}, {"key": "pago", "label": "Pago", "type": "checkbox"}, {"key": "forma_pagamento", "label": "Forma de pagamento", "type": "text"}, {"key": "observacoes", "label": "Observações", "type": "textarea"}], "list": ["data", "hora_inicio", "paciente_id", "tipo", "status", "valor", "pago"]}, "evolucoes": {"label": "Evoluções", "icon": "🗒️", "labelField": "data", "fields": [{"key": "prontuario_id", "label": "Prontuário", "type": "ref", "ref": "prontuarios"}, {"key": "atendimento_id", "label": "Atendimento", "type": "ref", "ref": "atendimentos"}, {"key": "data", "label": "Data", "type": "date"}, {"key": "conteudo", "label": "Conteúdo", "type": "textarea"}], "list": ["data", "prontuario_id", "conteudo"]}, "familiares": {"label": "Família", "icon": "👪", "labelField": "nome", "fields": [{"key": "nome", "label": "Nome", "type": "text"}, {"key": "parentesco", "label": "Parentesco", "type": "text"}, {"key": "data_nascimento", "label": "Nascimento", "type": "date"}, {"key": "telefone", "label": "Telefone", "type": "text"}, {"key": "observacoes", "label": "Observações", "type": "textarea"}], "list": ["nome", "parentesco", "data_nascimento", "telefone"]}, "eventos": {"label": "Eventos e datas", "icon": "🗓️", "labelField": "titulo", "fields": [{"key": "titulo", "label": "Título", "type": "text"}, {"key": "categoria", "label": "Categoria", "type": "select", "options": [{"value": "aniversario", "label": "🎂 Aniversário"}, {"value": "escola", "label": "🏫 Escola"}, {"value": "saude", "label": "🏥 Saúde"}, {"value": "viagem", "label": "✈️ Viagem"}, {"value": "reuniao", "label": "👥 Reunião"}, {"value": "financeiro", "label": "💳 Financeiro"}, {"value": "lembrete", "label": "🔔 Lembrete"}, {"value": "outro", "label": "Outro"}]}, {"key": "data", "label": "Data", "type": "date"}, {"key": "hora", "label": "Hora", "type": "time"}, {"key": "familiar_id", "label": "Familiar", "type": "ref", "ref": "familiares"}, {"key": "area_id", "label": "Área", "type": "ref", "ref": "areas"}, {"key": "local", "label": "Local", "type": "text"}, {"key": "recorrente", "label": "Anual/recorrente", "type": "checkbox"}, {"key": "concluido", "label": "Concluído", "type": "checkbox"}, {"key": "observacoes", "label": "Observações", "type": "textarea"}], "list": ["data", "titulo", "categoria", "familiar_id", "concluido"]}};
+const ABAS = [{"id": "dashboard", "label": "Visão geral", "icon": "📊", "collections": []}, {"id": "projetos", "label": "Projetos", "icon": "📌", "collections": ["projetos"]}, {"id": "tarefas", "label": "Tarefas", "icon": "✅", "collections": ["tarefas"]}, {"id": "financeiro", "label": "Financeiro", "icon": "💰", "collections": ["transacoes"], "custom": "financeiro"}, {"id": "youtube", "label": "YouTube", "icon": "🎬", "collections": ["videos"]}, {"id": "pacientes", "label": "Pacientes", "icon": "🧑‍⚕️", "collections": ["pacientes"]}, {"id": "prontuarios", "label": "Prontuários", "icon": "📋", "collections": [], "custom": "prontuarios"}, {"id": "agenda", "label": "Agenda", "icon": "📅", "collections": ["atendimentos"], "custom": "agenda"}, {"id": "familia", "label": "Família", "icon": "👨‍👩‍👧‍👦", "collections": ["familiares", "eventos"]}, {"id": "arquivos", "label": "Arquivos", "icon": "📎", "collections": ["arquivos"]}, {"id": "cadastros", "label": "Cadastros", "icon": "⚙️", "collections": ["areas", "contas", "categorias_fin", "canais", "metas"]}];
+const CHAVE = "hub_organizacao_v1";
+
+const App = {
+  dados:null, abaAtual:"dashboard", ordenacao:{},
+
+  init(){
+    const salvo = localStorage.getItem(CHAVE);
+    this.dados = salvo ? JSON.parse(salvo) : structuredClone(DADOS_ORIGINAIS);
+    this.renderNav();
+    this.irPara(location.hash.replace("#","") || "dashboard");
+  },
+  salvar(){ localStorage.setItem(CHAVE, JSON.stringify(this.dados)); },
+  toast(msg){ const t=document.getElementById("toast"); t.textContent=msg; t.classList.add("show");
+    clearTimeout(this._tt); this._tt=setTimeout(()=>t.classList.remove("show"),1800); },
+
+  restaurar(){
+    if(!confirm("Descartar TODAS as edições locais e voltar aos dados originais do banco?"))return;
+    this.dados = structuredClone(DADOS_ORIGINAIS); this.salvar(); this.render(); this.toast("Dados restaurados");
+  },
+  exportJSON(){
+    this._baixar(JSON.stringify(this.dados,null,2),"organizacao_export.json","application/json");
+    this.toast("JSON exportado");
+  },
+  _baixar(txt,nome,tipo){
+    const b=new Blob([txt],{type:tipo}); const u=URL.createObjectURL(b);
+    const a=document.createElement("a"); a.href=u; a.download=nome; a.click(); URL.revokeObjectURL(u);
+  },
+
+  // ---- navegação --------------------------------------------------------
+  renderNav(){
+    document.getElementById("nav").innerHTML = ABAS.map(a=>
+      `<button data-aba="${a.id}" onclick="App.irPara('${a.id}')">${a.icon} ${a.label}</button>`).join("");
+  },
+  irPara(id){
+    this.abaAtual=id; location.hash=id;
+    document.querySelectorAll("#nav button").forEach(b=>
+      b.classList.toggle("active", b.dataset.aba===id));
+    this.render();
+  },
+  render(){
+    const aba = ABAS.find(a=>a.id===this.abaAtual) || ABAS[0];
+    let html="";
+    if(aba.id==="dashboard") html=this.viewDashboard();
+    else{
+      if(aba.custom==="financeiro") html+=this.viewFinanceiro();
+      if(aba.custom==="prontuarios") html+=this.viewProntuarios();
+      if(aba.custom==="agenda") html+=this.viewAgenda();
+      (aba.collections||[]).forEach(c=> html+=this.viewColecao(c));
+    }
+    document.getElementById("main").innerHTML=html;
+  },
+
+  // ---- helpers de dados -------------------------------------------------
+  rows(c){ return this.dados[c]||[]; },
+  rowById(c,id){ return this.rows(c).find(r=>r.id==id); },
+  labelDe(c,id){
+    if(id===null||id===undefined||id==="") return "";
+    const cfg=CONFIG[c]; const r=this.rowById(c,id); if(!r) return "";
+    let lf=cfg.labelField; const fld=cfg.fields.find(x=>x.key===lf);
+    if(fld && fld.type==="ref") return this.labelDe(fld.ref, r[lf]); // resolve aninhado (ex.: prontuário->paciente)
+    return r[lf] ?? ("#"+id);
+  },
+  proximoId(c){ return (this.rows(c).reduce((m,r)=>Math.max(m,+r.id||0),0))+1; },
+
+  // ---- formatação -------------------------------------------------------
+  fmtMoeda(v){ return (v==null||v==="")?"":Number(v).toLocaleString("pt-BR",{style:"currency",currency:"BRL"}); },
+  fmtData(v){ if(!v) return ""; const p=String(v).slice(0,10).split("-");
+    return p.length===3? `${p[2]}/${p[1]}/${p[0]}` : v; },
+  escapar(s){ return String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c])); },
+
+  corStatus(v){
+    const map={concluido:"var(--green)",feito:"var(--green)",publicado:"var(--green)",realizado:"var(--green)",pago:"var(--green)",
+      em_andamento:"var(--blue)",fazendo:"var(--blue)",confirmado:"var(--blue)",agendado:"var(--blue)",
+      pausado:"var(--amber)",previsto:"var(--amber)",edicao:"var(--amber)",roteiro:"var(--amber)",gravacao:"var(--amber)",
+      arquivado:"var(--muted)",inativo:"var(--muted)",cancelado:"var(--muted)",faltou:"var(--red)",negado:"var(--red)",
+      alta:"var(--green)",ativo:"var(--green)",ideia:"var(--accent2)",a_fazer:"var(--muted)"};
+    return map[v]||"var(--panel2)";
+  },
+
+  celula(cfg, fld, r){
+    const v=r[fld.key];
+    if(fld.type==="ref") return this.escapar(this.labelDe(fld.ref, v));
+    if(fld.type==="money") return `<span class="right">${this.fmtMoeda(v)}</span>`;
+    if(fld.type==="date") return this.fmtData(v);
+    if(fld.type==="checkbox") return v? "✅":"—";
+    if(fld.type==="select"){
+      const o=(fld.options||[]).find(o=>o.value===v);
+      const lbl=o?o.label:(v||"");
+      if(["status","prioridade","categoria"].includes(fld.key) && v)
+        return `<span class="pill" style="background:${this.corStatus(v)};color:#fff">${this.escapar(lbl)}</span>`;
+      return this.escapar(lbl);
+    }
+    if(fld.key==="progresso") return this.barra(v);
+    return this.escapar(v);
+  },
+  barra(v){ v=+v||0; return `<div style="display:flex;align-items:center;gap:6px">
+    <div class="bar"><i style="width:${v}%"></i></div><span class="muted">${v}%</span></div>`; },
+
+  // ---- coleção genérica (tabela + CRUD) ---------------------------------
+  viewColecao(c){
+    const cfg=CONFIG[c]; const rows=this.filtrar(c);
+    const listCols=cfg.list.map(k=>cfg.fields.find(x=>x.key===k)).filter(Boolean);
+    const busca=this._busca?.[c]||"";
+    const th=listCols.map(fl=>`<th onclick="App.ordenar('${c}','${fl.key}')">${fl.label}</th>`).join("")+"<th></th>";
+    const body = rows.length? rows.map(r=>{
+      const tds=listCols.map(fl=>`<td><div class="cell">${this.celula(cfg,fl,r)}</div></td>`).join("");
+      return `<tr ondblclick="App.editar('${c}',${r.id})">${tds}
+        <td class="right" style="white-space:nowrap">
+          <button class="sm sec" onclick="App.editar('${c}',${r.id})">✏️</button>
+          <button class="sm danger" onclick="App.excluir('${c}',${r.id})">🗑️</button></td></tr>`;
+    }).join("") : `<tr><td colspan="${listCols.length+1}" class="empty">Nada por aqui ainda. Clique em “➕ Novo”.</td></tr>`;
+
+    return `<div class="card" id="col-${c}">
+      <h2>${cfg.icon} ${cfg.label} <span class="muted" style="font-weight:400">(${rows.length})</span></h2>
+      <div class="toolbar">
+        <button onclick="App.novo('${c}')">➕ Novo</button>
+        <input type="search" placeholder="Buscar…" value="${this.escapar(busca)}"
+          oninput="App.setBusca('${c}',this.value)">
+        <div class="spacer"></div>
+        <button class="sec" onclick="App.exportCSV('${c}')">⬇️ CSV</button>
+      </div>
+      <div style="overflow-x:auto"><table><thead><tr>${th}</tr></thead><tbody>${body}</tbody></table></div>
+    </div>`;
+  },
+  setBusca(c,v){ this._busca=this._busca||{}; this._busca[c]=v; this.render(); },
+  filtrar(c){
+    let rows=[...this.rows(c)]; const cfg=CONFIG[c];
+    const q=(this._busca?.[c]||"").toLowerCase().trim();
+    if(q) rows=rows.filter(r=>cfg.fields.some(fl=>{
+      let v=r[fl.key]; if(fl.type==="ref") v=this.labelDe(fl.ref,v);
+      return String(v??"").toLowerCase().includes(q);
+    }));
+    const ord=this.ordenacao[c];
+    if(ord){ const {key,dir}=ord; const fl=cfg.fields.find(x=>x.key===key);
+      rows.sort((a,b)=>{ let va=a[key],vb=b[key];
+        if(fl&&fl.type==="ref"){va=this.labelDe(fl.ref,va);vb=this.labelDe(fl.ref,vb);}
+        if(fl&&["money","number"].includes(fl.type)){va=+va||0;vb=+vb||0;}
+        va=va??""; vb=vb??""; return (va>vb?1:va<vb?-1:0)*dir; }); }
+    return rows;
+  },
+  ordenar(c,key){ const o=this.ordenacao[c];
+    this.ordenacao[c]=(o&&o.key===key)?{key,dir:-o.dir}:{key,dir:1}; this.render(); },
+
+  // ---- modal de edição --------------------------------------------------
+  novo(c){ this.abrirModal(c,null); },
+  editar(c,id){ this.abrirModal(c,this.rowById(c,id)); },
+  abrirModal(c,row){
+    const cfg=CONFIG[c]; const ed=!!row; const r=row||{};
+    const campos=cfg.fields.map(fl=>{
+      const val=r[fl.key];
+      const full=(fl.type==="textarea")?" full":"";
+      let input;
+      if(fl.type==="textarea") input=`<textarea data-k="${fl.key}">${this.escapar(val)}</textarea>`;
+      else if(fl.type==="checkbox") input=`<label class="chk"><input type="checkbox" data-k="${fl.key}" ${val?"checked":""}> sim</label>`;
+      else if(fl.type==="select"){
+        const opts=`<option value="">—</option>`+(fl.options||[]).map(o=>
+          `<option value="${o.value}" ${o.value===val?"selected":""}>${this.escapar(o.label)}</option>`).join("");
+        input=`<select data-k="${fl.key}">${opts}</select>`;
+      } else if(fl.type==="ref"){
+        const opts=`<option value="">—</option>`+this.rows(fl.ref).map(rr=>
+          `<option value="${rr.id}" ${rr.id==val?"selected":""}>${this.escapar(this.labelDe(fl.ref,rr.id))}</option>`).join("");
+        input=`<select data-k="${fl.key}">${opts}</select>`;
+      } else {
+        const t=fl.type==="money"||fl.type==="number"?"number":fl.type==="date"?"date":fl.type==="time"?"time":fl.type==="color"?"color":"text";
+        const step=fl.type==="money"?' step="0.01"':"";
+        input=`<input type="${t}"${step} data-k="${fl.key}" value="${this.escapar(val)}">`;
+      }
+      return `<div class="field${full}"><label>${fl.label}</label>${input}</div>`;
+    }).join("");
+    document.getElementById("modal").innerHTML=`
+      <h3>${ed?"Editar":"Novo"} — ${cfg.label}</h3>
+      <div class="form-grid">${campos}</div>
+      <div class="buttons">
+        <button class="sec" onclick="App.fecharModal()">Cancelar</button>
+        <button onclick="App.gravar('${c}',${ed?r.id:"null"})">💾 Salvar</button>
+      </div>`;
+    document.getElementById("overlay").classList.add("open");
+  },
+  fecharModal(){ document.getElementById("overlay").classList.remove("open"); },
+  gravar(c,id){
+    const cfg=CONFIG[c]; const obj=id?{...this.rowById(c,id)}:{};
+    document.querySelectorAll("#modal [data-k]").forEach(el=>{
+      const k=el.dataset.k; const fl=cfg.fields.find(x=>x.key===k);
+      if(fl.type==="checkbox") obj[k]=el.checked?1:0;
+      else if(fl.type==="ref"||fl.type==="select") obj[k]=el.value===""?null:(fl.type==="ref"?+el.value:el.value);
+      else if(fl.type==="money"||fl.type==="number") obj[k]=el.value===""?null:+el.value;
+      else obj[k]=el.value;
+    });
+    if(id){ const i=this.rows(c).findIndex(r=>r.id==id); this.dados[c][i]=obj; }
+    else { obj.id=this.proximoId(c); this.dados[c].push(obj); }
+    this.salvar(); this.fecharModal(); this.render(); this.toast(id?"Alterações salvas":"Registro adicionado");
+  },
+  excluir(c,id){
+    if(!confirm("Excluir este registro?")) return;
+    this.dados[c]=this.rows(c).filter(r=>r.id!=id); this.salvar(); this.render(); this.toast("Registro excluído");
+  },
+  exportCSV(c){
+    const cfg=CONFIG[c]; const cols=cfg.fields.map(f=>f.key);
+    const head=cfg.fields.map(f=>f.label).join(";");
+    const linhas=this.rows(c).map(r=>cols.map(k=>{
+      const fl=cfg.fields.find(x=>x.key===k); let v=r[k];
+      if(fl.type==="ref") v=this.labelDe(fl.ref,v);
+      return `"${String(v??"").replace(/"/g,'""')}"`;
+    }).join(";"));
+    this._baixar([head,...linhas].join("\n"),c+".csv","text/csv");
+    this.toast("CSV exportado");
+  },
+
+  // ---- Visão geral ------------------------------------------------------
+  hoje(){ return new Date().toISOString().slice(0,10); },
+  proximos(dias){ const h=new Date(); const f=new Date(); f.setDate(f.getDate()+dias);
+    const a=h.toISOString().slice(0,10), b=f.toISOString().slice(0,10);
+    return d=>d&&d>=a&&d<=b; },
+  viewDashboard(){
+    const proj=this.rows("projetos").filter(p=>p.status==="em_andamento");
+    const tarefas=this.rows("tarefas").filter(t=>t.status!=="feito");
+    const videosProd=this.rows("videos").filter(v=>v.status!=="publicado");
+    const mes=this.hoje().slice(0,7);
+    let rec=0,desp=0;
+    this.rows("transacoes").forEach(t=>{ if(t.status==="realizado"&&String(t.data).slice(0,7)===mes){
+      if(t.tipo==="receita")rec+=+t.valor||0; if(t.tipo==="despesa")desp+=+t.valor||0; }});
+    const dentro14=this.proximos(14);
+    const at=this.rows("atendimentos").filter(a=>dentro14(a.data)&&["agendado","confirmado"].includes(a.status))
+      .sort((a,b)=>a.data<b.data?-1:1);
+    const ev=this.rows("eventos").filter(e=>!e.concluido&&dentro14(e.data)).sort((a,b)=>a.data<b.data?-1:1);
+    const pacAtivos=this.rows("pacientes").filter(p=>p.status==="ativo").length;
+
+    const kpi=(v,l,s="")=>`<div class="kpi"><div class="v">${v}</div><div class="l">${l}</div>${s?`<div class="s">${s}</div>`:""}</div>`;
+    const linhaAt=at.length?at.map(a=>`<div class="list-item">📅 <b>${this.fmtData(a.data)}</b> ${a.hora_inicio||""}
+      — ${this.escapar(this.labelDe("pacientes",a.paciente_id))}
+      <span class="pill" style="background:${this.corStatus(a.status)};color:#fff">${a.status}</span></div>`).join("")
+      :`<div class="empty">Sem atendimentos nos próximos 14 dias.</div>`;
+    const linhaEv=ev.length?ev.map(e=>`<div class="list-item">🗓️ <b>${this.fmtData(e.data)}</b> ${e.hora||""}
+      — ${this.escapar(e.titulo)} <span class="muted">${e.categoria}</span></div>`).join("")
+      :`<div class="empty">Sem eventos nos próximos 14 dias.</div>`;
+    const linhaProj=proj.length?proj.map(p=>`<div class="list-item">📌 ${this.escapar(p.titulo)}
+      ${this.barra(p.progresso)} <span class="muted">${p.data_prazo?"prazo "+this.fmtData(p.data_prazo):""}
+      ${p.proxima_acao?"· próximo: "+this.escapar(p.proxima_acao):""}</span></div>`).join("")
+      :`<div class="empty">Nenhum projeto em andamento.</div>`;
+    const metas=this.rows("metas").map(m=>{ const pct=m.valor_alvo?Math.min(100,Math.round(100*(+m.valor_atual||0)/m.valor_alvo)):0;
+      return `<div class="list-item">🎯 ${this.escapar(m.titulo)} ${this.barra(pct)}
+        <span class="muted">${(+m.valor_atual||0).toLocaleString("pt-BR")} / ${(+m.valor_alvo||0).toLocaleString("pt-BR")} ${this.escapar(m.unidade||"")}</span></div>`;
+    }).join("")||`<div class="empty">Nenhuma meta cadastrada.</div>`;
+
+    return `<div class="card"><h2>📊 Visão geral</h2>
+      <div class="grid kpis">
+        ${kpi(proj.length,"Projetos em andamento")}
+        ${kpi(tarefas.length,"Tarefas pendentes")}
+        ${kpi(pacAtivos,"Pacientes ativos")}
+        ${kpi(videosProd.length,"Vídeos em produção")}
+        ${kpi(this.fmtMoeda(rec),"Receitas do mês")}
+        ${kpi(this.fmtMoeda(desp),"Despesas do mês")}
+        ${kpi(`<span class="${rec-desp>=0?'pos':'neg'}">${this.fmtMoeda(rec-desp)}</span>`,"Saldo do mês (realizado)")}
+      </div></div>
+      <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(320px,1fr))">
+        <div class="card"><h2>📅 Próximos atendimentos</h2>${linhaAt}</div>
+        <div class="card"><h2>🗓️ Próximos eventos e datas</h2>${linhaEv}</div>
+        <div class="card"><h2>📌 Projetos em andamento</h2>${linhaProj}</div>
+        <div class="card"><h2>🎯 Metas</h2>${metas}</div>
+      </div>`;
+  },
+
+  // ---- Financeiro (resumo + tabela) ------------------------------------
+  viewFinanceiro(){
+    const porMes={};
+    this.rows("transacoes").forEach(t=>{ if(t.status!=="realizado")return;
+      const m=String(t.data).slice(0,7); porMes[m]=porMes[m]||{r:0,d:0};
+      if(t.tipo==="receita")porMes[m].r+=+t.valor||0; if(t.tipo==="despesa")porMes[m].d+=+t.valor||0; });
+    const meses=Object.keys(porMes).sort().reverse();
+    const linhasMes=meses.length?meses.map(m=>{const o=porMes[m];const s=o.r-o.d;
+      return `<tr><td>${m}</td><td class="right pos">${this.fmtMoeda(o.r)}</td>
+        <td class="right neg">${this.fmtMoeda(o.d)}</td>
+        <td class="right ${s>=0?'pos':'neg'}">${this.fmtMoeda(s)}</td></tr>`;}).join("")
+      :`<tr><td colspan="4" class="empty">Sem lançamentos realizados.</td></tr>`;
+
+    const saldos=this.rows("contas").map(c=>{ let s=+c.saldo_inicial||0;
+      this.rows("transacoes").forEach(t=>{ if(t.status==="realizado"&&t.conta_id==c.id){
+        if(t.tipo==="receita")s+=+t.valor||0; if(t.tipo==="despesa")s-=+t.valor||0; }});
+      return `<tr><td>${this.escapar(c.nome)}</td><td class="muted">${c.tipo}</td>
+        <td class="right ${s>=0?'pos':'neg'}">${this.fmtMoeda(s)}</td></tr>`; }).join("")
+      ||`<tr><td colspan="3" class="empty">Nenhuma conta.</td></tr>`;
+
+    return `<div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(300px,1fr))">
+      <div class="card"><h2>📆 Resumo por mês (realizado)</h2>
+        <table><thead><tr><th>Mês</th><th class="right">Receitas</th><th class="right">Despesas</th><th class="right">Saldo</th></tr></thead>
+        <tbody>${linhasMes}</tbody></table></div>
+      <div class="card"><h2>🏦 Saldo por conta</h2>
+        <table><thead><tr><th>Conta</th><th>Tipo</th><th class="right">Saldo atual</th></tr></thead>
+        <tbody>${saldos}</tbody></table>
+        <p class="muted" style="font-size:12px">Saldo = saldo inicial + receitas − despesas realizadas.</p></div>
+    </div>`;
+  },
+
+  // ---- Agenda (lista unificada) ----------------------------------------
+  viewAgenda(){
+    const itens=[];
+    this.rows("atendimentos").forEach(a=>itens.push({data:a.data,hora:a.hora_inicio||"",
+      txt:"🩺 "+this.labelDe("pacientes",a.paciente_id)+" — "+a.tipo, st:a.status}));
+    this.rows("eventos").forEach(e=>itens.push({data:e.data,hora:e.hora||"",
+      txt:(CAT_ICON[e.categoria]||"🗓️")+" "+e.titulo, st:e.concluido?"concluido":"pendente"}));
+    const hoje=this.hoje();
+    const fut=itens.filter(i=>i.data>=hoje).sort((a,b)=>a.data<b.data?-1:a.data>b.data?1:(a.hora<b.hora?-1:1));
+    const linhas=fut.length?fut.map(i=>`<div class="list-item"><b>${this.fmtData(i.data)}</b> ${i.hora}
+      — ${this.escapar(i.txt)} <span class="pill" style="background:${this.corStatus(i.st)};color:#fff">${i.st}</span></div>`).join("")
+      :`<div class="empty">Nada agendado a partir de hoje.</div>`;
+    return `<div class="card"><h2>📅 Próximos compromissos (atendimentos + eventos)</h2>${linhas}</div>`;
+  },
+
+  // ---- Prontuários (paciente + prontuário + evoluções) -----------------
+  viewProntuarios(){
+    const pac=this.rows("pacientes");
+    const sel=this._pacSel ?? (pac[0]?pac[0].id:null);
+    this._pacSel=sel;
+    const opts=pac.map(p=>`<option value="${p.id}" ${p.id==sel?"selected":""}>${this.escapar(p.nome)}</option>`).join("");
+    if(sel==null) return `<div class="card"><h2>📋 Prontuários</h2><div class="empty">Cadastre um paciente primeiro.</div></div>`;
+    const pront=this.rows("prontuarios").find(p=>p.paciente_id==sel);
+    const cfgP=CONFIG.prontuarios;
+    const campos=pront? cfgP.fields.filter(f=>f.key!=="paciente_id").map(fl=>`
+      <div class="field full"><label>${fl.label}</label>
+      <div class="cell" style="white-space:pre-wrap;max-width:none">${this.escapar(pront[fl.key])||'<span class="muted">—</span>'}</div></div>`).join("")
+      : `<div class="empty">Este paciente ainda não tem prontuário. <button class="sm" onclick="App.criarProntuario(${sel})">Criar prontuário</button></div>`;
+    const evos=pront? this.rows("evolucoes").filter(e=>e.prontuario_id==pront.id).sort((a,b)=>a.data<b.data?1:-1):[];
+    const linhasEvo=evos.length?evos.map(e=>`<div class="list-item">
+      <b>${this.fmtData(e.data)}</b>
+      <button class="sm sec" onclick="App.editar('evolucoes',${e.id})">✏️</button>
+      <button class="sm danger" onclick="App.excluir('evolucoes',${e.id})">🗑️</button>
+      <div style="white-space:pre-wrap;margin-top:4px">${this.escapar(e.conteudo)}</div></div>`).join("")
+      :`<div class="empty">Sem evoluções registradas.</div>`;
+    return `<div class="card"><h2>📋 Prontuários</h2>
+      <div class="toolbar"><label class="muted">Paciente:</label>
+        <select onchange="App.selPac(this.value)">${opts}</select>
+        ${pront?`<button class="sec" onclick="App.editar('prontuarios',${pront.id})">✏️ Editar prontuário</button>`:""}
+      </div></div>
+      <div class="two-col">
+        <div class="card"><h2>Ficha clínica</h2><div class="form-grid" style="grid-template-columns:1fr">${campos}</div></div>
+        <div class="card"><h2>🗒️ Evoluções</h2>
+          ${pront?`<button onclick="App.novaEvolucao(${pront.id})">➕ Nova evolução</button>`:""}
+          <div style="margin-top:10px">${linhasEvo}</div></div>
+      </div>`;
+  },
+  selPac(id){ this._pacSel=+id; this.render(); },
+  criarProntuario(pacId){ const obj={id:this.proximoId("prontuarios"),paciente_id:+pacId,
+    queixa_principal:"",historico:"",hipotese_diagnostica:"",cid:"",plano_terapeutico:""};
+    this.dados.prontuarios.push(obj); this.salvar(); this.render(); this.toast("Prontuário criado"); },
+  novaEvolucao(prontId){ this.abrirModal("evolucoes",{prontuario_id:+prontId,data:this.hoje()}); },
+
+  init_ready:false
+};
+
+const CAT_ICON={aniversario:"🎂",escola:"🏫",saude:"🏥",viagem:"✈️",reuniao:"👥",financeiro:"💳",lembrete:"🔔",outro:"🗓️"};
+
+document.getElementById("overlay").addEventListener("click",e=>{ if(e.target.id==="overlay") App.fecharModal(); });
+window.addEventListener("hashchange",()=>{ const h=location.hash.replace("#",""); if(h&&h!==App.abaAtual) App.irPara(h); });
+App.init();
+</script>
+</body>
+</html>
