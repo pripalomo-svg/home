@@ -78,4 +78,25 @@ INSERT OR IGNORE INTO arquivos (titulo, caminho, categoria, area_id, tipo_arquiv
 ('Central de Controle Família', '../reembolsos/documentos/referencia/central-de-controle-familia-palomo.html', 'familia', 1, 'html', 'Painel familiar com documentos médicos'),
 ('Reembolsos — Painel', '../reembolsos/index.html', 'medico', 6, 'html', 'Banco de reembolsos Cigna'),
 ('Memória Família Palomo', '../reembolsos/documentos/referencia/memoria-familia-palomo.md', 'familia', 1, 'doc', 'Contexto e preferências'),
-('Planilha Reembolsos Luisa', '../reembolsos/documentos/referencia/planilha-reembolsos-luisa-12-2025.xlsx', 'financeiro', 6, 'xlsx', 'Planilha de reembolsos médicos');
+('Planilha Reembolsos Luisa', '../reembolsos/documentos/referencia/planilha-reembolsos-luisa-12-2025.xlsx', 'financeiro', 6, 'xlsx', 'Planilha de reembolsos médicos'),
+('Painel Investimentos', 'investimentos.html', 'financeiro', 3, 'html', 'Carteira e projeção 20 anos');
+
+-- Investimentos · carteira inicial
+INSERT OR IGNORE INTO investimentos_config (chave, valor) VALUES
+('aporte_mensal_global', '500'),
+('anos_projecao', '20'),
+('taxa_carteira_default', '11');
+
+INSERT OR IGNORE INTO investimentos
+(nome, tipo, instituicao, ticker, codigo_ativo, valor_atual, valor_aplicado, quantidade,
+ preco_unitario, taxa_anual, data_contratacao, data_atualizacao, aporte_mensal, cor, notas) VALUES
+('Itaú Index Simples Selic RF VGBL', 'vgbl', 'Itaú', NULL, NULL,
+ 1315.13, 1315.13, NULL, NULL, 11.0, NULL, '2026-07-14', 200, '#ec7000',
+ 'Fundo RF VGBL atrelado ao Selic. Atualizar valor no app Itaú.'),
+('XPML11 — XP Malls FII', 'fii', 'XP Investimentos', 'XPML11', 'BRXPMLCTF000',
+ 105.99, 105.99, 1, 105.99, 9.0, NULL, '2026-07-14', 100, '#7c5cde',
+ 'FII de shoppings. Preço unitário/cota. Ajuste quantidade se tiver mais cotas.'),
+('Tesouro Pré-fixado 2029', 'tesouro_prefixado', 'Tesouro Direto', NULL, NULL,
+ 93.75, 93.75, 1, 93.75, 14.24, '2026-06-16', '2026-07-14', 200, '#10b981',
+ 'Taxa contratada 14,24% a.a. Valor = preço do título. Ajuste quantidade conforme compra.');
+

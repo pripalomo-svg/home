@@ -83,7 +83,7 @@
   <span class="badge" id="dataHoje"></span>
   <div style="display:flex;gap:8px;flex-wrap:wrap">
     <a href="cadastro_pacientes.html" style="font-size:.78rem;color:#fff;background:rgba(255,255,255,.12);padding:6px 14px;border-radius:8px;text-decoration:none;font-weight:600">✏️ Cadastrar pacientes</a>
-    <a href="notion_ajuda.html" style="font-size:.78rem;color:#fff;background:rgba(255,255,255,.12);padding:6px 14px;border-radius:8px;text-decoration:none;font-weight:600">📥 Importar Notion</a>
+    <a href="investimentos.html" style="font-size:.78rem;color:#fff;background:rgba(255,255,255,.12);padding:6px 14px;border-radius:8px;text-decoration:none;font-weight:600">📈 Investimentos</a>
     <a href="../reembolsos/index.html" style="font-size:.78rem;color:#fff;background:rgba(255,255,255,.12);padding:6px 14px;border-radius:8px;text-decoration:none;font-weight:600">🏥 Reembolsos</a>
   </div>
 </header>
@@ -94,6 +94,7 @@
   <div class="nav-tab" data-sec="consultorio">🧠 Consultório</div>
   <div class="nav-tab" data-sec="youtube">▶️ YouTube</div>
   <div class="nav-tab" data-sec="financas">💰 Finanças</div>
+  <div class="nav-tab" data-sec="invest">📈 Investimentos</div>
   <div class="nav-tab" data-sec="projetos">📋 Projetos</div>
   <div class="nav-tab" data-sec="arquivos">📁 Arquivos</div>
   <div class="nav-tab" data-sec="agenda">📅 Agenda</div>
@@ -186,6 +187,19 @@
     <div style="overflow-x:auto"><table><thead><tr>
       <th>Data</th><th>Categoria</th><th>Descrição</th><th>Tipo</th><th class="num">Valor</th><th>Pago</th>
     </tr></thead><tbody id="tbFinancas"></tbody></table></div>
+  </div>
+</div>
+
+<!-- INVESTIMENTOS -->
+<div class="section" id="sec-invest">
+  <div class="panel" style="text-align:center;padding:40px 24px">
+    <div style="font-size:2.5rem;margin-bottom:12px">📈</div>
+    <h2 style="font-size:1.2rem;margin-bottom:8px">Carteira de Investimentos</h2>
+    <p style="color:var(--mut);font-size:.85rem;margin-bottom:20px;max-width:480px;margin-left:auto;margin-right:auto">
+      Itaú VGBL · XPML11 · Tesouro Pré e mais. Visualize sua carteira e simule quanto terá em 20 anos.
+    </p>
+    <a href="investimentos.html" style="display:inline-block;background:var(--green);color:#fff;padding:12px 28px;border-radius:10px;text-decoration:none;font-weight:700;font-size:.9rem">Abrir painel de investimentos →</a>
+    <p style="color:var(--mut);font-size:.74rem;margin-top:16px">Edite <code>templates/investimentos.csv</code> para adicionar ativos</p>
   </div>
 </div>
 

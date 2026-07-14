@@ -316,3 +316,62 @@ SELECT
     (SELECT COUNT(*) FROM agenda WHERE data_inicio BETWEEN date('now') AND date('now','+7 days') AND status != 'cancelado') AS eventos_semana,
     (SELECT COALESCE(SUM(valor),0) FROM financas_lancamentos WHERE tipo='receita' AND strftime('%Y-%m',data)=strftime('%Y-%m','now')) AS receita_mes,
     (SELECT COALESCE(SUM(valor),0) FROM financas_lancamentos WHERE tipo='despesa' AND strftime('%Y-%m',data)=strftime('%Y-%m','now')) AS despesa_mes;
+
+-- ── Investimentos ────────────────────────────────────────────────────────────
+CREATE TABLE IF NOT EXISTS investimentos (
+    id                  INTEGER PRIMARY KEY AUTOINCREMENT,
+    nome                TEXT NOT NULL,
+    tipo                TEXT NOT NULL DEFAULT 'outro'
+                        CHECK (tipo IN ('vgbl','pgbl','cdb','lci','lca','tesouro_selic',
+                                        'tesouro_prefixado','tesouro_ipca','fii','acao','etf','fundo_rf','outro')),
+    instituicao         TEXT,
+    ticker              TEXT,
+    codigo_ativo        TEXT,
+    valor_atual         REAL NOT NULL CHECK (valor_atual >= 0),
+    valor_aplicado      REAL,
+    quantidade          REAL,
+    preco_unitario      REAL,
+    taxa_anual          REAL,              -- % a.a. (contratada ou estimada)
+    data_contratacao    TEXT,
+    data_atualizacao    TEXT,
+    aporte_mensal       REAL DEFAULT 0 CHECK (aporte_mensal >= 0),
+    ativo               INTEGER NOT NULL DEFAULT 1 CHECK (ativo IN (0, 1)),
+    cor                 TEXT DEFAULT '#3b82f6',
+    notas               TEXT,
+    criado_em           TEXT NOT NULL DEFAULT (datetime('now', 'localtime'))
+);
+
+CREATE INDEX IF NOT EXISTS idx_investimentos_tipo ON investimentos(tipo);
+CREATE INDEX IF NOT EXISTS idx_investimentos_ativo ON investimentos(ativo);
+
+CREATE TABLE IF NOT EXISTS investimentos_config (
+    chave   TEXT PRIMARY KEY,
+    valor   TEXT NOT NULL
+);
+
+CREATE VIEW IF NOT EXISTS vw_investimentos_resumo AS
+SELECT
+    i.*,
+    CASE i.tipo
+        WHEN 'vgbl' THEN 'VGBL'
+        WHEN 'pgbl' THEN 'PGBL'
+        WHEN 'fii' THEN 'FII'
+        WHEN 'tesouro_prefixado' THEN 'Tesouro Pré'
+        WHEN 'tesouro_selic' THEN 'Tesouro Selic'
+        WHEN 'tesouro_ipca' THEN 'Tesouro IPCA+'
+        WHEN 'cdb' THEN 'CDB'
+        WHEN 'acao' THEN 'Ação'
+        WHEN 'etf' THEN 'ETF'
+        ELSE upper(i.tipo)
+    END AS tipo_label
+FROM investimentos i
+WHERE i.ativo = 1
+ORDER BY i.valor_atual DESC;
+
+CREATE VIEW IF NOT EXISTS vw_investimentos_totais AS
+SELECT
+    COUNT(*) AS qtd_ativos,
+    COALESCE(SUM(valor_atual), 0) AS patrimonio_total,
+    COALESCE(SUM(aporte_mensal), 0) AS aportes_mensais_cadastrados,
+    COALESCE(SUM(valor_aplicado), 0) AS total_aplicado
+FROM investimentos WHERE ativo = 1;

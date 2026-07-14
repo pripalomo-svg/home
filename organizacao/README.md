@@ -73,6 +73,32 @@ O banco já vem com **PAC-001 a PAC-020** com horários da semana pré-definidos
 2. Preencha nome, telefone e queixa de cada um
 3. Importe e regenere o painel
 
+## Investimentos
+
+Painel dedicado com carteira e **projeção de 20 anos**:
+
+```bash
+python3 organizacao.py init          # inclui seus 3 ativos iniciais
+python3 gerar_investimentos.py       # gera investimentos.html
+# Abra investimentos.html no navegador
+```
+
+**Seus ativos cadastrados:**
+| Ativo | Valor | Taxa |
+|-------|-------|------|
+| Itaú Index Simples Selic VGBL | R$ 1.315,13 | 11% a.a. (Selic) |
+| XPML11 | R$ 105,99 | 9% a.a. (estimativa) |
+| Tesouro Pré-fixado | R$ 93,75 | 14,24% a.a. (contratada) |
+
+**Adicionar mais:** edite `templates/investimentos.csv` e importe:
+
+```bash
+python3 importar_investimentos.py templates/investimentos.csv
+python3 gerar_investimentos.py
+```
+
+No painel, ajuste o **aporte mensal** e veja quanto terá em 5, 10, 15 e 20 anos.
+
 ## Importar do Notion
 
 Sim. Exporte no Notion: `⋯` → **Export** → **Markdown & CSV** → extraia o ZIP em `notion/`:

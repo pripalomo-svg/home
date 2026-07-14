@@ -7,6 +7,7 @@ Uso:
   python3 organizacao.py gerar         # gera index.html
   python3 organizacao.py prontuarios   # importa PDFs de documentos/prontuarios/
   python3 organizacao.py notion        # importa export do Notion (pasta notion/)
+  python3 organizacao.py investimentos # gera painel investimentos.html
 """
 
 import sqlite3
@@ -101,6 +102,8 @@ def main():
             args[2] = "zip" if sys.argv[2].endswith(".zip") else "auto"
             args[3] = str(Path(sys.argv[2]).resolve() if Path(sys.argv[2]).is_absolute() else BASE / sys.argv[2])
         subprocess.run(args, check=True)
+    elif cmd == "investimentos":
+        subprocess.run([sys.executable, str(BASE / "gerar_investimentos.py")], check=True)
     else:
         print(f"Comando desconhecido: {cmd}")
         sys.exit(1)
