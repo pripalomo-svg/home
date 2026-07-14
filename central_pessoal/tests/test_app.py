@@ -4,6 +4,7 @@ import threading
 import unittest
 from pathlib import Path
 from urllib.error import HTTPError
+from urllib.parse import quote
 from urllib.request import Request, urlopen
 
 import sys
@@ -103,7 +104,10 @@ class CentralPessoalTest(unittest.TestCase):
         )[1]
         self.assertEqual(record["atendimento_id"], appointment["id"])
         self.assertEqual(finance["valor"], 250)
-        self.assertEqual(self.request("/api/records?q=Evolução")[1][0]["paciente_id"], patient_id)
+        self.assertEqual(
+            self.request("/api/records?q=" + quote("Evolução"))[1][0]["paciente_id"],
+            patient_id,
+        )
 
     def test_complete_task_and_validate_required_fields(self):
         task_id = self.request("/api/tasks")[1][0]["id"]
