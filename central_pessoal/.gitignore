@@ -1,0 +1,10 @@
+central.db
+central.db-shm
+central.db-wal
+__pycache__/
+*.pyc
+
+# Dados reais e documentos pessoais nunca devem entrar no Git.
+arquivos/**
+!arquivos/
+!arquivos/.gitkeep

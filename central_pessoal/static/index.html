@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <title>Minha Central</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <aside class="sidebar">
+    <a class="brand" href="#inicio" aria-label="Minha Central">
+      <span class="brand-mark">M</span>
+      <span><strong>Minha Central</strong><small>Vida & trabalho</small></span>
+    </a>
+    <nav id="navigation">
+      <button class="nav-item active" data-view="inicio"><span>⌂</span> Visão geral</button>
+      <p>ORGANIZAÇÃO</p>
+      <button class="nav-item" data-view="projetos"><span>◫</span> Projetos</button>
+      <button class="nav-item" data-view="tarefas"><span>✓</span> Tarefas</button>
+      <button class="nav-item" data-view="arquivos"><span>⌁</span> Arquivos</button>
+      <p>VIDA PROFISSIONAL</p>
+      <button class="nav-item" data-view="pacientes"><span>♙</span> Pacientes</button>
+      <button class="nav-item" data-view="agenda"><span>□</span> Agenda</button>
+      <button class="nav-item" data-view="financas"><span>↗</span> Finanças</button>
+    </nav>
+    <div class="privacy">
+      <span>●</span>
+      <div><strong>Dados locais</strong><small>Nada é enviado à nuvem</small></div>
+    </div>
+  </aside>
+
+  <main>
+    <header class="topbar">
+      <button class="mobile-menu" id="mobile-menu" aria-label="Abrir menu">☰</button>
+      <div class="search-wrap">
+        <span>⌕</span>
+        <input id="global-search" placeholder="Buscar nesta área…" autocomplete="off">
+      </div>
+      <button class="primary" id="new-button">＋ Novo item</button>
+      <div class="avatar">EU</div>
+    </header>
+
+    <section id="view-inicio" class="view active">
+      <div class="welcome">
+        <div>
+          <p class="eyebrow" id="today-label"></p>
+          <h1>Olá, vamos organizar o dia.</h1>
+          <p>Seus projetos, compromissos e prioridades em um só lugar.</p>
+        </div>
+        <button class="text-button" data-go="tarefas">Ver todas as tarefas →</button>
+      </div>
+      <div class="stats" id="stats"></div>
+      <div class="dashboard-grid">
+        <article class="card span-two">
+          <div class="card-title"><div><span class="section-icon lilac">◫</span><h2>Projetos em andamento</h2></div><button data-go="projetos">Ver todos</button></div>
+          <div id="dashboard-projects" class="project-list"></div>
+        </article>
+        <article class="card">
+          <div class="card-title"><div><span class="section-icon amber">✓</span><h2>Prioridades</h2></div><button data-go="tarefas">Abrir</button></div>
+          <div id="dashboard-tasks" class="task-list"></div>
+        </article>
+        <article class="card">
+          <div class="card-title"><div><span class="section-icon mint">□</span><h2>Próximos atendimentos</h2></div><button data-go="agenda">Agenda</button></div>
+          <div id="dashboard-appointments" class="appointment-list"></div>
+        </article>
+        <article class="card finance-card">
+          <div class="card-title"><div><span class="section-icon blue">↗</span><h2>Resumo do mês</h2></div><button data-go="financas">Detalhes</button></div>
+          <div id="finance-summary"></div>
+        </article>
+      </div>
+    </section>
+
+    <section id="view-list" class="view">
+      <div class="page-heading">
+        <div><p class="eyebrow" id="list-eyebrow">ORGANIZAÇÃO</p><h1 id="list-title">Projetos</h1><p id="list-description"></p></div>
+        <button class="primary" id="page-new">＋ Adicionar</button>
+      </div>
+      <div class="list-toolbar">
+        <div class="pills" id="filter-pills"></div>
+        <span id="result-count"></span>
+      </div>
+      <div class="card table-card">
+        <div id="resource-list"></div>
+      </div>
+    </section>
+  </main>
+
+  <div class="overlay" id="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <form class="modal" id="item-form">
+      <div class="modal-head">
+        <div><p class="eyebrow">NOVO REGISTRO</p><h2 id="modal-title">Adicionar</h2></div>
+        <button type="button" class="close" id="modal-close" aria-label="Fechar">×</button>
+      </div>
+      <div class="form-grid" id="form-fields"></div>
+      <p class="form-error" id="form-error"></p>
+      <div class="modal-actions">
+        <button type="button" class="secondary" id="modal-cancel">Cancelar</button>
+        <button type="submit" class="primary">Salvar registro</button>
+      </div>
+    </form>
+  </div>
+  <div class="toast" id="toast" role="status"></div>
+  <script src="app.js"></script>
+</body>
+</html>
