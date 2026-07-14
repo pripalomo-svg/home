@@ -1,0 +1,8 @@
+# Backups e exports temporários
+*.bak
+organizador-export*.json
+
+# Conteúdo das pastas de arquivos (mantém a estrutura, ignora os documentos grandes)
+arquivos/**
+!arquivos/**/
+!arquivos/**/.gitkeep
