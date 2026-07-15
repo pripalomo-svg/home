@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cadastro de Pacientes · 20 slots</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  :root{--bg:#f4f6fb;--card:#fff;--ink:#17203a;--mut:#8a93a8;--line:#e6e9f2;--rose:#e94560;--violet:#7c5cde}
+  body{font-family:'Segoe UI',system-ui,Arial,sans-serif;background:var(--bg);color:var(--ink)}
+  header{background:linear-gradient(135deg,#1a1a2e,#0f3460);color:#fff;padding:20px 28px}
+  header h1{font-size:1.3rem} header h1 em{color:var(--rose);font-style:normal}
+  header p{font-size:.8rem;color:rgba(255,255,255,.55);margin-top:4px}
+  .wrap{max-width:1400px;margin:0 auto;padding:20px 24px 60px}
+  .toolbar{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:16px;align-items:center}
+  .btn{padding:9px 18px;border:none;border-radius:9px;font-size:.84rem;font-weight:700;cursor:pointer;transition:.15s}
+  .btn-p{background:var(--violet);color:#fff}.btn-p:hover{filter:brightness(1.1)}
+  .btn-s{background:var(--card);border:1px solid var(--line);color:var(--ink)}.btn-s:hover{background:#f0f2f8}
+  .btn-r{background:var(--rose);color:#fff}
+  .tip{background:#fffbeb;border:1px solid #fde68a;border-radius:9px;padding:12px 16px;font-size:.82rem;color:#92400e;margin-bottom:16px;line-height:1.5}
+  .progress{background:var(--card);border-radius:10px;padding:12px 16px;margin-bottom:16px;display:flex;align-items:center;gap:14px;box-shadow:0 1px 6px rgba(0,0,0,.06)}
+  .progress-bar{flex:1;background:#eef0f7;border-radius:6px;height:10px;overflow:hidden}
+  .progress-fill{height:100%;background:linear-gradient(90deg,var(--violet),var(--rose));border-radius:6px;transition:width .3s}
+  .grid{display:grid;gap:12px}
+  .card{background:var(--card);border-radius:12px;padding:16px 18px;box-shadow:0 1px 6px rgba(0,0,0,.06);border-left:4px solid var(--violet)}
+  .card.filled{border-left-color:var(--rose)}
+  .card-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+  .card-head b{font-size:.95rem;color:var(--violet)}
+  .card-head .slot{font-size:.72rem;color:var(--mut);background:#f3f4f6;padding:2px 10px;border-radius:20px}
+  .fields{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px}
+  label{font-size:.7rem;text-transform:uppercase;letter-spacing:.04em;color:var(--mut);display:block;margin-bottom:3px}
+  input,select,textarea{width:100%;padding:8px 10px;border:1px solid var(--line);border-radius:8px;font-size:.84rem;font-family:inherit;outline:none}
+  input:focus,select:focus,textarea:focus{border-color:var(--violet);box-shadow:0 0 0 3px rgba(124,92,222,.12)}
+  textarea{resize:vertical;min-height:52px}
+  .nome-field{grid-column:span 2}
+  @media(max-width:700px){.nome-field{grid-column:span 1}}
+  footer{text-align:center;padding:24px;font-size:.72rem;color:var(--mut)}
+</style>
+</head>
+<body>
+<header>
+  <h1>Cadastro de <em>Pacientes</em></h1>
+  <p>Preencha os 20 slots · Salva automaticamente no navegador · Exporte CSV para importar no banco</p>
+</header>
+<div class="wrap">
+  <div class="tip">
+    <b>Como usar:</b> preencha nome, telefone e queixa de cada paciente.
+    Os horários já vêm distribuídos na semana (segunda a sexta).
+    Clique <b>Exportar CSV</b> → salve como <code>templates/pacientes.csv</code> → rode
+    <code>python3 importar_dados.py pacientes templates/pacientes.csv</code> e <code>python3 gerar_dashboard.py</code>.
+  </div>
+  <div class="progress">
+    <span id="progTxt">0 / 20 preenchidos</span>
+    <div class="progress-bar"><div class="progress-fill" id="progFill" style="width:0%"></div></div>
+  </div>
+  <div class="toolbar">
+    <button class="btn btn-p" onclick="exportarCSV()">⬇ Exportar CSV</button>
+    <button class="btn btn-s" onclick="salvar()">💾 Salvar rascunho</button>
+    <button class="btn btn-s" onclick="carregar()">↻ Recarregar rascunho</button>
+    <button class="btn btn-r" onclick="if(confirm('Apagar tudo?'))limpar()">🗑 Limpar</button>
+    <a class="btn btn-s" href="index.html" style="text-decoration:none">← Voltar ao painel</a>
+  </div>
+  <div class="grid" id="grid"></div>
+</div>
+<footer>Os dados ficam só no seu navegador (localStorage) até você exportar o CSV.</footer>
+<script>
+const SLOTS = [
+  {codigo:'PAC-001',dia:'segunda',hora:'08h',freq:'semanal',valor:'250'},
+  {codigo:'PAC-002',dia:'segunda',hora:'09h',freq:'semanal',valor:'250'},
+  {codigo:'PAC-003',dia:'segunda',hora:'10h',freq:'semanal',valor:'250'},
+  {codigo:'PAC-004',dia:'segunda',hora:'14h',freq:'semanal',valor:'250'},
+  {codigo:'PAC-005',dia:'segunda',hora:'15h',freq:'semanal',valor:'250'},
+  {codigo:'PAC-006',dia:'segunda',hora:'16h',freq:'semanal',valor:'250'},
+  {codigo:'PAC-007',dia:'terça',hora:'08h',freq:'semanal',valor:'250'},
+  {codigo:'PAC-008',dia:'terça',hora:'09h',freq:'semanal',valor:'250'},
+  {codigo:'PAC-009',dia:'terça',hora:'10h',freq:'semanal',valor:'250'},
+  {codigo:'PAC-010',dia:'terça',hora:'14h',freq:'semanal',valor:'250'},
+  {codigo:'PAC-011',dia:'terça',hora:'15h',freq:'semanal',valor:'250'},
+  {codigo:'PAC-012',dia:'terça',hora:'16h',freq:'semanal',valor:'250'},
+  {codigo:'PAC-013',dia:'quarta',hora:'08h',freq:'semanal',valor:'250'},
+  {codigo:'PAC-014',dia:'quarta',hora:'09h',freq:'semanal',valor:'250'},
+  {codigo:'PAC-015',dia:'quarta',hora:'10h',freq:'semanal',valor:'250'},
+  {codigo:'PAC-016',dia:'quinta',hora:'08h',freq:'semanal',valor:'250'},
+  {codigo:'PAC-017',dia:'quinta',hora:'09h',freq:'quinzenal',valor:'280'},
+  {codigo:'PAC-018',dia:'quinta',hora:'10h',freq:'quinzenal',valor:'280'},
+  {codigo:'PAC-019',dia:'sexta',hora:'08h',freq:'quinzenal',valor:'280'},
+  {codigo:'PAC-020',dia:'sexta',hora:'09h',freq:'quinzenal',valor:'280'},
+];
+const KEY = 'cadastro-pacientes-palomo';
+const QUEIXAS = ['','fobia específica','ansiedade social','fobia de dirigir','fobia de avião','pânico','TOC','fobia de animais','fobia de lugares fechados','outro'];
+
+function render(){
+  const g = document.getElementById('grid');
+  g.innerHTML = SLOTS.map((s,i)=>`
+    <div class="card" id="card-${i}" data-i="${i}">
+      <div class="card-head">
+        <b>${s.codigo}</b>
+        <span class="slot">${s.dia} ${s.hora} · ${s.freq}</span>
+      </div>
+      <div class="fields">
+        <div class="nome-field">
+          <label>Nome completo *</label>
+          <input data-f="nome" placeholder="Nome do paciente" oninput="onChange(${i})">
+        </div>
+        <div>
+          <label>Telefone</label>
+          <input data-f="telefone" placeholder="(11) 99999-0000" oninput="onChange(${i})">
+        </div>
+        <div>
+          <label>E-mail</label>
+          <input data-f="email" type="email" placeholder="email@..." oninput="onChange(${i})">
+        </div>
+        <div>
+          <label>Nascimento</label>
+          <input data-f="nascimento" type="date" oninput="onChange(${i})">
+        </div>
+        <div>
+          <label>Convênio</label>
+          <select data-f="convenio" onchange="onChange(${i})">
+            <option value="particular">Particular</option>
+            <option value="plano">Plano de saúde</option>
+            <option value="empresa">Empresa</option>
+          </select>
+        </div>
+        <div>
+          <label>Queixa principal</label>
+          <select data-f="queixa" onchange="onChange(${i})">
+            ${QUEIXAS.map(q=>`<option value="${q}">${q||'— selecione —'}</option>`).join('')}
+          </select>
+        </div>
+        <div>
+          <label>Status</label>
+          <select data-f="status" onchange="onChange(${i})">
+            <option value="ativo">Ativo</option>
+            <option value="pausado">Pausado</option>
+            <option value="alta">Alta</option>
+          </select>
+        </div>
+        <div>
+          <label>Valor sessão (R$)</label>
+          <input data-f="valor" value="${s.valor}" oninput="onChange(${i})">
+        </div>
+        <div>
+          <label>Início tratamento</label>
+          <input data-f="inicio" type="date" oninput="onChange(${i})">
+        </div>
+        <div class="nome-field">
+          <label>Pasta prontuário</label>
+          <input data-f="prontuario" value="documentos/prontuarios/${s.codigo}" oninput="onChange(${i})">
+        </div>
+        <div class="nome-field">
+          <label>Observações</label>
+          <textarea data-f="obs" placeholder="Notas internas" oninput="onChange(${i})"></textarea>
+        </div>
+      </div>
+    </div>`).join('');
+  carregar();
+}
+
+function getData(){
+  return SLOTS.map((s,i)=>{
+    const card = document.getElementById('card-'+i);
+  if(!card) return {};
+    const v = f => card.querySelector(`[data-f="${f}"]`)?.value || '';
+    return {
+      codigo: s.codigo, nome: v('nome'), telefone: v('telefone'), email: v('email'),
+      nascimento: v('nascimento'), convenio: v('convenio'), queixa: v('queixa'),
+      status: v('status'), frequencia: s.freq, dia_horario: s.dia+' '+s.hora,
+      valor: v('valor'), inicio: v('inicio'), prontuario: v('prontuario'), obs: v('obs')
+    };
+  });
+}
+
+function setData(data){
+  data.forEach((d,i)=>{
+    const card = document.getElementById('card-'+i);
+    if(!card||!d) return;
+    const set = (f,val) => { const el=card.querySelector(`[data-f="${f}"]`); if(el&&val) el.value=val; };
+    set('nome',d.nome); set('telefone',d.telefone); set('email',d.email);
+    set('nascimento',d.nascimento); set('convenio',d.convenio); set('queixa',d.queixa);
+    set('status',d.status); set('valor',d.valor); set('inicio',d.inicio);
+    set('prontuario',d.prontuario); set('obs',d.obs);
+  });
+  atualizarProgresso();
+}
+
+function onChange(i){
+  const card = document.getElementById('card-'+i);
+  const nome = card.querySelector('[data-f="nome"]').value.trim();
+  card.classList.toggle('filled', !!nome);
+  atualizarProgresso();
+  clearTimeout(window._saveT);
+  window._saveT = setTimeout(salvar, 500);
+}
+
+function atualizarProgresso(){
+  const n = getData().filter(d=>d.nome.trim()).length;
+  document.getElementById('progTxt').textContent = `${n} / 20 preenchidos`;
+  document.getElementById('progFill').style.width = (n/20*100)+'%';
+}
+
+function salvar(){
+  localStorage.setItem(KEY, JSON.stringify(getData()));
+}
+
+function carregar(){
+  const raw = localStorage.getItem(KEY);
+  if(raw) setData(JSON.parse(raw));
+  else atualizarProgresso();
+}
+
+function limpar(){
+  localStorage.removeItem(KEY);
+  document.querySelectorAll('input,textarea').forEach(el=>{
+    if(el.dataset.f==='prontuario') return;
+    if(el.dataset.f==='valor') return;
+    el.value = '';
+  });
+  document.querySelectorAll('select').forEach(el=>el.selectedIndex=0);
+  document.querySelectorAll('.card').forEach(c=>c.classList.remove('filled'));
+  atualizarProgresso();
+}
+
+function exportarCSV(){
+  const cols = ['codigo','nome','telefone','email','data_nascimento','convenio','queixa_principal','status','frequencia','dia_horario','valor_sessao','data_inicio','prontuario_path','observacoes'];
+  const rows = getData().filter(d=>d.nome.trim()).map(d=>[
+    d.codigo, d.nome, d.telefone, d.email, d.nascimento, d.convenio, d.queixa,
+    d.status, d.frequencia, d.dia_horario, d.valor, d.inicio, d.prontuario, d.obs
+  ]);
+  if(!rows.length){ alert('Preencha pelo menos um nome antes de exportar.'); return; }
+  const csv = [cols.join(';'), ...rows.map(r=>r.map(c=>String(c??'').replace(/;/g,',')).join(';'))].join('\n');
+  const blob = new Blob(['\ufeff'+csv], {type:'text/csv;charset=utf-8'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'pacientes.csv';
+  a.click();
+}
+
+render();
+</script>
+</body>
+</html>

@@ -1,0 +1,5 @@
+paciente_codigo;data;hora_inicio;hora_fim;tipo;modalidade;status;valor;pago;notas
+PAC-001;2026-07-15;14:00;15:00;sessao;presencial;agendado;250;0;
+PAC-001;2026-07-08;14:00;15:00;sessao;presencial;realizado;250;1;Boa evolução
+PAC-002;2026-07-17;10:00;11:00;sessao;online;agendado;280;0;
+PAC-003;2026-07-14;16:00;17:00;sessao;presencial;confirmado;250;0;
