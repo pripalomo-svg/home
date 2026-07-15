@@ -48,6 +48,9 @@ Funciona offline e traz:
 - **Detalhe EOBs Cigna** — cada linha de serviço dos Explanation of Benefits
   (sessão a sessão, com câmbio, valores em USD e remark codes).
 - **Portal Cigna 2026** — submissões com nº de submissão e CLM.
+- **Prestadores** — diretório com todos os prestadores (claims, totais,
+  período de uso) + indicações ainda sem reembolso (dermatologistas
+  pediátricas do diretório do Notion).
 - **Resumo** — totais por beneficiário, status, prestador e ano.
 
 ## Estrutura

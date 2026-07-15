@@ -379,6 +379,8 @@ DOCUMENTOS = [
     ("referencia/memoria-familia-palomo.md", "Memória / glossário da família Palomo", "referencia", None, None),
     ("referencia/planilha-reembolsos-luisa-12-2025.xlsx", "Planilha de reembolsos médicos (fonte primária)", "referencia", None, None),
     ("referencia/nfse-prefeitura-sp-2026-jan-jun.csv", "NFS-e Prefeitura SP — jan a jun/2026 (CSV)", "referencia", None, None),
+    ("referencia/profissionais-cigna-notion.csv", "Diretório de profissionais — Cigna (export Notion, CSV)", "referencia", None, "Prestadores usados nos reembolsos + indicações de dermatologistas pediátricas"),
+    ("referencia/profissionais-cigna-notion.pdf", "Diretório de profissionais — Cigna (export Notion, PDF)", "referencia", None, None),
 ]
 
 # vínculos: arquivo -> lista de claims (ou chaves especiais) a que se refere
@@ -517,6 +519,38 @@ def importar_eob_itens(conn, doc_ids):
             )
 
 
+# ---------------------------------------------------------------- profissionais (Notion)
+
+# (nome, especialidade, endereco, telefone, observacoes) — diretório "Profissionais — Cigna"
+PROFISSIONAIS_NOTION = [
+    ("Dra. Maria Carolina de Figueiredo", "Dermatologia pediátrica",
+     "Higienópolis (SP) / São Gualter (SP)", None,
+     "Indicação (ainda sem reembolso). Atende em clínica que o convênio atende (Higienópolis); "
+     "também na São Gualter. https://institutopalermo.med.br/dra-maria-carolina-de-figueiredo/"),
+    ("Dra. Priscila Ramos Lota", "Dermatologia pediátrica", None, None,
+     "Indicação (ainda sem reembolso); atende as meninas atualmente (Thiago leva)."),
+    ("Dra. Selma Helena", "Dermatologia pediátrica", "Moema (SP)", None,
+     'Indicação (ainda sem reembolso): "a melhor dermato pediatra de SP".'),
+    ("DERMAPED Dermatologia Pediátrica e Clínica (Dra. Carol)", "Dermatologia pediátrica", None, None,
+     "Consulta marcada para 23/06/2026, R$ 900,00 (pix/dinheiro/cheque). "
+     "Se realizada, pedir NF/recibo para solicitar reembolso."),
+]
+
+
+def importar_profissionais_notion(conn):
+    for nome, esp, end, tel, obs in PROFISSIONAIS_NOTION:
+        conn.execute(
+            """INSERT INTO prestadores (nome, especialidade, endereco, telefone, observacoes)
+               VALUES (?, ?, ?, ?, ?)
+               ON CONFLICT(nome) DO UPDATE SET
+                 especialidade = COALESCE(prestadores.especialidade, excluded.especialidade),
+                 endereco = excluded.endereco,
+                 telefone = excluded.telefone,
+                 observacoes = excluded.observacoes""",
+            (nome, esp, end, tel, obs),
+        )
+
+
 # ---------------------------------------------------------------- main
 
 def main():
@@ -527,6 +561,7 @@ def main():
     importar_extras(conn, claim_para_id)
     doc_ids = importar_documentos(conn, claim_para_id)
     importar_eob_itens(conn, doc_ids)
+    importar_profissionais_notion(conn)
     conn.commit()
 
     n_r = conn.execute("SELECT COUNT(*) FROM reembolsos").fetchone()[0]
