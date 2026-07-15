@@ -2,4 +2,5 @@ nome;tipo;instituicao;ticker;codigo_ativo;valor_atual;valor_aplicado;quantidade;
 Itaú Index Simples Selic RF VGBL;vgbl;Itaú;;;1315.13;1315.13;;;11.0;;2026-07-14;200;#ec7000;Fundo RF VGBL Selic
 XPML11 — XP Malls FII;fii;XP Investimentos;XPML11;BRXPMLCTF000;105.99;105.99;1;105.99;9.0;;2026-07-14;100;#7c5cde;1 cota
 Tesouro Pré-fixado 2029;tesouro_prefixado;Tesouro Direto;;;93.75;93.75;1;93.75;14.24;2026-06-16;2026-07-14;200;#10b981;Taxa 14,24% a.a.
-;;;;;;;0;;;;;;;Adicione novos investimentos abaixo desta linha
+CDB Itaú 120% CDI;cdb;Itaú;;;3000;3000;;;12.5;2026-05-01;2026-07-15;150;#ec7000;CDB 2 anos - exemplo adicionado
+Nubank Reserva de Emergência;fundo_rf;Nubank;;;2500;2500;;;10.5;;2026-07-15;100;#8b5cf6;Reserva de emergência

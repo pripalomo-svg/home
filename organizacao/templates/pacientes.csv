@@ -1,9 +1,9 @@
 codigo;nome;telefone;email;data_nascimento;convenio;queixa_principal;status;frequencia;dia_horario;valor_sessao;data_inicio;prontuario_path;observacoes
-PAC-001;;;;;particular;;;ativo;semanal;segunda 08h;250;;;documentos/prontuarios/PAC-001
-PAC-002;;;;;particular;;;ativo;semanal;segunda 09h;250;;;documentos/prontuarios/PAC-002
-PAC-003;;;;;particular;;;ativo;semanal;segunda 10h;250;;;documentos/prontuarios/PAC-003
-PAC-004;;;;;particular;;;ativo;semanal;segunda 14h;250;;;documentos/prontuarios/PAC-004
-PAC-005;;;;;particular;;;ativo;semanal;segunda 15h;250;;;documentos/prontuarios/PAC-005
+PAC-001;Maria Silva;(11) 98888-1111;maria@email.com;1985-03-15;particular;ansiedade social;ativo;semanal;segunda 08h;280;2025-01-10;documentos/prontuarios/PAC-001;
+PAC-002;João Santos;(11) 97777-2222;;1980-07-22;particular;fobia de avião;ativo;quinzenal;segunda 09h;300;2025-02-01;documentos/prontuarios/PAC-002;
+PAC-003;Ana Costa;(11) 96666-3333;;1992-11-08;particular;fobia de dirigir;ativo;semanal;segunda 10h;280;2025-03-05;documentos/prontuarios/PAC-003;
+PAC-004;Carlos Mendes;(11) 95555-4444;;;particular;fobia de lugares fechados;ativo;semanal;segunda 14h;280;2025-04-12;documentos/prontuarios/PAC-004;
+PAC-005;Fernanda Lima;(11) 94444-5555;;;particular;pânico;ativo;semanal;segunda 15h;280;2025-05-20;documentos/prontuarios/PAC-005;
 PAC-006;;;;;particular;;;ativo;semanal;segunda 16h;250;;;documentos/prontuarios/PAC-006
 PAC-007;;;;;particular;;;ativo;semanal;terça 08h;250;;;documentos/prontuarios/PAC-007
 PAC-008;;;;;particular;;;ativo;semanal;terça 09h;250;;;documentos/prontuarios/PAC-008
