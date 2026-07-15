@@ -19,6 +19,20 @@ def _float(v):
     return float(str(v).replace(",", ".").replace("R$", "").replace("%", "").strip())
 
 
+def _titular_id(conn, valor):
+    """Resolve o titular (dono) da aplicação. Padrão: Priscila (id 1)."""
+    valor = (valor or "").strip()
+    if not valor:
+        return 1
+    if valor.isdigit():
+        return int(valor)
+    row = conn.execute(
+        "SELECT id FROM pessoas WHERE nome LIKE ? OR apelido LIKE ?",
+        (f"%{valor}%", f"%{valor}%"),
+    ).fetchone()
+    return row[0] if row else 1
+
+
 def main():
     path = Path(sys.argv[1]) if len(sys.argv) > 1 else BASE / "templates" / "investimentos.csv"
     if not path.is_absolute():
@@ -47,6 +61,7 @@ def main():
                     "SELECT id FROM investimentos WHERE nome = ?", (nome,)
                 ).fetchone()
             params = (
+                _titular_id(conn, row.get("titular")),
                 nome,
                 row.get("tipo") or "outro",
                 row.get("instituicao") or None,
@@ -66,7 +81,7 @@ def main():
             if existente:
                 conn.execute(
                     """UPDATE investimentos SET
-                       nome=?, tipo=?, instituicao=?, ticker=?, codigo_ativo=?,
+                       titular_id=?, nome=?, tipo=?, instituicao=?, ticker=?, codigo_ativo=?,
                        valor_atual=?, valor_aplicado=?, quantidade=?, preco_unitario=?,
                        taxa_anual=?, data_contratacao=?, data_atualizacao=?,
                        aporte_mensal=?, cor=?, notas=?, ativo=1 WHERE id=?""",
@@ -75,10 +90,10 @@ def main():
             else:
                 conn.execute(
                     """INSERT INTO investimentos
-                       (nome, tipo, instituicao, ticker, codigo_ativo, valor_atual,
+                       (titular_id, nome, tipo, instituicao, ticker, codigo_ativo, valor_atual,
                         valor_aplicado, quantidade, preco_unitario, taxa_anual,
                         data_contratacao, data_atualizacao, aporte_mensal, cor, notas)
-                       VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)""",
+                       VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)""",
                     params,
                 )
             n += 1

@@ -71,7 +71,8 @@ INSERT OR IGNORE INTO youtube_ideias (titulo, descricao, status, tags) VALUES
 -- Notas fixas
 INSERT OR IGNORE INTO notas (titulo, conteudo, area_id, fixada, tags) VALUES
 ('Atalhos rápidos', 'controle familiar → reembolsos/index.html\norganização → organizacao/index.html\nEditar dados → python3 organizacao.py', 7, 1, 'atalho'),
-('Lembretes importantes', '- Atualizar nomes dos 20 pacientes\n- Cadastrar horários fixos de cada um\n- Vincular prontuários (PDF/pasta)\n- Conferir agenda da semana toda segunda', 2, 1, 'lembrete');
+('Lembretes importantes', '- Atualizar nomes dos 20 pacientes\n- Cadastrar horários fixos de cada um\n- Vincular prontuários (PDF/pasta)\n- Conferir agenda da semana toda segunda', 2, 1, 'lembrete'),
+('Aguardando dados dos pacientes', 'Os slots PAC-001 a PAC-020 estão reservados.\nQuando as informações dos pacientes chegarem:\n1. Abra cadastro_pacientes.html e preencha\n2. Ou edite templates/pacientes.csv\n3. Importe: python3 importar_dados.py pacientes\n4. Regenere: python3 gerar_dashboard.py\n\nImportante: os investimentos (VGBL, XPML11, Tesouro) são da Priscila — não têm relação com pacientes.', 2, 1, 'pacientes,pendente');
 
 -- Arquivos de referência (links para o que já existe no repo)
 INSERT OR IGNORE INTO arquivos (titulo, caminho, categoria, area_id, tipo_arquivo, descricao) VALUES
@@ -87,16 +88,17 @@ INSERT OR IGNORE INTO investimentos_config (chave, valor) VALUES
 ('anos_projecao', '20'),
 ('taxa_carteira_default', '11');
 
+-- Todas as aplicações pertencem à Priscila (titular_id = 1), não aos pacientes.
 INSERT OR IGNORE INTO investimentos
-(nome, tipo, instituicao, ticker, codigo_ativo, valor_atual, valor_aplicado, quantidade,
+(titular_id, nome, tipo, instituicao, ticker, codigo_ativo, valor_atual, valor_aplicado, quantidade,
  preco_unitario, taxa_anual, data_contratacao, data_atualizacao, aporte_mensal, cor, notas) VALUES
-('Itaú Index Simples Selic RF VGBL', 'vgbl', 'Itaú', NULL, NULL,
+(1, 'Itaú Index Simples Selic RF VGBL', 'vgbl', 'Itaú', NULL, NULL,
  1315.13, 1315.13, NULL, NULL, 11.0, NULL, '2026-07-14', 200, '#ec7000',
  'Fundo RF VGBL atrelado ao Selic. Atualizar valor no app Itaú.'),
-('XPML11 — XP Malls FII', 'fii', 'XP Investimentos', 'XPML11', 'BRXPMLCTF000',
+(1, 'XPML11 — XP Malls FII', 'fii', 'XP Investimentos', 'XPML11', 'BRXPMLCTF000',
  105.99, 105.99, 1, 105.99, 9.0, NULL, '2026-07-14', 100, '#7c5cde',
  'FII de shoppings. Preço unitário/cota. Ajuste quantidade se tiver mais cotas.'),
-('Tesouro Pré-fixado 2029', 'tesouro_prefixado', 'Tesouro Direto', NULL, NULL,
+(1, 'Tesouro Pré-fixado 2029', 'tesouro_prefixado', 'Tesouro Direto', NULL, NULL,
  93.75, 93.75, 1, 93.75, 14.24, '2026-06-16', '2026-07-14', 200, '#10b981',
  'Taxa contratada 14,24% a.a. Valor = preço do título. Ajuste quantidade conforme compra.');
 

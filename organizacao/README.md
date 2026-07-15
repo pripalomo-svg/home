@@ -16,16 +16,26 @@ Funciona **offline** — basta abrir `index.html` no navegador.
 | **Arquivos** | Índice de documentos com links |
 | **Agenda** | Compromissos unificados (pacientes, família, YouTube) |
 
-## Começar em 3 passos
+## Começar
+
+O banco **`organizacao.db` já vem pronto e versionado** — basta abrir **`index.html`** no navegador.
+
+Para recriar do zero (se quiser):
 
 ```bash
 cd organizacao
 python3 organizacao.py init      # cria o banco com dados iniciais
-python3 importar_dados.py todos  # importa exemplos dos templates CSV
 python3 gerar_dashboard.py       # gera index.html
+python3 gerar_investimentos.py   # gera investimentos.html
 ```
 
-Abra **`index.html`** no navegador.
+> **Pacientes:** os 20 slots (PAC-001 a PAC-020) estão reservados aguardando as
+> informações reais. Quando chegarem, preencha via `cadastro_pacientes.html` ou
+> `templates/pacientes.csv` e importe (veja abaixo).
+>
+> **Investimentos:** todas as aplicações cadastradas (VGBL, XPML11, Tesouro)
+> são **da Priscila** — não têm relação com pacientes. Cada ativo tem um campo
+> `titular` para deixar isso explícito.
 
 ## Preencher com seus dados reais
 
@@ -83,12 +93,12 @@ python3 gerar_investimentos.py       # gera investimentos.html
 # Abra investimentos.html no navegador
 ```
 
-**Seus ativos cadastrados:**
-| Ativo | Valor | Taxa |
-|-------|-------|------|
-| Itaú Index Simples Selic VGBL | R$ 1.315,13 | 11% a.a. (Selic) |
-| XPML11 | R$ 105,99 | 9% a.a. (estimativa) |
-| Tesouro Pré-fixado | R$ 93,75 | 14,24% a.a. (contratada) |
+**Seus ativos cadastrados** (titular: Priscila — aplicações pessoais, não de pacientes):
+| Ativo | Titular | Valor | Taxa |
+|-------|---------|-------|------|
+| Itaú Index Simples Selic VGBL | Priscila | R$ 1.315,13 | 11% a.a. (Selic) |
+| XPML11 | Priscila | R$ 105,99 | 9% a.a. (estimativa) |
+| Tesouro Pré-fixado | Priscila | R$ 93,75 | 14,24% a.a. (contratada) |
 
 **Adicionar mais:** edite `templates/investimentos.csv` e importe:
 
@@ -135,7 +145,7 @@ python3 organizacao.py init --recriar       # recria banco do zero (cuidado!)
 organizacao/
 ├── schema.sql           # estrutura do banco
 ├── seed.sql             # dados iniciais (família, áreas, 20 pacientes)
-├── organizacao.db       # banco SQLite (gerado, não versionado)
+├── organizacao.db       # banco SQLite pronto (versionado)
 ├── organizacao.py       # init / status / gerar
 ├── importar_prontuarios.py # importação de PDFs e CSV clínico
 ├── cadastro_pacientes.html # formulário visual dos 20 pacientes
