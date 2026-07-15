@@ -11,6 +11,10 @@
      link da branch: `https://raw.githack.com/pripalomo-svg/home/<branch>/reembolsos/index.html`
 2. Comunicação direta e concisa, sem elogios desnecessários (ver
    `reembolsos/documentos/referencia/memoria-familia-palomo.md`).
+3. Existe um lembrete diário automático dos links (workflow
+   `.github/workflows/lembrete-links.yml`), que comenta todo dia às 09:00
+   (São Paulo) no issue "🔗 Lembrete diário — links do banco de reembolsos".
+   Não duplicar esse mecanismo; para parar, fechar o issue e desativar o workflow.
 
 ## Sobre o banco de reembolsos (`reembolsos/`)
 
