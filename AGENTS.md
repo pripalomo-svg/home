@@ -47,6 +47,9 @@
   e devem ser vinculados aos claims em `importar_dados.py`.
 - Antes de adicionar documentos enviados pela usuária, conferir por hash
   (md5sum) se já não existem no repositório — ela costuma reenviar o lote inteiro.
+- **Folha McKinsey (reembolsos na folha de pagamento):** seguir a skill
+  `.cursor/skills/folha-mckinsey-reembolsos/` — sempre marcar claims acertados na
+  folha como **pago** em `FOLHA_MCKINSEY` + `aplicar_folha_mckinsey()`.
 
 ## Cursor Cloud — instruções técnicas
 
