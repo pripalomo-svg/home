@@ -101,19 +101,35 @@ No painel, ajuste o **aporte mensal** e veja quanto terá em 5, 10, 15 e 20 anos
 
 ## Importar do Notion
 
-Sim. Exporte no Notion: `⋯` → **Export** → **Markdown & CSV** → extraia o ZIP em `notion/`:
+### Sincronização automática (recomendado)
+
+Configure uma vez a API do Notion e rode:
+
+```bash
+python3 organizacao.py sincronizar
+# ou no Windows: duplo-clique em SINCRONIZAR_NOTION.bat
+```
+
+Para **todo dia sem fazer nada**, agende `SINCRONIZAR_NOTION.bat` no Agendador de Tarefas do Windows (ex.: 07:00).
+
+Guia completo: [`notion/COMO_CONFIGURAR_API.md`](notion/COMO_CONFIGURAR_API.md)
+
+### Export manual (sem API)
+
+Exporte no Notion: `⋯` → **Export** → **Markdown & CSV** → salve como `notion/Export.zip`:
 
 ```bash
 python3 importar_notion.py zip ~/Downloads/Export.zip
 # ou, se já extraiu:
 python3 importar_notion.py auto notion/
 python3 organizacao.py notion          # atalho (usa pasta notion/)
+python3 organizacao.py sincronizar     # também detecta export em notion/
 python3 gerar_dashboard.py
 ```
 
 O script reconhece databases pelo **nome do arquivo** (Pacientes, Finanças, YouTube…) ou pelas **colunas** (Nome, Data, Valor…). Páginas `.md` viram notas.
 
-Guia completo: [`notion/README.md`](notion/README.md)
+Guia de export: [`notion/README.md`](notion/README.md)
 
 ## Prontuários em PDF
 
@@ -126,6 +142,7 @@ python3 organizacao.py status    # resumo no terminal
 python3 organizacao.py gerar     # regenere o HTML
 python3 organizacao.py prontuarios --extrair  # importa PDFs
 python3 organizacao.py notion               # importa export Notion
+python3 organizacao.py sincronizar          # sync automático Notion
 python3 organizacao.py init --recriar       # recria banco do zero (cuidado!)
 ```
 
@@ -141,7 +158,9 @@ organizacao/
 ├── cadastro_pacientes.html # formulário visual dos 20 pacientes
 ├── documentos/prontuarios/ # pastas PAC-001 … PAC-020 para PDFs
 ├── importar_notion.py      # importação do Notion (ZIP / CSV / Markdown)
-├── notion/                 # coloque aqui o export do Notion
+├── sincronizar_notion.py   # sync automático Notion (API + fallback export)
+├── SINCRONIZAR_NOTION.bat  # atalho Windows para sync diário
+├── notion/                 # token, config e export do Notion
 ├── gerar_dashboard.py   # gera index.html
 ├── index.html           # painel visual (gerado)
 └── templates/           # CSVs para preencher

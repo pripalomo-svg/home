@@ -42,10 +42,6 @@
   <b>Jeito mais fácil no Windows:</b> dê duplo-clique em <code>ATUALIZAR.bat</code> na pasta organizacao.
   Ele importa tudo e atualiza os painéis automaticamente.
 </div>
-
-<div class="dica">
-
-<!-- PASSO 1 -->
 <div class="passo ver">
   <span class="num">PASSO 1</span>
   <h2>👀 Ver como está ficando (só olhar)</h2>
@@ -115,8 +111,22 @@ python gerar_dashboard.py</pre>
 </div>
 
 <!-- PASSO 5 -->
-<div class="passo ver">
+<div class="passo verd">
   <span class="num">PASSO 5</span>
+  <h2>🔗 Sincronizar com o Notion (automático)</h2>
+  <p>Seus atendimentos e prontuários do Notion podem entrar <b>sozinhos</b> no painel.</p>
+  <ol>
+    <li><b>Uma vez só:</b> siga o guia <code>notion/COMO_CONFIGURAR_API.md</code> (criar integração + salvar token em <code>notion/token.txt</code>)</li>
+    <li><b>Para sincronizar agora:</b> duplo-clique em <code>SINCRONIZAR_NOTION.bat</code></li>
+    <li><b>Para todo dia:</b> Agendador de Tarefas do Windows → agende <code>SINCRONIZAR_NOTION.bat</code> (ex.: 07:00)</li>
+    <li>Abra <code>index.html</code> — sessões e resumos clínicos já estarão lá</li>
+  </ol>
+  <p>Sem API? Exporte do Notion como ZIP, salve em <code>notion/Export.zip</code> e rode o mesmo <code>SINCRONIZAR_NOTION.bat</code>.</p>
+</div>
+
+<!-- PASSO 6 -->
+<div class="passo ver">
+  <span class="num">PASSO 6</span>
   <h2>📈 Investimentos — testar projeção</h2>
   <ol>
     <li>Abra <a href="investimentos.html"><code>investimentos.html</code></a></li>

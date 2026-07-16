@@ -1,11 +1,23 @@
-# Coloque aqui o export do Notion (ZIP extraído ou CSVs soltos)
+# Notion → Organização
+
+## Sincronização automática (recomendado)
+
+Configure a API uma vez e rode `python3 organizacao.py sincronizar` (ou `SINCRONIZAR_NOTION.bat` no Windows).
+
+Guia: [`COMO_CONFIGURAR_API.md`](COMO_CONFIGURAR_API.md)
+
+---
+
+## Export manual (ZIP / CSV)
 
 1. No Notion: abra a database → `⋯` → **Export** → **Markdown & CSV**
 2. Marque **Include subpages** se quiser importar o conteúdo das páginas
-3. Extraia o ZIP nesta pasta (`organizacao/notion/`)
+3. Extraia o ZIP nesta pasta (`organizacao/notion/`) ou salve como `Export.zip`
 4. Rode:
 
 ```bash
+python3 organizacao.py sincronizar
+# ou:
 python3 importar_notion.py auto notion/
 python3 gerar_dashboard.py
 ```
