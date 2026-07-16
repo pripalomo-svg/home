@@ -2,15 +2,13 @@
 
 ## Preferências da Priscila (sempre seguir)
 
-1. **Em TODA interação com a Priscila** (qualquer assunto neste repositório),
-   incluir o bloco **Links Seus** no final da resposta.
+1. **Em TODA interação com a Priscila:** resposta **rápida e resumida** + bloco **Links** no final.
+   Skill: `.cursor/skills/create-database-row/SKILL.md`
 
-2. **Quando atualizar qualquer banco** (foto, CSV, Notion, reembolsos), incluir:
-   - **✅ Banco atualizado** (módulo, o que entrou, pendências)
-   - **🔗 Ver esta atualização** — link **específico** do painel alterado (skill `.cursor/skills/link-atualizacao/SKILL.md`)
-   - Nunca omitir o link direto; a Priscila não deve pedir.
-   - Fotos/prints: skill `.cursor/skills/foto-para-banco/SKILL.md` (auto ao receber imagem)
-   - Mapa de links: `organizacao/dados/links_modulos.json`
+2. **Quando atualizar qualquer banco** (foto, CSV, Notion, nova linha):
+   - Formato curto: **✅ Atualizado** + **🔗 Ver agora** (link específico)
+   - Skills: `create-database-row`, `foto-para-banco`, `link-atualizacao`
+   - Mapa: `organizacao/dados/links_modulos.json`
 
    **Links Seus — Reembolsos**
    - 📊 Painel: https://htmlpreview.github.io/?https://raw.githubusercontent.com/pripalomo-svg/home/main/reembolsos/index.html
