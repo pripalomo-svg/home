@@ -5,11 +5,12 @@ canal no YouTube, família, pacientes, atendimentos e prontuários.
 
 ## Começar
 
-Requer somente Python 3. Não instala pacotes e não envia dados para serviços
-externos.
+Requer Python 3 e a biblioteca local usada para ler PDFs. Não envia dados para
+serviços externos.
 
 ```bash
 cd central_pessoal
+python3 -m pip install -r requirements.txt
 python3 app.py
 ```
 
@@ -36,6 +37,28 @@ inventado ou publicado no repositório.
 
 O banco também possui tabelas para prontuários e familiares. O esquema completo
 está em `schema.sql`.
+
+## Importar conversas e criar prontuários
+
+Nomeie cada PDF como `Paciente_DD_de_mes_de_AAAA_HHMM.pdf`. Sufixos
+adicionados automaticamente no upload, como `_1637`, são removidos do nome
+final.
+
+```bash
+# Importar um PDF
+python3 importar_conversas.py /caminho/Luigi_19_de_maio_de_2026_1100.pdf
+
+# Importar todos os PDFs de uma pasta
+python3 importar_conversas.py /caminho/conversas/
+```
+
+Para cada conversa, o importador:
+
+- usa um dos vinte espaços de paciente ou encontra o cadastro existente;
+- cria um atendimento realizado na data e horário do arquivo;
+- grava o texto completo no prontuário;
+- copia e indexa o PDF em `arquivos/pacientes/`;
+- atualiza a mesma sessão em uma nova execução, sem criar duplicatas.
 
 ## Pastas sugeridas
 
