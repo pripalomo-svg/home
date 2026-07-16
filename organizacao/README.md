@@ -135,7 +135,15 @@ Guia de export: [`notion/README.md`](notion/README.md)
 
 O painel já linka para o sistema de reembolsos em `../reembolsos/index.html` e a Central de Controle Familiar.
 
-## Comandos úteis
+## Como usar foto → banco
+
+Envie uma **foto ou print** no chat do Cursor. O agente usa a skill `foto-para-banco` e registra em:
+
+```bash
+python3 registrar_foto.py dados/foto_registro.json
+```
+
+Log das atualizações: `ultima_atualizacao.json`
 
 ```bash
 python3 organizacao.py status    # resumo no terminal
