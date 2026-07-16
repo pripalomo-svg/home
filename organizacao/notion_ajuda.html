@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Importar do Notion</title>
+<style>
+  body{font-family:'Segoe UI',system-ui,sans-serif;max-width:720px;margin:40px auto;padding:0 24px;color:#17203a;line-height:1.6}
+  h1{font-size:1.4rem} h1 em{color:#e94560;font-style:normal}
+  code{background:#f0f2f8;padding:2px 8px;border-radius:6px;font-size:.9em}
+  pre{background:#1a1a2e;color:#e2e8f0;padding:16px;border-radius:10px;overflow-x:auto;font-size:.85rem}
+  table{border-collapse:collapse;width:100%;margin:16px 0;font-size:.88rem}
+  th,td{border:1px solid #e6e9f2;padding:8px 12px;text-align:left}
+  th{background:#f7f8fc}
+  a{color:#7c5cde}
+  .back{display:inline-block;margin-bottom:20px;text-decoration:none;font-weight:600}
+</style>
+</head>
+<body>
+<a class="back" href="index.html">← Voltar ao painel</a>
+<h1>Importar do <em>Notion</em></h1>
+<ol>
+  <li>No Notion: abra sua database → <code>⋯</code> → <strong>Export</strong></li>
+  <li>Formato: <strong>Markdown &amp; CSV</strong></li>
+  <li>Marque <strong>Include subpages</strong> (opcional, para trazer o texto das páginas)</li>
+  <li>Extraia o ZIP na pasta <code>organizacao/notion/</code></li>
+</ol>
+<pre>python3 importar_notion.py auto notion/
+python3 gerar_dashboard.py</pre>
+<p>Ou direto do ZIP:</p>
+<pre>python3 importar_notion.py zip ~/Downloads/Export.zip</pre>
+<h2>Databases reconhecidas</h2>
+<table>
+<tr><th>Nome do arquivo</th><th>Vai para</th></tr>
+<tr><td>Pacientes, Clientes</td><td>Consultório → Pacientes</td></tr>
+<tr><td>Atendimentos, Sessões</td><td>Atendimentos</td></tr>
+<tr><td>Finanças, Gastos</td><td>Finanças</td></tr>
+<tr><td>YouTube, Vídeos</td><td>YouTube</td></tr>
+<tr><td>Agenda, Calendário</td><td>Agenda</td></tr>
+<tr><td>Projetos / Tarefas</td><td>Projetos / Tarefas</td></tr>
+</table>
+<p>Colunas em português ou inglês: <strong>Nome</strong>, <strong>Data</strong>, <strong>Status</strong>, <strong>Valor</strong>, <strong>Telefone</strong>…</p>
+<p>Arquivos <code>.md</code> do export viram <strong>notas</strong> no painel.</p>
+</body>
+</html>

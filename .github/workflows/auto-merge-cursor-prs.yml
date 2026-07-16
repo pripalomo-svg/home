@@ -1,0 +1,70 @@
+name: Auto-aprovar e mergear PRs do Cursor
+
+on:
+  pull_request_target:
+    types: [opened, synchronize, reopened, ready_for_review]
+  push:
+    branches: [main]
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  auto-merge:
+    if: >-
+      github.event_name == 'workflow_dispatch' ||
+      github.event_name == 'push' ||
+      startsWith(github.event.pull_request.head.ref, 'cursor/')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Definir números dos PRs
+        id: meta
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          if [ "${{ github.event_name }}" = "pull_request_target" ]; then
+            echo "numbers=${{ github.event.pull_request.number }}" >> "$GITHUB_OUTPUT"
+          else
+            nums=$(gh pr list --state open --json number,headRefName \
+              --jq '[.[] | select(.headRefName | startswith("cursor/")) | .number] | join(" ")')
+            echo "numbers=${nums}" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Atualizar branch com a main
+        if: steps.meta.outputs.numbers != ''
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          for n in ${{ steps.meta.outputs.numbers }}; do
+            echo "Atualizando PR #$n com a main..."
+            gh pr update-branch "$n" --rebase || gh pr update-branch "$n" || true
+          done
+
+      - name: Marcar rascunhos como prontos
+        if: steps.meta.outputs.numbers != ''
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          for n in ${{ steps.meta.outputs.numbers }}; do
+            gh pr ready "$n" || true
+          done
+
+      - name: Aprovar e mergear
+        if: steps.meta.outputs.numbers != ''
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          for n in ${{ steps.meta.outputs.numbers }}; do
+            echo "Aprovando PR #$n..."
+            gh pr review "$n" --approve 2>/dev/null || \
+              echo "Aviso: aprovação bloqueada — ative 'Allow GitHub Actions to create and approve pull requests' nas configurações do repositório"
+            echo "Mergeando PR #$n..."
+            if ! gh pr merge "$n" --squash --delete-branch --admin 2>/dev/null && \
+               ! gh pr merge "$n" --squash --delete-branch 2>/dev/null; then
+              echo "::warning::PR #$n não pôde ser mergeado (conflito ou requisitos pendentes)"
+            fi
+          done

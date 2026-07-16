@@ -1,0 +1,48 @@
+name: Lembrete diário — links do banco de reembolsos
+
+on:
+  schedule:
+    # 12:00 UTC = 09:00 em São Paulo (BRT)
+    - cron: "0 12 * * *"
+  workflow_dispatch: {}
+
+permissions:
+  issues: write
+
+jobs:
+  lembrete:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Comentar no issue de lembrete (cria se não existir)
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const titulo = "🔗 Lembrete diário — links do banco de reembolsos";
+            const corpo = [
+              "@pripalomo-svg bom dia! Seus links de hoje:",
+              "",
+              "| O quê | Link |",
+              "| --- | --- |",
+              "| 📊 Painel de visualização | https://raw.githack.com/pripalomo-svg/home/main/reembolsos/index.html |",
+              "| 🗂️ Controle editável | https://raw.githack.com/pripalomo-svg/home/main/reembolsos/controle.html |",
+              "| 📁 Pasta no GitHub | https://github.com/pripalomo-svg/home/tree/main/reembolsos |",
+              "| 💾 Banco SQLite (download) | https://github.com/pripalomo-svg/home/raw/main/reembolsos/reembolsos.db |",
+              "",
+              "_Para consolidar edições do controle no banco: exporte o JSON pelo botão ⬇️ e envie ao agente._",
+            ].join("\n");
+
+            const { owner, repo } = context.repo;
+            const issues = await github.rest.issues.listForRepo({
+              owner, repo, state: "open", creator: "github-actions[bot]", per_page: 100,
+            });
+            let issue = issues.data.find(i => i.title === titulo);
+            if (!issue) {
+              const criado = await github.rest.issues.create({
+                owner, repo, title: titulo,
+                body: "Issue fixo do lembrete diário. Um comentário novo é postado todo dia às 09:00 (horário de São Paulo). Para parar os lembretes, feche este issue e desative o workflow `lembrete-links.yml`.",
+              });
+              issue = criado.data;
+            }
+            await github.rest.issues.createComment({
+              owner, repo, issue_number: issue.number, body: corpo,
+            });

@@ -327,6 +327,21 @@ def importar_extras(conn, claim_para_id):
     )
     claim_para_id["NF1635"] = cur.lastrowid
 
+    cur = conn.execute(
+        """INSERT INTO reembolsos
+           (funcionario, beneficiario_id, prestador_id, tipo, descricao,
+            data_atendimento, valor_pago, status, situacao, origem)
+           VALUES (?, ?, ?, 'terapia', ?, '2026-06-30', 1600.0, 'solicitado', 'a enviar à Cigna', 'manual')""",
+        (
+            "Luisa Juliana Faria Ramalho de Souza",
+            get_beneficiario_id(conn, "Priscila"),
+            get_prestador_id(conn, "Wendy Paola Ramirez Molano", "901.505.418-56"),
+            "Fisioterapia — 4 aulas de R$400 (1, 8, 15 e 22/06/2026); "
+            "indicação médica: hérnia de disco lombar (relatório Dr. Alvaro Herbas Palomo, 29/06/2026)",
+        ),
+    )
+    claim_para_id["RECIBO-JUN26"] = cur.lastrowid
+
 
 # ---------------------------------------------------------------- documentos
 
@@ -337,6 +352,7 @@ DOCUMENTOS = [
     ("recibos/recibo-fisio-wendy-luisa-nov-2025-1376.pdf", "Recibo fisioterapia Wendy — Luisa — nov/2025 (R$1.376)", "recibo", "2025-11-02", "4 sessões de R$344 (3, 10, 17 e 24/11/2025)"),
     ("recibos/recibo-fisio-wendy-luisa-nov-2025-1588.pdf", "Recibo fisioterapia Wendy — Luisa — nov/2025 (R$1.588)", "recibo", "2025-11-02", "4 sessões de R$397 (3, 10, 17 e 24/11/2025)"),
     ("recibos/recibo-fisio-wendy-ana-luisa-dez-2025.pdf", "Recibo fisioterapia Wendy — Ana Luisa — dez/2025 (R$1.588)", "recibo", "2025-12-22", "4 sessões de R$397 (1, 8, 15 e 22/12/2025)"),
+    ("recibos/recibo-fisio-wendy-priscila-jun-2026.pdf", "Recibo fisioterapia Wendy — Priscila — jun/2026 (R$1.600)", "recibo", "2026-06-30", "4 aulas de R$400 (1, 8, 15 e 22/06/2026)"),
     ("eob-cigna/eob-2025-09-24.pdf", "EOB Cigna — processado em 24/09/2025", "eob", "2025-09-24", "Claims 136476032, 136492081, 136493645, 136493695, 136493708 — total BRL 8.469,43"),
     ("eob-cigna/eob-2025-11-18.pdf", "EOB Cigna — processado em 18/11/2025", "eob", "2025-11-18", "Claims 137061449, 137073556, 137076305, 137076320 — total BRL 2.929,95"),
     ("eob-cigna/eob-2026-01-17-action-required.pdf", "EOB Cigna — processado em 17/01/2026 (action required)", "eob", "2026-01-17", "Claims 137714308, 137720286, 137723876, 137716136, 137716152, 137716193 — total BRL 9.085,21"),
@@ -363,6 +379,8 @@ DOCUMENTOS = [
     ("referencia/memoria-familia-palomo.md", "Memória / glossário da família Palomo", "referencia", None, None),
     ("referencia/planilha-reembolsos-luisa-12-2025.xlsx", "Planilha de reembolsos médicos (fonte primária)", "referencia", None, None),
     ("referencia/nfse-prefeitura-sp-2026-jan-jun.csv", "NFS-e Prefeitura SP — jan a jun/2026 (CSV)", "referencia", None, None),
+    ("referencia/profissionais-cigna-notion.csv", "Diretório de profissionais — Cigna (export Notion, CSV)", "referencia", None, "Prestadores usados nos reembolsos + indicações de dermatologistas pediátricas"),
+    ("referencia/profissionais-cigna-notion.pdf", "Diretório de profissionais — Cigna (export Notion, PDF)", "referencia", None, None),
 ]
 
 # vínculos: arquivo -> lista de claims (ou chaves especiais) a que se refere
@@ -371,6 +389,8 @@ VINCULOS = {
     "recibos/recibo-fisio-wendy-joao-guilherme-out-2025.pdf": ["137076305"],
     "recibos/recibo-fisio-wendy-luisa-nov-2025-1376.pdf": ["CLM-20251111Z-02D686BE"],
     "recibos/recibo-fisio-wendy-ana-luisa-dez-2025.pdf": ["CLM-20260119Z-87D7754D"],
+    "recibos/recibo-fisio-wendy-priscila-jun-2026.pdf": ["RECIBO-JUN26"],
+    "medicos/relatorio-medico-fisioterapia-priscila-2026-06-29.pdf": ["RECIBO-JUN26"],
     "eob-cigna/eob-2025-09-24.pdf": ["136476032", "136492081", "136493645", "136493695", "136493708"],
     "eob-cigna/eob-2025-11-18.pdf": ["137061449", "137073556", "137076305", "137076320"],
     "eob-cigna/eob-2026-01-17-action-required.pdf": ["137714308", "137720286", "137723876", "137716136", "137716152", "137716193"],
@@ -499,6 +519,38 @@ def importar_eob_itens(conn, doc_ids):
             )
 
 
+# ---------------------------------------------------------------- profissionais (Notion)
+
+# (nome, especialidade, endereco, telefone, observacoes) — diretório "Profissionais — Cigna"
+PROFISSIONAIS_NOTION = [
+    ("Dra. Maria Carolina de Figueiredo", "Dermatologia pediátrica",
+     "Higienópolis (SP) / São Gualter (SP)", None,
+     "Indicação (ainda sem reembolso). Atende em clínica que o convênio atende (Higienópolis); "
+     "também na São Gualter. https://institutopalermo.med.br/dra-maria-carolina-de-figueiredo/"),
+    ("Dra. Priscila Ramos Lota", "Dermatologia pediátrica", None, None,
+     "Indicação (ainda sem reembolso); atende as meninas atualmente (Thiago leva)."),
+    ("Dra. Selma Helena", "Dermatologia pediátrica", "Moema (SP)", None,
+     'Indicação (ainda sem reembolso): "a melhor dermato pediatra de SP".'),
+    ("DERMAPED Dermatologia Pediátrica e Clínica (Dra. Carol)", "Dermatologia pediátrica", None, None,
+     "Consulta marcada para 23/06/2026, R$ 900,00 (pix/dinheiro/cheque). "
+     "Se realizada, pedir NF/recibo para solicitar reembolso."),
+]
+
+
+def importar_profissionais_notion(conn):
+    for nome, esp, end, tel, obs in PROFISSIONAIS_NOTION:
+        conn.execute(
+            """INSERT INTO prestadores (nome, especialidade, endereco, telefone, observacoes)
+               VALUES (?, ?, ?, ?, ?)
+               ON CONFLICT(nome) DO UPDATE SET
+                 especialidade = COALESCE(prestadores.especialidade, excluded.especialidade),
+                 endereco = excluded.endereco,
+                 telefone = excluded.telefone,
+                 observacoes = excluded.observacoes""",
+            (nome, esp, end, tel, obs),
+        )
+
+
 # ---------------------------------------------------------------- main
 
 def main():
@@ -509,6 +561,7 @@ def main():
     importar_extras(conn, claim_para_id)
     doc_ids = importar_documentos(conn, claim_para_id)
     importar_eob_itens(conn, doc_ids)
+    importar_profissionais_notion(conn)
     conn.commit()
 
     n_r = conn.execute("SELECT COUNT(*) FROM reembolsos").fetchone()[0]
