@@ -173,6 +173,7 @@ def dashboard(connection: sqlite3.Connection) -> dict:
 
 def list_resource(connection: sqlite3.Connection, resource: str, query: dict) -> list[dict]:
     search = query.get("q", [""])[0].strip()
+    search_connector = " WHERE "
     if resource == "projects":
         sql = """SELECT p.*, a.nome area, a.cor area_cor FROM projetos p
                  JOIN areas a ON a.id=p.area_id"""
@@ -182,6 +183,7 @@ def list_resource(connection: sqlite3.Connection, resource: str, query: dict) ->
         sql = "SELECT * FROM pessoas WHERE tipo='paciente' AND ativo=1"
         searchable = "nome || ' ' || COALESCE(telefone,'') || ' ' || COALESCE(email,'')"
         order = " ORDER BY nome"
+        search_connector = " AND "
     elif resource == "appointments":
         sql = """SELECT a.*, p.nome paciente FROM atendimentos a
                  JOIN pessoas p ON p.id=a.paciente_id"""
@@ -213,7 +215,7 @@ def list_resource(connection: sqlite3.Connection, resource: str, query: dict) ->
         order = " ORDER BY t.status, COALESCE(t.prazo,'9999-12-31')"
     params: tuple = ()
     if search:
-        sql += f" WHERE ({searchable}) LIKE ?"
+        sql += f"{search_connector}({searchable}) LIKE ?"
         params = (f"%{search}%",)
     return rows(connection, sql + order, params)
 

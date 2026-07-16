@@ -47,6 +47,8 @@ class CentralPessoalTest(unittest.TestCase):
         self.assertEqual(dashboard["totals"]["projetos"], 5)
         self.assertEqual(dashboard["totals"]["tarefas"], 4)
         self.assertEqual(len(dashboard["areas"]), 6)
+        patients = self.request("/api/patients?q=Paciente%2001")[1]
+        self.assertEqual([patient["nome"] for patient in patients], ["Paciente 01"])
 
     def test_create_and_search_project(self):
         areas = self.request("/api/areas")[1]

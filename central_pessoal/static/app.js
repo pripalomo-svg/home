@@ -334,7 +334,10 @@ $("#mobile-menu").addEventListener("click", () => $(".sidebar").classList.toggle
 $("#global-search").addEventListener("input", event => {
   if (currentView === "inicio") return;
   clearTimeout(searchTimer);
-  searchTimer = setTimeout(() => loadResource(event.target.value), 180);
+  searchTimer = setTimeout(
+    () => loadResource(event.target.value).catch(error => showToast(error.message)),
+    180,
+  );
 });
 document.addEventListener("keydown", event => {
   if (event.key === "Escape") {
