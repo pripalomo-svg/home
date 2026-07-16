@@ -36,3 +36,27 @@
   e devem ser vinculados aos claims em `importar_dados.py`.
 - Antes de adicionar documentos enviados pela usuária, conferir por hash
   (md5sum) se já não existem no repositório — ela costuma reenviar o lote inteiro.
+
+## Cursor Cloud — instruções técnicas
+
+### O que é este repositório
+Além de `reembolsos/`, há `organizacao/` e outros projetos locais. O módulo
+`reembolsos/` é um rastreador offline de reembolsos de plano de saúde (pt-BR):
+scripts Python + SQLite (`reembolsos.db`) + HTML estático (`index.html`,
+`controle.html` com localStorage).
+
+### Ambiente
+- Python 3.10+; `sqlite3` na stdlib.
+- Dependência externa: `openpyxl` (só em `importar_dados.py`).
+- Sem servidor web, API ou suite de testes configurada.
+
+### Comandos (a partir de `reembolsos/`)
+- CLI: `python3 reembolsos.py resumo` / `listar` / `add` / `atualizar` / `importar`
+- Rebuild do banco: `python3 importar_dados.py`
+- Regenerar painéis: `python3 gerar_dashboard.py && python3 gerar_controle.py`
+- UI local: `python3 -m http.server 8000` → `index.html` ou `controle.html`
+
+### Gotchas
+- `reembolsos.db`, `index.html` e `controle.html` são versionados (artefatos gerados).
+- Edições no `controle.html` ficam no localStorage; para persistir no banco, exportar
+  JSON e rodar `importar_controle.py`, depois regenerar os painéis.

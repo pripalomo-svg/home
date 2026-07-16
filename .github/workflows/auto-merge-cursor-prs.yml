@@ -60,8 +60,11 @@ jobs:
         run: |
           for n in ${{ steps.meta.outputs.numbers }}; do
             echo "Aprovando PR #$n..."
-            gh pr review "$n" --approve || true
+            gh pr review "$n" --approve 2>/dev/null || \
+              echo "Aviso: aprovação bloqueada — ative 'Allow GitHub Actions to create and approve pull requests' nas configurações do repositório"
             echo "Mergeando PR #$n..."
-            gh pr merge "$n" --squash --delete-branch --admin || \
-            gh pr merge "$n" --squash --delete-branch || true
+            if ! gh pr merge "$n" --squash --delete-branch --admin 2>/dev/null && \
+               ! gh pr merge "$n" --squash --delete-branch 2>/dev/null; then
+              echo "::warning::PR #$n não pôde ser mergeado (conflito ou requisitos pendentes)"
+            fi
           done
