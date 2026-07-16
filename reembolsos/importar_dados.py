@@ -263,6 +263,48 @@ def importar_planilha(conn):
     return claim_para_id
 
 
+# ---------------------------------------------------------------- folha McKinsey (descritivo na folha de pagamento)
+
+# (competência YYYY-MM, n_claim, valor_reembolsado BRL, data_acerto folha, observação)
+FOLHA_MCKINSEY = [
+    (
+        "2026-06",
+        "139159180",
+        0.02,
+        "2026-06-29",
+        "Folha jun/2026: reembolso R$ 0,02 sobre consulta Akaishi R$ 700 (28/04/2026); diferença R$ 699,98",
+    ),
+]
+
+
+def aplicar_folha_mckinsey(conn):
+    """Atualiza claims já na planilha com valores efetivamente pagos na folha McKinsey."""
+    for competencia, claim, v_reemb, data_acerto, obs in FOLHA_MCKINSEY:
+        row = conn.execute(
+            "SELECT id, valor_pago FROM reembolsos WHERE n_claim = ?", (claim,)
+        ).fetchone()
+        if not row:
+            continue
+        v_pago = float(row["valor_pago"] or 0)
+        if v_reemb >= v_pago - 1:
+            status = "pago"
+        elif v_reemb > 1:
+            status = "pago_parcial"
+        else:
+            status = "negado"
+        situacao = f"Acertado na folha {competencia[5:7]}/{competencia[:4]}"
+        conn.execute(
+            """UPDATE reembolsos SET
+                 valor_reembolsado = ?,
+                 data_pagamento = ?,
+                 status = ?,
+                 situacao = ?,
+                 observacoes = ?
+               WHERE id = ?""",
+            (v_reemb, data_acerto, status, situacao, obs, row["id"]),
+        )
+
+
 # ---------------------------------------------------------------- portal 2026
 
 # (paciente, valor BRL, nº submissão, CLM, data tratamento, tipo, claim na planilha ou None, obs)
@@ -381,6 +423,7 @@ DOCUMENTOS = [
     ("referencia/nfse-prefeitura-sp-2026-jan-jun.csv", "NFS-e Prefeitura SP — jan a jun/2026 (CSV)", "referencia", None, None),
     ("referencia/profissionais-cigna-notion.csv", "Diretório de profissionais — Cigna (export Notion, CSV)", "referencia", None, "Prestadores usados nos reembolsos + indicações de dermatologistas pediátricas"),
     ("referencia/profissionais-cigna-notion.pdf", "Diretório de profissionais — Cigna (export Notion, PDF)", "referencia", None, None),
+    ("referencia/folha-mckinsey-reembolsos-2026-06.pdf", "Descritivo McKinsey — reembolsos na folha jun/2026 (Luisa)", "referencia", "2026-06-29", "Claim 139159180 — Akaishi/Priscila R$700 → reembolso R$0,02"),
 ]
 
 # vínculos: arquivo -> lista de claims (ou chaves especiais) a que se refere
@@ -406,6 +449,7 @@ VINCULOS = {
     "notas-fiscais/nf-6344-dr-andre-luis-joao-guilherme-2025-11-04.pdf": ["137076320"],
     "notas-fiscais/nf-709-dr-ricardo-ciresp-joao-guilherme-2025-04-28.pdf": ["135081988"],
     "notas-fiscais/nf-6540-instituto-akaishi-priscila-2026-04-28.pdf": ["139159180"],
+    "referencia/folha-mckinsey-reembolsos-2026-06.pdf": ["139159180"],
     "notas-fiscais/nf-17553-fleury-priscila-2026-06-08.pdf": ["41142914"],
     "medicos/pedido-exames-dr-luis-anthero-priscila-2026-06-02.pdf": ["41142914"],
 }
@@ -557,6 +601,7 @@ def main():
     conn = criar_banco()
     seed_beneficiarios(conn)
     claim_para_id = importar_planilha(conn)
+    aplicar_folha_mckinsey(conn)
     importar_portal(conn, claim_para_id)
     importar_extras(conn, claim_para_id)
     doc_ids = importar_documentos(conn, claim_para_id)
