@@ -1,0 +1,36 @@
+# Instruções para agentes — repositório home (Família Palomo)
+
+## Preferências da Priscila (sempre seguir)
+
+1. **Em TODA conversa sobre reembolsos**, incluir o bloco **Links Seus** no
+   formato abaixo (sempre as duas versões do painel e do controle quando houver
+   branch de PR aberta; senão, só a principal):
+
+   **Links Seus**
+   - 📊 Painel de visualização:
+     [versão mais atual (filial do PR)](https://raw.githack.com/pripalomo-svg/home/cursor/recibo-fisio-junho-e9b5/reembolsos/index.html)
+     · [versão da principal](https://raw.githack.com/pripalomo-svg/home/main/reembolsos/index.html)
+   - 🗂️ Controle editável:
+     [versão mais atual (filial do PR)](https://raw.githack.com/pripalomo-svg/home/cursor/recibo-fisio-junho-e9b5/reembolsos/controle.html)
+     · [versão da main](https://raw.githack.com/pripalomo-svg/home/main/reembolsos/controle.html)
+   - 📁 Pasta no GitHub: https://github.com/pripalomo-svg/home/tree/main/reembolsos
+   - 💾 Banco SQLite: https://github.com/pripalomo-svg/home/raw/main/reembolsos/reembolsos.db
+
+   Branch atual do PR (atualizar ao mudar de branch): `cursor/recibo-fisio-junho-e9b5`
+2. Comunicação direta e concisa, sem elogios desnecessários (ver
+   `reembolsos/documentos/referencia/memoria-familia-palomo.md`).
+3. Existe um lembrete diário automático dos links (workflow
+   `.github/workflows/lembrete-links.yml`), que comenta todo dia às 09:00
+   (São Paulo) no issue "🔗 Lembrete diário — links do banco de reembolsos".
+   Não duplicar esse mecanismo; para parar, fechar o issue e desativar o workflow.
+
+## Sobre o banco de reembolsos (`reembolsos/`)
+
+- `reembolsos.db` (SQLite) é a fonte da verdade; `index.html` (visualização)
+  e `controle.html` (edição) são gerados a partir dele.
+- Após qualquer mudança no banco, regenerar os dois painéis:
+  `python3 importar_dados.py && python3 gerar_dashboard.py && python3 gerar_controle.py`
+- Documentos novos vão em `reembolsos/documentos/` (subpastas por categoria)
+  e devem ser vinculados aos claims em `importar_dados.py`.
+- Antes de adicionar documentos enviados pela usuária, conferir por hash
+  (md5sum) se já não existem no repositório — ela costuma reenviar o lote inteiro.

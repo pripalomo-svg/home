@@ -1,5 +1,14 @@
 # Reembolsos do Plano de Saúde — Família Palomo
 
+## 🔗 Links rápidos (abrir no navegador)
+
+| O quê | Link |
+| --- | --- |
+| **Painel de visualização** | https://raw.githack.com/pripalomo-svg/home/main/reembolsos/index.html |
+| **Controle editável** | https://raw.githack.com/pripalomo-svg/home/main/reembolsos/controle.html |
+| Pasta no GitHub | https://github.com/pripalomo-svg/home/tree/main/reembolsos |
+| Banco SQLite (download) | https://github.com/pripalomo-svg/home/raw/main/reembolsos/reembolsos.db |
+
 Banco de dados SQLite com **todos os reembolsos médicos da família** (plano
 Cigna via McKinsey, titular Luisa Juliana Faria Ramalho de Souza), com os
 documentos digitalizados (notas fiscais, recibos, EOBs) **vinculados a cada
@@ -39,6 +48,9 @@ Funciona offline e traz:
 - **Detalhe EOBs Cigna** — cada linha de serviço dos Explanation of Benefits
   (sessão a sessão, com câmbio, valores em USD e remark codes).
 - **Portal Cigna 2026** — submissões com nº de submissão e CLM.
+- **Prestadores** — diretório com todos os prestadores (claims, totais,
+  período de uso) + indicações ainda sem reembolso (dermatologistas
+  pediátricas do diretório do Notion).
 - **Resumo** — totais por beneficiário, status, prestador e ano.
 
 ## Estrutura
