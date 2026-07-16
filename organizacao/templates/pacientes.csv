@@ -1,21 +1,9 @@
 codigo;nome;telefone;email;data_nascimento;convenio;queixa_principal;status;frequencia;dia_horario;valor_sessao;data_inicio;prontuario_path;observacoes
-PAC-001;Maria Silva;(11) 98888-1111;maria@email.com;1985-03-15;particular;ansiedade social;ativo;semanal;segunda 08h;280;2025-01-10;documentos/prontuarios/PAC-001;
-PAC-002;João Santos;(11) 97777-2222;;1980-07-22;particular;fobia de avião;ativo;quinzenal;segunda 09h;300;2025-02-01;documentos/prontuarios/PAC-002;
-PAC-003;Ana Costa;(11) 96666-3333;;1992-11-08;particular;fobia de dirigir;ativo;semanal;segunda 10h;280;2025-03-05;documentos/prontuarios/PAC-003;
-PAC-004;Carlos Mendes;(11) 95555-4444;;;particular;fobia de lugares fechados;ativo;semanal;segunda 14h;280;2025-04-12;documentos/prontuarios/PAC-004;
-PAC-005;Fernanda Lima;(11) 94444-5555;;;particular;pânico;ativo;semanal;segunda 15h;280;2025-05-20;documentos/prontuarios/PAC-005;
-PAC-006;;;;;particular;;;ativo;semanal;segunda 16h;250;;;documentos/prontuarios/PAC-006
-PAC-007;;;;;particular;;;ativo;semanal;terça 08h;250;;;documentos/prontuarios/PAC-007
-PAC-008;;;;;particular;;;ativo;semanal;terça 09h;250;;;documentos/prontuarios/PAC-008
-PAC-009;;;;;particular;;;ativo;semanal;terça 10h;250;;;documentos/prontuarios/PAC-009
-PAC-010;;;;;particular;;;ativo;semanal;terça 14h;250;;;documentos/prontuarios/PAC-010
-PAC-011;;;;;particular;;;ativo;semanal;terça 15h;250;;;documentos/prontuarios/PAC-011
-PAC-012;;;;;particular;;;ativo;semanal;terça 16h;250;;;documentos/prontuarios/PAC-012
-PAC-013;;;;;particular;;;ativo;semanal;quarta 08h;250;;;documentos/prontuarios/PAC-013
-PAC-014;;;;;particular;;;ativo;semanal;quarta 09h;250;;;documentos/prontuarios/PAC-014
-PAC-015;;;;;particular;;;ativo;semanal;quarta 10h;250;;;documentos/prontuarios/PAC-015
-PAC-016;;;;;particular;;;ativo;semanal;quinta 08h;250;;;documentos/prontuarios/PAC-016
-PAC-017;;;;;particular;;;ativo;quinzenal;quinta 09h;280;;;documentos/prontuarios/PAC-017
-PAC-018;;;;;particular;;;ativo;quinzenal;quinta 10h;280;;;documentos/prontuarios/PAC-018
-PAC-019;;;;;particular;;;ativo;quinzenal;sexta 08h;280;;;documentos/prontuarios/PAC-019
-PAC-020;;;;;particular;;;ativo;quinzenal;sexta 09h;280;;;documentos/prontuarios/PAC-020
+PAC-001;Maria José;;;;particular;família Augusto/Figueiredo;ativo;semanal;a confirmar;280;2025-12-16;documentos/prontuarios/PAC-001;Notion — sessões 16/12/2025 e 26/02/2026
+PAC-002;Beatriz Jubilut;;;;particular;ansiedade/TDAH familiar;ativo;semanal;online recorrente;280;2026-01-19;documentos/prontuarios/PAC-002;Notion — Bia — online semanal
+PAC-003;Luigi Caloi;;;;particular;estado emocional;ativo;semanal;presencial recorrente;280;2025-11-01;documentos/prontuarios/PAC-003;Notion — presencial semanal
+PAC-004;Fernando de Castro;;;;particular;trabalho/autoestima;ativo;semanal;online recorrente;280;2025-12-12;documentos/prontuarios/PAC-004;Notion — online
+PAC-005;Felipe Zandona Barbosa;;;;particular;a definir;ativo;semanal;online recorrente;280;2025-12-16;documentos/prontuarios/PAC-005;Notion — Fê — online semanal
+PAC-006;Monica Mattos Fernandes;;;;particular;autoimagem pós-aposentadoria;ativo;semanal;online recorrente;280;2025-12-11;documentos/prontuarios/PAC-006;Notion — online semanal
+PAC-007;Luís Octavio Almeida;;;;particular;conflitos internos;ativo;quinzenal;a confirmar;280;2026-01-29;documentos/prontuarios/PAC-007;Notion — sessões 16/04 e 14/05/2026
+PAC-008;Gabriel Gasparetto;;;;particular;a definir;ativo;semanal;a confirmar;280;2025-12-12;documentos/prontuarios/PAC-008;Notion — sessões 12/12 20/02 27/05/2026

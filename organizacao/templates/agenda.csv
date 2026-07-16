@@ -1,7 +1,9 @@
 titulo;data_inicio;hora_inicio;data_fim;hora_fim;tipo;paciente_codigo;local;status;notas
-Sessão Maria Silva;2026-07-21;08:00;;;atendimento;PAC-001;Consultório;confirmado;
-Sessão João Santos;2026-07-21;09:00;;;atendimento;PAC-002;Consultório;confirmado;
-Sessão Ana Costa;2026-07-22;10:00;;;atendimento;PAC-003;Consultório;confirmado;
-Consulta oftalmologista JG;2026-07-18;09:00;;;medico;;Dr. Marcelo;confirmado;Levar exames
-Gravar vídeo YouTube;2026-07-20;10:00;2026-07-20;13:00;youtube;;Estúdio;tentativo;
-Reunião escola Ana Luisa;2026-07-23;19:00;;;familia;;Escola;confirmado;
+Sessão Maria José;2026-07-21;10:00;;;atendimento;PAC-001;Consultório/Online;confirmado;Importado Notion
+Sessão Beatriz Jubilut;2026-07-21;14:00;;;atendimento;PAC-002;Online;confirmado;Bia — online semanal
+Sessão Luigi Caloi;2026-07-21;11:00;;;atendimento;PAC-003;Consultório;confirmado;Presencial semanal
+Sessão Fernando de Castro;2026-07-22;09:00;;;atendimento;PAC-004;Online;confirmado;
+Sessão Felipe Zandona;2026-07-22;15:00;;;atendimento;PAC-005;Online;confirmado;Fê
+Sessão Monica Mattos;2026-07-22;16:00;;;atendimento;PAC-006;Online;confirmado;
+Sessão Luís Octavio;2026-07-23;10:00;;;atendimento;PAC-007;Online;confirmado;
+Sessão Gabriel Gasparetto;2026-07-23;13:00;;;atendimento;PAC-008;Consultório;confirmado;

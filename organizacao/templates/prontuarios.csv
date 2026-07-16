@@ -1,3 +1,5 @@
 paciente_codigo;data_registro;tipo;titulo;conteudo;arquivo
-PAC-001;2026-07-08;evolucao;Sessão 12;Paciente relatou redução da ansiedade em situações sociais. Trabalhamos exposição gradual.;documentos/prontuarios/PAC-001/2026-07-08-evolucao.pdf
-PAC-002;2026-06-20;anamnese;Anamnese inicial;Histórico de fobia específica de avião desde adolescência. Sem medicação atual.;documentos/prontuarios/PAC-002/anamnese.pdf
+PAC-003;2026-01-20;evolucao;Sessão 20/01/2026;Entrevistas acadêmicas (Chicago, Insper). Novo relacionamento com Jasmine (fluido, seguro). Comparação com Gabi.;
+PAC-003;2025-11-01;evolucao;Sessão nov/2025;Paciente ativo com sessões semanais presenciais. Estado emocional.;
+PAC-006;2026-06-10;evolucao;Sessão 10/06/2026;Futuro, autoimagem e vida pós-aposentadoria. Metas clínica/creche.;
+PAC-001;2025-12-16;evolucao;Sessão 16/12/2025;Apoio contínuo a Maria José e família (Augusto, Figueiredo).;
