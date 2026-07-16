@@ -8,21 +8,23 @@
 
    **Links Seus**
    - 📊 Painel de visualização:
-     [versão mais atual (filial do PR)](https://raw.githack.com/pripalomo-svg/home/cursor/recibo-fisio-junho-e9b5/reembolsos/index.html)
-     · [versão da principal](https://raw.githack.com/pripalomo-svg/home/main/reembolsos/index.html)
+     https://raw.githack.com/pripalomo-svg/home/main/reembolsos/index.html
    - 🗂️ Controle editável:
-     [versão mais atual (filial do PR)](https://raw.githack.com/pripalomo-svg/home/cursor/recibo-fisio-junho-e9b5/reembolsos/controle.html)
-     · [versão da main](https://raw.githack.com/pripalomo-svg/home/main/reembolsos/controle.html)
+     https://raw.githack.com/pripalomo-svg/home/main/reembolsos/controle.html
    - 📁 Pasta no GitHub: https://github.com/pripalomo-svg/home/tree/main/reembolsos
    - 💾 Banco SQLite: https://github.com/pripalomo-svg/home/raw/main/reembolsos/reembolsos.db
 
-   Branch atual do PR (atualizar ao mudar de branch): `cursor/recibo-fisio-junho-e9b5`
+   Branch atual do PR (atualizar ao mudar de branch): nenhuma aberta no momento
+   (PR #7 mergeado na main)
 2. Comunicação direta e concisa, sem elogios desnecessários (ver
    `reembolsos/documentos/referencia/memoria-familia-palomo.md`).
 3. Existe um lembrete diário automático dos links (workflow
    `.github/workflows/lembrete-links.yml`), que comenta todo dia às 09:00
    (São Paulo) no issue "🔗 Lembrete diário — links do banco de reembolsos".
    Não duplicar esse mecanismo; para parar, fechar o issue e desativar o workflow.
+4. **PRs do Cursor** (`cursor/*`): aprovar e mergear automaticamente, sem pedir
+   permissão manual. Workflow: `.github/workflows/auto-merge-cursor-prs.yml`.
+   Política: `APPROVAL_POLICY.md` e `.cursor/approval-policies/ROUTING.md`.
 
 ## Sobre o banco de reembolsos (`reembolsos/`)
 
