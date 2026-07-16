@@ -25,6 +25,7 @@
 4. **PRs do Cursor** (`cursor/*`): aprovar e mergear automaticamente, sem pedir
    permissão manual. Workflow: `.github/workflows/auto-merge-cursor-prs.yml`.
    Política: `APPROVAL_POLICY.md` e `.cursor/approval-policies/ROUTING.md`.
+   Template para outros repositórios: `scripts/github-auto-merge/`.
 
 ## Sobre o banco de reembolsos (`reembolsos/`)
 
