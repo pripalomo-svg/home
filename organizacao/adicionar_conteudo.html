@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Como adicionar conteúdo · Central de Organização</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Segoe UI',system-ui,sans-serif;background:#f4f6fb;color:#17203a;line-height:1.65;max-width:820px;margin:0 auto;padding:24px 20px 60px}
+  h1{font-size:1.5rem;margin-bottom:6px} h1 em{color:#e94560;font-style:normal}
+  .sub{color:#8a93a8;font-size:.88rem;margin-bottom:24px}
+  .nav-top{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:24px}
+  .nav-top a{background:#fff;color:#7c5cde;padding:8px 14px;border-radius:8px;text-decoration:none;font-size:.82rem;font-weight:600;box-shadow:0 1px 4px rgba(0,0,0,.06)}
+  .nav-top a:hover{background:#7c5cde;color:#fff}
+  .bloco{background:#fff;border-radius:14px;padding:20px 22px;margin-bottom:16px;box-shadow:0 1px 8px rgba(0,0,0,.06);border-left:5px solid #7c5cde}
+  .bloco.ver{border-color:#22c55e}.bloco.az{border-color:#3b82f6}.bloco.lar{border-color:#f59e0b}
+  h2{font-size:1.05rem;margin-bottom:10px}
+  ol,ul{padding-left:20px;margin:8px 0}
+  li{margin:6px 0}
+  code{background:#eef0f7;padding:2px 8px;border-radius:6px;font-size:.86em;color:#7c5cde}
+  pre{background:#1a1a2e;color:#e2e8f0;padding:14px 16px;border-radius:10px;font-size:.8rem;overflow-x:auto;margin:10px 0}
+  .btn{display:inline-block;background:#7c5cde;color:#fff;padding:9px 16px;border-radius:8px;text-decoration:none;font-weight:700;font-size:.84rem;margin:4px 6px 4px 0}
+  .btn-g{background:#22c55e}.btn-b{background:#3b82f6}
+  table{width:100%;border-collapse:collapse;font-size:.85rem;margin:12px 0}
+  th,td{border:1px solid #e6e9f2;padding:8px 12px;text-align:left}
+  th{background:#f7f8fc;font-size:.72rem;text-transform:uppercase;color:#8a93a8}
+  .dica{background:#fffbeb;border:1px solid #fde68a;border-radius:10px;padding:14px 16px;font-size:.85rem;margin:20px 0}
+</style>
+</head>
+<body>
+
+<h1>➕ Como <em>adicionar conteúdo</em></h1>
+<p class="sub">Escolha o que quer cadastrar · edite → atualize → veja no painel</p>
+
+<div class="nav-top">
+  <a href="links.html">🔗 Todos os links</a>
+  <a href="index.html">🏠 Painel</a>
+  <a href="como_usar.html">❓ Guia completo</a>
+  <a href="cadastro_pacientes.html">✏️ Pacientes (formulário)</a>
+</div>
+
+<div class="dica">
+  <b>Fluxo sempre igual:</b> (1) edite o arquivo → (2) duplo-clique em <code>ATUALIZAR.bat</code> → (3) abra <code>index.html</code> e aperte F5
+</div>
+
+<div class="bloco ver" id="pacientes">
+  <h2>🧠 Pacientes do consultório</h2>
+  <p><b>Jeito fácil (sem planilha):</b></p>
+  <ol>
+    <li>Abra <a href="cadastro_pacientes.html"><code>cadastro_pacientes.html</code></a></li>
+    <li>Preencha nome, telefone, queixa</li>
+    <li>Clique <b>Exportar CSV</b> → salve em <code>templates/pacientes.csv</code></li>
+    <li>Duplo-clique em <code>ATUALIZAR.bat</code></li>
+  </ol>
+  <p><b>Ou edite a planilha:</b> <a href="templates/pacientes.csv"><code>templates/pacientes.csv</code></a></p>
+  <a class="btn btn-g" href="cadastro_pacientes.html">Abrir formulário</a>
+</div>
+
+<div class="bloco az" id="atendimentos">
+  <h2>📅 Sessões / atendimentos</h2>
+  <ol>
+    <li>Edite <a href="templates/atendimentos.csv"><code>templates/atendimentos.csv</code></a></li>
+    <li>Colunas: paciente, data, hora, status, valor</li>
+    <li>Rode <code>ATUALIZAR.bat</code></li>
+  </ol>
+  <p><b>Do Notion automaticamente:</b> duplo-clique em <code>SINCRONIZAR_NOTION.bat</code></p>
+  <a class="btn btn-b" href="notion/COMO_CONFIGURAR_API.md">Configurar Notion</a>
+</div>
+
+<div class="bloco" id="agenda">
+  <h2>🗓️ Agenda da semana</h2>
+  <ol>
+    <li>Edite <a href="templates/agenda.csv"><code>templates/agenda.csv</code></a></li>
+    <li>Rode <code>ATUALIZAR.bat</code></li>
+  </ol>
+</div>
+
+<div class="bloco lar" id="financas">
+  <h2>💰 Finanças (receitas e despesas)</h2>
+  <ol>
+    <li>Edite <a href="templates/financas.csv"><code>templates/financas.csv</code></a></li>
+    <li>Uma linha por lançamento — use <code>;</code> entre colunas</li>
+    <li>Rode <code>ATUALIZAR.bat</code></li>
+  </ol>
+</div>
+
+<div class="bloco ver" id="investimentos">
+  <h2>📈 Investimentos</h2>
+  <ol>
+    <li>Edite <a href="templates/investimentos.csv"><code>templates/investimentos.csv</code></a></li>
+    <li>Rode <code>ATUALIZAR.bat</code></li>
+    <li>Veja projeção em <a href="investimentos.html"><code>investimentos.html</code></a></li>
+  </ol>
+  <a class="btn btn-g" href="investimentos.html">Abrir painel</a>
+</div>
+
+<div class="bloco" id="youtube">
+  <h2>▶️ YouTube</h2>
+  <ol>
+    <li>Edite <a href="templates/youtube_videos.csv"><code>templates/youtube_videos.csv</code></a></li>
+    <li>Rode <code>ATUALIZAR.bat</code></li>
+  </ol>
+</div>
+
+<div class="bloco az" id="prontuarios">
+  <h2>📋 Prontuários (PDF)</h2>
+  <ol>
+    <li>Coloque PDFs em <code>documentos/prontuarios/PAC-001/</code> (uma pasta por paciente)</li>
+    <li>Ou edite <a href="templates/prontuarios.csv"><code>templates/prontuarios.csv</code></a></li>
+    <li>Rode <code>ATUALIZAR.bat</code></li>
+  </ol>
+</div>
+
+<h2 style="margin:24px 0 12px;font-size:1rem">Resumo — qual arquivo editar?</h2>
+<table>
+  <tr><th>Quero adicionar…</th><th>Arquivo</th><th>Depois</th></tr>
+  <tr><td>Paciente</td><td><code>templates/pacientes.csv</code> ou formulário</td><td>ATUALIZAR.bat</td></tr>
+  <tr><td>Sessão realizada</td><td><code>templates/atendimentos.csv</code> ou Notion</td><td>ATUALIZAR / SINCRONIZAR</td></tr>
+  <tr><td>Compromisso</td><td><code>templates/agenda.csv</code></td><td>ATUALIZAR.bat</td></tr>
+  <tr><td>Gasto ou receita</td><td><code>templates/financas.csv</code></td><td>ATUALIZAR.bat</td></tr>
+  <tr><td>Investimento</td><td><code>templates/investimentos.csv</code></td><td>ATUALIZAR.bat</td></tr>
+  <tr><td>Vídeo YouTube</td><td><code>templates/youtube_videos.csv</code></td><td>ATUALIZAR.bat</td></tr>
+</table>
+
+<p style="margin-top:24px">
+  <a class="btn" href="links.html">🔗 Todos os links</a>
+  <a class="btn" href="index.html">← Painel principal</a>
+</p>
+
+</body>
+</html>

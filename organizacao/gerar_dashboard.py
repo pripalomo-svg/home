@@ -135,6 +135,8 @@ TEMPLATE = r"""<!DOCTYPE html>
   </div>
   <span class="badge" id="dataHoje"></span>
   <div style="display:flex;gap:8px;flex-wrap:wrap">
+    <a href="links.html" style="font-size:.78rem;color:#fff;background:rgba(124,92,222,.35);padding:6px 14px;border-radius:8px;text-decoration:none;font-weight:600;border:1px solid rgba(124,92,222,.5)">🔗 Links</a>
+    <a href="adicionar_conteudo.html" style="font-size:.78rem;color:#fff;background:rgba(34,197,94,.35);padding:6px 14px;border-radius:8px;text-decoration:none;font-weight:600;border:1px solid rgba(34,197,94,.5)">➕ Adicionar</a>
     <a href="cadastro_pacientes.html" style="font-size:.78rem;color:#fff;background:rgba(255,255,255,.12);padding:6px 14px;border-radius:8px;text-decoration:none;font-weight:600">✏️ Cadastrar pacientes</a>
     <a href="como_usar.html" style="font-size:.78rem;color:#fff;background:rgba(34,197,94,.25);padding:6px 14px;border-radius:8px;text-decoration:none;font-weight:600;border:1px solid rgba(34,197,94,.4)">❓ Como usar</a>
     <a href="investimentos.html" style="font-size:.78rem;color:#fff;background:rgba(255,255,255,.12);padding:6px 14px;border-radius:8px;text-decoration:none;font-weight:600">📈 Investimentos</a>
