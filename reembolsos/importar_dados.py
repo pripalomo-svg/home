@@ -291,7 +291,8 @@ def aplicar_folha_mckinsey(conn):
         elif v_reemb > 1:
             status = "pago_parcial"
         else:
-            status = "negado"
+            # Acertado na folha McKinsey (incl. reembolso simbólico) — processo encerrado como pago
+            status = "pago"
         situacao = f"Acertado na folha {competencia[5:7]}/{competencia[:4]}"
         conn.execute(
             """UPDATE reembolsos SET
