@@ -15,10 +15,14 @@ git push
 
 ## Configuração no GitHub (uma vez por repositório)
 
-1. **Settings → Actions → General** → ativar
-   **"Allow GitHub Actions to create and approve pull requests"**
-2. **Settings → Applications → Cursor** → garantir que o app tem acesso ao
-   repositório (necessário para agentes Cloud fazerem push)
+1. **Settings → Actions → General → Workflow permissions**
+   - *Read and write permissions*
+   - ✅ **Allow GitHub Actions to create and approve pull requests**
+   - Link direto: `https://github.com/OWNER/REPO/settings/actions` (trocar OWNER/REPO)
+
+2. **Settings → Applications → Cursor** → marcar o repositório.
+
+O workflow roda ao abrir/atualizar PR `cursor/*`, a cada **hora** (cron) e após push na `main`.
 
 ## Repositórios da Priscila
 
