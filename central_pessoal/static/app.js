@@ -159,7 +159,7 @@ async function loadDashboard() {
 function rowMarkup(resource, item) {
   if (resource === "projects") return row(item.nome, item.proxima_acao || item.descricao, item.area, labels[item.status], item.prazo ? prettyDate(item.prazo) : "Sem prazo");
   if (resource === "tasks") return row(item.titulo, item.observacoes, item.area || "Geral", labels[item.status], item.prazo ? prettyDate(item.prazo) : "Sem prazo", `<button class="row-action" data-complete="${item.id}">Concluir</button>`);
-  if (resource === "patients") return row(item.nome, item.observacoes, item.telefone || "Sem telefone", item.email || "Sem e-mail", "", `<button class="row-action" data-record="${item.id}">＋ Prontuário</button>`);
+  if (resource === "patients") return row(item.nome, item.observacoes, item.telefone || "Sem telefone", item.email || "Sem e-mail", "", `<button class="row-action" data-history="${item.id}" data-patient-name="${esc(item.nome)}">Ver prontuário</button> <button class="row-action" data-record="${item.id}">＋ Registro</button>`);
   if (resource === "appointments") return row(item.paciente, item.observacoes, prettyDate(item.data_hora, true), item.tipo, labels[item.status]);
   if (resource === "finances") return row(item.descricao, item.observacoes, item.categoria, labels[item.status], money(item.valor), `<span class="${item.tipo === "receita" ? "positive" : "negative"}">${esc(labels[item.tipo])}</span>`);
   if (resource === "files") return row(item.nome, item.caminho, item.area, item.categoria, item.tags || "Sem tags");
@@ -251,6 +251,22 @@ function closeModal() {
   $("#item-form").reset();
 }
 
+async function openHistory(patientId, patientName) {
+  const records = (await api(`records?q=${encodeURIComponent(patientName)}`))
+    .filter(record => record.paciente_id === Number(patientId));
+  $("#history-title").textContent = patientName;
+  $("#history-content").innerHTML = records.length ? records.map(record => `
+    <details class="record-entry">
+      <summary><h3>${esc(record.titulo)}</h3><time>${prettyDate(record.data_registro)}</time></summary>
+      <div class="record-text">${esc(record.conteudo)}</div>
+    </details>`).join("") : empty("Nenhum registro neste prontuário.");
+  $("#history-overlay").classList.add("open");
+}
+
+function closeHistory() {
+  $("#history-overlay").classList.remove("open");
+}
+
 async function submitForm(event) {
   event.preventDefault();
   const formData = new FormData(event.currentTarget);
@@ -291,6 +307,7 @@ document.addEventListener("click", async event => {
   const go = event.target.closest("[data-go]");
   const complete = event.target.closest("[data-complete]");
   const record = event.target.closest("[data-record]");
+  const history = event.target.closest("[data-history]");
   if (nav) navigate(nav.dataset.view);
   if (go) navigate(go.dataset.go);
   if (complete) {
@@ -299,6 +316,7 @@ document.addEventListener("click", async event => {
     currentView === "inicio" ? await loadDashboard() : await loadResource($("#global-search").value);
   }
   if (record) openModal("records", {paciente_id: record.dataset.record});
+  if (history) openHistory(history.dataset.history, history.dataset.patientName);
 });
 
 $("#new-button").addEventListener("click", () => {
@@ -309,6 +327,8 @@ $("#page-new").addEventListener("click", () => openModal());
 $("#modal-close").addEventListener("click", closeModal);
 $("#modal-cancel").addEventListener("click", closeModal);
 $("#modal-overlay").addEventListener("click", event => { if (event.target === event.currentTarget) closeModal(); });
+$("#history-close").addEventListener("click", closeHistory);
+$("#history-overlay").addEventListener("click", event => { if (event.target === event.currentTarget) closeHistory(); });
 $("#item-form").addEventListener("submit", submitForm);
 $("#mobile-menu").addEventListener("click", () => $(".sidebar").classList.toggle("open"));
 $("#global-search").addEventListener("input", event => {
@@ -316,7 +336,12 @@ $("#global-search").addEventListener("input", event => {
   clearTimeout(searchTimer);
   searchTimer = setTimeout(() => loadResource(event.target.value), 180);
 });
-document.addEventListener("keydown", event => { if (event.key === "Escape") closeModal(); });
+document.addEventListener("keydown", event => {
+  if (event.key === "Escape") {
+    closeModal();
+    closeHistory();
+  }
+});
 
 const now = new Date();
 $("#today-label").textContent = now.toLocaleDateString("pt-BR", {weekday: "long", day: "numeric", month: "long"}).toUpperCase();

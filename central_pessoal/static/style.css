@@ -134,6 +134,16 @@ h1 { font-size: 27px; letter-spacing: -.035em; }
 .form-error { min-height: 16px; margin: 12px 0 0; color: #c84f5b; font-size: 10px; }
 .modal-actions { display: flex; justify-content: flex-end; gap: 9px; padding-top: 7px; }
 .modal-actions .primary { margin: 0; }
+.history-modal { width: min(760px, 100%); }
+.record-entry { padding: 16px 0; border-top: 1px solid var(--line); }
+.record-entry:first-child { padding-top: 0; border-top: 0; }
+.record-entry summary { cursor: pointer; list-style: none; }
+.record-entry summary::-webkit-details-marker { display: none; }
+.record-entry summary::after { content: "＋"; float: right; color: var(--accent); font-weight: 800; }
+.record-entry[open] summary::after { content: "−"; }
+.record-entry h3 { margin: 0; font-size: 13px; }
+.record-entry time { display: block; margin-top: 4px; color: var(--muted); font-size: 10px; }
+.record-text { max-height: 48vh; margin: 14px 0 0; padding: 14px; overflow: auto; border-radius: 9px; color: #46515c; background: #f6f7f9; white-space: pre-wrap; font-size: 11px; line-height: 1.55; }
 .toast { position: fixed; right: 25px; bottom: 25px; padding: 11px 15px; border-radius: 9px; color: #fff; background: #17212b; font-size: 11px; opacity: 0; transform: translateY(8px); transition: .2s; pointer-events: none; z-index: 30; }
 .toast.show { opacity: 1; transform: translateY(0); }
 
