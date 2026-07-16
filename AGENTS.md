@@ -5,9 +5,12 @@
 1. **Em TODA interação com a Priscila** (qualquer assunto neste repositório),
    incluir o bloco **Links Seus** no final da resposta.
 
-2. **Quando atualizar qualquer banco** (foto, CSV, Notion, reembolsos), incluir
-   também o bloco **✅ Banco atualizado** com módulo, o que entrou e pendências.
-   Usar skill `.cursor/skills/foto-para-banco/SKILL.md` para fotos/prints.
+2. **Quando atualizar qualquer banco** (foto, CSV, Notion, reembolsos), incluir:
+   - **✅ Banco atualizado** (módulo, o que entrou, pendências)
+   - **🔗 Ver esta atualização** — link **específico** do painel alterado (skill `.cursor/skills/link-atualizacao/SKILL.md`)
+   - Nunca omitir o link direto; a Priscila não deve pedir.
+   - Fotos: skill `.cursor/skills/foto-para-banco/SKILL.md`
+   - Mapa de links: `organizacao/dados/links_modulos.json`
 
    **Links Seus — Reembolsos**
    - 📊 Painel: https://htmlpreview.github.io/?https://raw.githubusercontent.com/pripalomo-svg/home/main/reembolsos/index.html

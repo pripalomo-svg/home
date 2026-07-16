@@ -19,6 +19,7 @@ from pathlib import Path
 BASE = Path(__file__).resolve().parent
 DB = BASE / "organizacao.db"
 LOG = BASE / "ultima_atualizacao.json"
+LINKS_CFG = BASE / "dados" / "links_modulos.json"
 
 MODULOS_CSV = {
     "financas": BASE / "templates" / "financas.csv",
@@ -34,7 +35,23 @@ def conectar():
     return conn
 
 
+def link_modulo(modulo: str) -> dict:
+    if not LINKS_CFG.exists():
+        return {"titulo": modulo, "link_painel": "", "arquivo_pc": ""}
+    cfg = json.loads(LINKS_CFG.read_text(encoding="utf-8"))
+    base = cfg.get("base", "")
+    info = cfg.get("modulos", {}).get(modulo) or cfg.get("modulos", {}).get("nota", {})
+    link = (info.get("link_painel") or "").replace("{base}", base)
+    return {
+        "titulo": info.get("titulo", modulo),
+        "link_painel": link,
+        "arquivo_pc": info.get("arquivo_pc", ""),
+        "planilha": info.get("planilha", ""),
+    }
+
+
 def salvar_log(payload: dict, resultado: dict):
+    links = link_modulo(payload.get("modulo", "nota"))
     entrada = {
         "quando": datetime.now().isoformat(timespec="seconds"),
         "fonte": payload.get("fonte", "foto"),
@@ -42,6 +59,9 @@ def salvar_log(payload: dict, resultado: dict):
         "modulo": payload.get("modulo"),
         "registros": resultado.get("registros", []),
         "pendentes": resultado.get("pendentes", []),
+        "link_ver": links.get("link_painel"),
+        "titulo_painel": links.get("titulo"),
+        "arquivo_pc": links.get("arquivo_pc"),
     }
     historico = []
     if LOG.exists():
@@ -229,6 +249,9 @@ def main():
         if resultado["pendentes"]:
             print(f"  Pendentes: {', '.join(resultado['pendentes'])}")
         print(f"  Log: {LOG.name}")
+        links = link_modulo(modulo)
+        if links.get("link_painel"):
+            print(f"  Ver: {links['link_painel']}")
 
     finally:
         conn.close()

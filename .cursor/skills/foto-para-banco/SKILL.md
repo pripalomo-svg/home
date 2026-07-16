@@ -20,9 +20,10 @@ Ative esta skill sempre que a Priscila enviar:
 3. **Salvar registro** em `organizacao/dados/foto_registro.json` (criar se não existir)
 4. **Rodar** `python3 organizacao/registrar_foto.py organizacao/dados/foto_registro.json`
 5. **Commit + push** se estiver em cloud agent
-6. **Responder sempre com:**
-   - bloco **✅ Banco atualizado** (o que entrou, onde, campos preenchidos e o que faltou)
-   - bloco **Links Seus** (reembolsos + organização — ver `AGENTS.md`)
+6. **Responder sempre com** (ver também skill `link-atualizacao`):
+   - bloco **✅ Banco atualizado**
+   - bloco **🔗 Ver esta atualização** com link **específico** do módulo (tabela em `link-atualizacao/SKILL.md`)
+   - bloco **Links Seus** (catálogo geral)
 
 ## Roteamento — qual banco?
 

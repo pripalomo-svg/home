@@ -1,0 +1,88 @@
+{
+  "base": "https://htmlpreview.github.io/?https://raw.githubusercontent.com/pripalomo-svg/home/main",
+  "modulos": {
+    "investimentos": {
+      "titulo": "Investimentos",
+      "link_painel": "{base}/organizacao/investimentos.html",
+      "link_indice": "{base}/organizacao/index.html#invest",
+      "arquivo_pc": "organizacao/investimentos.html",
+      "planilha": "organizacao/templates/investimentos.csv",
+      "log": "organizacao/ultima_atualizacao.json"
+    },
+    "financas": {
+      "titulo": "Finanças",
+      "link_painel": "{base}/organizacao/index.html#financas",
+      "arquivo_pc": "organizacao/index.html",
+      "planilha": "organizacao/templates/financas.csv",
+      "log": "organizacao/ultima_atualizacao.json"
+    },
+    "pacientes": {
+      "titulo": "Pacientes",
+      "link_painel": "{base}/organizacao/cadastro_pacientes.html",
+      "link_indice": "{base}/organizacao/index.html#consultorio",
+      "arquivo_pc": "organizacao/cadastro_pacientes.html",
+      "planilha": "organizacao/templates/pacientes.csv",
+      "log": "organizacao/ultima_atualizacao.json"
+    },
+    "consultorio": {
+      "titulo": "Consultório",
+      "link_painel": "{base}/organizacao/index.html#consultorio",
+      "arquivo_pc": "organizacao/index.html",
+      "planilha": "organizacao/templates/pacientes.csv",
+      "log": "organizacao/ultima_atualizacao.json"
+    },
+    "atendimentos": {
+      "titulo": "Atendimentos / sessões",
+      "link_painel": "{base}/organizacao/index.html#consultorio",
+      "arquivo_pc": "organizacao/index.html",
+      "planilha": "organizacao/templates/atendimentos.csv",
+      "log": "organizacao/ultima_atualizacao.json"
+    },
+    "agenda": {
+      "titulo": "Agenda",
+      "link_painel": "{base}/organizacao/index.html#agenda",
+      "arquivo_pc": "organizacao/index.html",
+      "planilha": "organizacao/templates/agenda.csv",
+      "log": "organizacao/ultima_atualizacao.json"
+    },
+    "youtube": {
+      "titulo": "YouTube",
+      "link_painel": "{base}/organizacao/index.html#youtube",
+      "arquivo_pc": "organizacao/index.html",
+      "planilha": "organizacao/templates/youtube_videos.csv",
+      "log": "organizacao/ultima_atualizacao.json"
+    },
+    "projetos": {
+      "titulo": "Projetos",
+      "link_painel": "{base}/organizacao/index.html#projetos",
+      "arquivo_pc": "organizacao/index.html",
+      "planilha": "organizacao/templates/projetos.csv",
+      "log": "organizacao/ultima_atualizacao.json"
+    },
+    "arquivo": {
+      "titulo": "Arquivos",
+      "link_painel": "{base}/organizacao/index.html#arquivos",
+      "arquivo_pc": "organizacao/index.html",
+      "log": "organizacao/ultima_atualizacao.json"
+    },
+    "nota": {
+      "titulo": "Notas",
+      "link_painel": "{base}/organizacao/index.html#visao",
+      "arquivo_pc": "organizacao/index.html",
+      "log": "organizacao/ultima_atualizacao.json"
+    },
+    "reembolsos": {
+      "titulo": "Reembolsos Cigna",
+      "link_painel": "{base}/reembolsos/index.html",
+      "link_controle": "{base}/reembolsos/controle.html",
+      "arquivo_pc": "reembolsos/index.html",
+      "log": "reembolsos/reembolsos.db"
+    },
+    "notion": {
+      "titulo": "Sincronização Notion",
+      "link_painel": "{base}/organizacao/index.html#consultorio",
+      "arquivo_pc": "organizacao/index.html",
+      "log": "organizacao/notion/ultima_sincronizacao.json"
+    }
+  }
+}

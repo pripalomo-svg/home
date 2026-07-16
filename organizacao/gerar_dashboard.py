@@ -308,12 +308,15 @@ const ico = t => ({pdf:'📄',xlsx:'📊',csv:'📈',html:'🌐',doc:'📝',img:
 $('#dataHoje').textContent = new Date().toLocaleDateString('pt-BR',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
 
 // Nav
-$$('.nav-tab').forEach(t => t.onclick = () => {
-  $$('.nav-tab').forEach(x=>x.classList.remove('on'));
-  $$('.section').forEach(x=>x.classList.remove('on'));
-  t.classList.add('on');
-  $('#sec-'+t.dataset.sec).classList.add('on');
-});
+function showSec(sec) {
+  $$('.nav-tab').forEach(x => x.classList.toggle('on', x.dataset.sec === sec));
+  $$('.section').forEach(x => x.classList.remove('on'));
+  const el = $('#sec-' + sec);
+  if (el) el.classList.add('on');
+}
+$$('.nav-tab').forEach(t => t.onclick = () => showSec(t.dataset.sec));
+const hashSec = (location.hash || '').replace('#', '');
+if (hashSec && $('#sec-' + hashSec)) showSec(hashSec);
 
 const dash = D.dashboard;
 
