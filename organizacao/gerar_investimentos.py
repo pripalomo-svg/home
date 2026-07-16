@@ -134,7 +134,7 @@ TEMPLATE = r"""<!DOCTYPE html>
 <header>
   <div>
     <h1>Carteira de <em>Investimentos</em></h1>
-    <p>Aplicações pessoais de Priscila Palomo (sem relação com pacientes) · Atualizado em <span id="dataRef"></span></p>
+    <p>Priscila Palomo · Atualizado em <span id="dataRef"></span></p>
   </div>
   <div class="links">
     <a href="index.html">← Organização</a>
@@ -154,7 +154,7 @@ TEMPLATE = r"""<!DOCTYPE html>
       <div class="panel-sub">Edite <code style="color:var(--green)">templates/investimentos.csv</code> e rode <code style="color:var(--green)">python3 importar_investimentos.py</code></div>
       <div style="overflow-x:auto"><table>
         <thead><tr>
-          <th>Ativo</th><th>Titular</th><th>Tipo</th><th class="num">Valor atual</th>
+          <th>Ativo</th><th>Tipo</th><th class="num">Valor atual</th>
           <th class="num">Taxa a.a.</th><th class="num">Aporte/mês</th><th>Atualização</th>
         </tr></thead>
         <tbody id="tbInv"></tbody>
@@ -230,7 +230,6 @@ document.getElementById('allocLeg').innerHTML = INV.map((i,j)=>
 document.getElementById('cntAtivos').textContent = `(${INV.length})`;
 document.getElementById('tbInv').innerHTML = INV.map(i=>`<tr>
   <td><span class="dot" style="background:${i.cor}"></span><b>${i.ticker||''}</b> ${i.nome}</td>
-  <td><span class="tipo">${i.titular_nome||'Priscila'}</span></td>
   <td><span class="tipo">${i.tipo_label}</span></td>
   <td class="num"><b>${fmt(i.valor_atual)}</b></td>
   <td class="num chip-taxa">${i.taxa_anual?pct(i.taxa_anual):'—'}</td>

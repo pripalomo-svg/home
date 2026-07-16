@@ -3,3 +3,6 @@ data;tipo;categoria;descricao;valor;pago;observacoes
 2026-07-05;despesa;Aluguel consultório;Aluguel julho;2200;1;
 2026-07-10;despesa;Impostos / NFSe;DAS julho;350;1;
 2026-07-12;receita;YouTube — AdSense;AdSense junho;450;1;
+2026-07-15;receita;Consultório — sessões;Sessão Maria Silva;280;1;
+2026-07-15;despesa;Despesas família;Supermercado semana;420;1;
+2026-07-18;receita;Consultório — sessões;Sessão João Santos;300;0;Aguardando PIX

@@ -7,6 +7,7 @@ Uso:
   python3 organizacao.py gerar         # gera index.html
   python3 organizacao.py prontuarios   # importa PDFs de documentos/prontuarios/
   python3 organizacao.py notion        # importa export do Notion (pasta notion/)
+  python3 organizacao.py sincronizar   # sync automático Notion (API ou export)
   python3 organizacao.py investimentos # gera painel investimentos.html
 """
 
@@ -28,22 +29,10 @@ def conectar():
     return conn
 
 
-def _migrar(conn):
-    """Ajustes em bancos criados antes de mudanças no schema."""
-    cols = {r["name"] for r in conn.execute("PRAGMA table_info(investimentos)")}
-    if cols and "titular_id" not in cols:
-        conn.execute(
-            "ALTER TABLE investimentos ADD COLUMN titular_id INTEGER REFERENCES pessoas(id) DEFAULT 1"
-        )
-        conn.execute("UPDATE investimentos SET titular_id = 1 WHERE titular_id IS NULL")
-        conn.execute("DROP VIEW IF EXISTS vw_investimentos_resumo")
-
-
 def init(recriar=False):
     if recriar and DB.exists():
         DB.unlink()
     conn = conectar()
-    _migrar(conn)
     conn.executescript(SCHEMA.read_text(encoding="utf-8"))
     conn.executescript(SEED.read_text(encoding="utf-8"))
     conn.commit()
@@ -113,6 +102,10 @@ def main():
         if len(sys.argv) > 2 and not sys.argv[2].startswith("--"):
             args[2] = "zip" if sys.argv[2].endswith(".zip") else "auto"
             args[3] = str(Path(sys.argv[2]).resolve() if Path(sys.argv[2]).is_absolute() else BASE / sys.argv[2])
+        subprocess.run(args, check=True)
+    elif cmd == "sincronizar":
+        script = BASE / "sincronizar_notion.py"
+        args = [sys.executable, str(script)] + sys.argv[2:]
         subprocess.run(args, check=True)
     elif cmd == "investimentos":
         subprocess.run([sys.executable, str(BASE / "gerar_investimentos.py")], check=True)

@@ -2,20 +2,27 @@
 
 ## Preferências da Priscila (sempre seguir)
 
-1. **Em TODA conversa sobre reembolsos**, incluir o bloco **Links Seus** no
-   formato abaixo (sempre as duas versões do painel e do controle quando houver
-   branch de PR aberta; senão, só a principal):
+1. **Em TODA conversa sobre reembolsos OU organização**, incluir o bloco
+   **Links Seus** no formato abaixo (sempre as duas versões do painel quando
+   houver branch de PR aberta; senão, só a principal):
 
-   **Links Seus**
-   - 📊 Painel de visualização:
-     https://raw.githack.com/pripalomo-svg/home/main/reembolsos/index.html
-   - 🗂️ Controle editável:
-     https://raw.githack.com/pripalomo-svg/home/main/reembolsos/controle.html
-   - 📁 Pasta no GitHub: https://github.com/pripalomo-svg/home/tree/main/reembolsos
-   - 💾 Banco SQLite: https://github.com/pripalomo-svg/home/raw/main/reembolsos/reembolsos.db
+   **Links Seus — Reembolsos**
+   - 📊 Painel: https://raw.githack.com/pripalomo-svg/home/main/reembolsos/index.html
+   - 🗂️ Controle: https://raw.githack.com/pripalomo-svg/home/main/reembolsos/controle.html
+   - 📁 GitHub: https://github.com/pripalomo-svg/home/tree/main/reembolsos
 
-   Branch atual do PR (atualizar ao mudar de branch): nenhuma aberta no momento
-   (PR #7 mergeado na main)
+   **Links Seus — Organização**
+   - 🔗 Todos os links: https://raw.githack.com/pripalomo-svg/home/main/organizacao/links.html
+   - ➕ Como adicionar conteúdo: https://raw.githack.com/pripalomo-svg/home/main/organizacao/adicionar_conteudo.html
+   - 🏠 Painel: https://raw.githack.com/pripalomo-svg/home/main/organizacao/index.html
+   - ❓ Guia: https://raw.githack.com/pripalomo-svg/home/main/organizacao/como_usar.html
+   - 📈 Investimentos: https://raw.githack.com/pripalomo-svg/home/main/organizacao/investimentos.html
+   - ✏️ Pacientes: https://raw.githack.com/pripalomo-svg/home/main/organizacao/cadastro_pacientes.html
+   - 📁 GitHub: https://github.com/pripalomo-svg/home/tree/main/organizacao
+
+   **No PC (pasta Imagens):** `C:\Users\SEU_USUARIO\Imagens\home\organizacao\`
+
+   Branch atual do PR (atualizar ao mudar de branch): `cursor/organizacao-pessoal-7356`
 2. Comunicação direta e concisa, sem elogios desnecessários (ver
    `reembolsos/documentos/referencia/memoria-familia-palomo.md`).
 3. Existe um lembrete diário automático dos links (workflow

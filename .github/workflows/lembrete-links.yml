@@ -1,4 +1,4 @@
-name: Lembrete diário — links do banco de reembolsos
+name: Lembrete diário — links (reembolsos + organização)
 
 on:
   schedule:
@@ -17,10 +17,11 @@ jobs:
         uses: actions/github-script@v7
         with:
           script: |
-            const titulo = "🔗 Lembrete diário — links do banco de reembolsos";
+            const titulo = "🔗 Lembrete diário — links (reembolsos + organização)";
             const corpo = [
               "@pripalomo-svg bom dia! Seus links de hoje:",
               "",
+              "### Reembolsos",
               "| O quê | Link |",
               "| --- | --- |",
               "| 📊 Painel de visualização | https://raw.githack.com/pripalomo-svg/home/main/reembolsos/index.html |",
@@ -28,7 +29,19 @@ jobs:
               "| 📁 Pasta no GitHub | https://github.com/pripalomo-svg/home/tree/main/reembolsos |",
               "| 💾 Banco SQLite (download) | https://github.com/pripalomo-svg/home/raw/main/reembolsos/reembolsos.db |",
               "",
-              "_Para consolidar edições do controle no banco: exporte o JSON pelo botão ⬇️ e envie ao agente._",
+              "### Organização pessoal",
+              "| O quê | Link |",
+              "| --- | --- |",
+              "| 🔗 Todos os links | https://raw.githack.com/pripalomo-svg/home/main/organizacao/links.html |",
+              "| ➕ Como adicionar conteúdo | https://raw.githack.com/pripalomo-svg/home/main/organizacao/adicionar_conteudo.html |",
+              "| 🏠 Painel principal | https://raw.githack.com/pripalomo-svg/home/main/organizacao/index.html |",
+              "| ❓ Guia completo | https://raw.githack.com/pripalomo-svg/home/main/organizacao/como_usar.html |",
+              "| 📈 Investimentos | https://raw.githack.com/pripalomo-svg/home/main/organizacao/investimentos.html |",
+              "| ✏️ Cadastrar pacientes | https://raw.githack.com/pripalomo-svg/home/main/organizacao/cadastro_pacientes.html |",
+              "| 📁 Pasta no GitHub | https://github.com/pripalomo-svg/home/tree/main/organizacao |",
+              "",
+              "_Reembolsos: exporte JSON pelo botão ⬇️ no controle para consolidar edições._",
+              "_Organização: edite CSV em `templates/` e rode `ATUALIZAR.bat` (ou `SINCRONIZAR_NOTION.bat`)._",
             ].join("\n");
 
             const { owner, repo } = context.repo;

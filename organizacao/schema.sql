@@ -318,10 +318,8 @@ SELECT
     (SELECT COALESCE(SUM(valor),0) FROM financas_lancamentos WHERE tipo='despesa' AND strftime('%Y-%m',data)=strftime('%Y-%m','now')) AS despesa_mes;
 
 -- ── Investimentos ────────────────────────────────────────────────────────────
--- As aplicações são da titular (Priscila) — nunca de pacientes.
 CREATE TABLE IF NOT EXISTS investimentos (
     id                  INTEGER PRIMARY KEY AUTOINCREMENT,
-    titular_id          INTEGER REFERENCES pessoas(id) DEFAULT 1,
     nome                TEXT NOT NULL,
     tipo                TEXT NOT NULL DEFAULT 'outro'
                         CHECK (tipo IN ('vgbl','pgbl','cdb','lci','lca','tesouro_selic',
@@ -354,7 +352,6 @@ CREATE TABLE IF NOT EXISTS investimentos_config (
 CREATE VIEW IF NOT EXISTS vw_investimentos_resumo AS
 SELECT
     i.*,
-    COALESCE(pe.apelido, pe.nome, 'Priscila') AS titular_nome,
     CASE i.tipo
         WHEN 'vgbl' THEN 'VGBL'
         WHEN 'pgbl' THEN 'PGBL'
@@ -368,7 +365,6 @@ SELECT
         ELSE upper(i.tipo)
     END AS tipo_label
 FROM investimentos i
-LEFT JOIN pessoas pe ON pe.id = i.titular_id
 WHERE i.ativo = 1
 ORDER BY i.valor_atual DESC;
 

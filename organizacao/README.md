@@ -16,26 +16,16 @@ Funciona **offline** — basta abrir `index.html` no navegador.
 | **Arquivos** | Índice de documentos com links |
 | **Agenda** | Compromissos unificados (pacientes, família, YouTube) |
 
-## Começar
-
-O banco **`organizacao.db` já vem pronto e versionado** — basta abrir **`index.html`** no navegador.
-
-Para recriar do zero (se quiser):
+## Começar em 3 passos
 
 ```bash
 cd organizacao
 python3 organizacao.py init      # cria o banco com dados iniciais
+python3 importar_dados.py todos  # importa exemplos dos templates CSV
 python3 gerar_dashboard.py       # gera index.html
-python3 gerar_investimentos.py   # gera investimentos.html
 ```
 
-> **Pacientes:** os 20 slots (PAC-001 a PAC-020) estão reservados aguardando as
-> informações reais. Quando chegarem, preencha via `cadastro_pacientes.html` ou
-> `templates/pacientes.csv` e importe (veja abaixo).
->
-> **Investimentos:** todas as aplicações cadastradas (VGBL, XPML11, Tesouro)
-> são **da Priscila** — não têm relação com pacientes. Cada ativo tem um campo
-> `titular` para deixar isso explícito.
+Abra **`index.html`** no navegador.
 
 ## Preencher com seus dados reais
 
@@ -93,12 +83,12 @@ python3 gerar_investimentos.py       # gera investimentos.html
 # Abra investimentos.html no navegador
 ```
 
-**Seus ativos cadastrados** (titular: Priscila — aplicações pessoais, não de pacientes):
-| Ativo | Titular | Valor | Taxa |
-|-------|---------|-------|------|
-| Itaú Index Simples Selic VGBL | Priscila | R$ 1.315,13 | 11% a.a. (Selic) |
-| XPML11 | Priscila | R$ 105,99 | 9% a.a. (estimativa) |
-| Tesouro Pré-fixado | Priscila | R$ 93,75 | 14,24% a.a. (contratada) |
+**Seus ativos cadastrados:**
+| Ativo | Valor | Taxa |
+|-------|-------|------|
+| Itaú Index Simples Selic VGBL | R$ 1.315,13 | 11% a.a. (Selic) |
+| XPML11 | R$ 105,99 | 9% a.a. (estimativa) |
+| Tesouro Pré-fixado | R$ 93,75 | 14,24% a.a. (contratada) |
 
 **Adicionar mais:** edite `templates/investimentos.csv` e importe:
 
@@ -111,19 +101,35 @@ No painel, ajuste o **aporte mensal** e veja quanto terá em 5, 10, 15 e 20 anos
 
 ## Importar do Notion
 
-Sim. Exporte no Notion: `⋯` → **Export** → **Markdown & CSV** → extraia o ZIP em `notion/`:
+### Sincronização automática (recomendado)
+
+Configure uma vez a API do Notion e rode:
+
+```bash
+python3 organizacao.py sincronizar
+# ou no Windows: duplo-clique em SINCRONIZAR_NOTION.bat
+```
+
+Para **todo dia sem fazer nada**, agende `SINCRONIZAR_NOTION.bat` no Agendador de Tarefas do Windows (ex.: 07:00).
+
+Guia completo: [`notion/COMO_CONFIGURAR_API.md`](notion/COMO_CONFIGURAR_API.md)
+
+### Export manual (sem API)
+
+Exporte no Notion: `⋯` → **Export** → **Markdown & CSV** → salve como `notion/Export.zip`:
 
 ```bash
 python3 importar_notion.py zip ~/Downloads/Export.zip
 # ou, se já extraiu:
 python3 importar_notion.py auto notion/
 python3 organizacao.py notion          # atalho (usa pasta notion/)
+python3 organizacao.py sincronizar     # também detecta export em notion/
 python3 gerar_dashboard.py
 ```
 
 O script reconhece databases pelo **nome do arquivo** (Pacientes, Finanças, YouTube…) ou pelas **colunas** (Nome, Data, Valor…). Páginas `.md` viram notas.
 
-Guia completo: [`notion/README.md`](notion/README.md)
+Guia de export: [`notion/README.md`](notion/README.md)
 
 ## Prontuários em PDF
 
@@ -136,6 +142,7 @@ python3 organizacao.py status    # resumo no terminal
 python3 organizacao.py gerar     # regenere o HTML
 python3 organizacao.py prontuarios --extrair  # importa PDFs
 python3 organizacao.py notion               # importa export Notion
+python3 organizacao.py sincronizar          # sync automático Notion
 python3 organizacao.py init --recriar       # recria banco do zero (cuidado!)
 ```
 
@@ -145,13 +152,15 @@ python3 organizacao.py init --recriar       # recria banco do zero (cuidado!)
 organizacao/
 ├── schema.sql           # estrutura do banco
 ├── seed.sql             # dados iniciais (família, áreas, 20 pacientes)
-├── organizacao.db       # banco SQLite pronto (versionado)
+├── organizacao.db       # banco SQLite (gerado, não versionado)
 ├── organizacao.py       # init / status / gerar
 ├── importar_prontuarios.py # importação de PDFs e CSV clínico
 ├── cadastro_pacientes.html # formulário visual dos 20 pacientes
 ├── documentos/prontuarios/ # pastas PAC-001 … PAC-020 para PDFs
 ├── importar_notion.py      # importação do Notion (ZIP / CSV / Markdown)
-├── notion/                 # coloque aqui o export do Notion
+├── sincronizar_notion.py   # sync automático Notion (API + fallback export)
+├── SINCRONIZAR_NOTION.bat  # atalho Windows para sync diário
+├── notion/                 # token, config e export do Notion
 ├── gerar_dashboard.py   # gera index.html
 ├── index.html           # painel visual (gerado)
 └── templates/           # CSVs para preencher
