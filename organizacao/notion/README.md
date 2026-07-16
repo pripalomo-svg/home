@@ -55,3 +55,15 @@ Páginas exportadas como `.md` viram **notas** no painel.
 python3 importar_notion.py pacientes notion/Minha-Base.csv
 python3 importar_notion.py zip ~/Downloads/Export.zip
 ```
+
+## Prontuário por paciente (páginas de conversas)
+
+Cada paciente tem página no Notion (`paginas_pacientes.json`) com seção **Prontuário clínico** (dados do `pacientes.csv` + índice de sessões do export/PDF).
+
+```bash
+python3 notion/atualizar_prontuario_pacientes.py   # gera prontuario_por_paciente.json + CSV
+python3 importar_prontuarios.py csv templates/prontuarios.csv
+python3 gerar_dashboard.py
+```
+
+PDF de referência: `documentos/prontuarios/referencia/indice-pacientes-notion-2026-07.pdf`

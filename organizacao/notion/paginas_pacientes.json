@@ -1,6 +1,8 @@
 {
   "indice_url": "https://app.notion.com/p/943cbf9d373d43efab0d97db85284e73",
   "criado_em": "2026-07-16",
+  "prontuario_atualizado_em": "2026-07-16",
+  "fonte_indice_pdf": "documentos/prontuarios/referencia/indice-pacientes-notion-2026-07.pdf",
   "pacientes": {
     "PAC-001": {
       "nome": "Maria José",
