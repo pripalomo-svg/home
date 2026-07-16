@@ -32,10 +32,12 @@
    `.github/workflows/lembrete-links.yml`), que comenta todo dia às 09:00
    (São Paulo) no issue "🔗 Lembrete diário — links do banco de reembolsos".
    Não duplicar esse mecanismo; para parar, fechar o issue e desativar o workflow.
-4. **PRs do Cursor** (`cursor/*`): aprovar e mergear automaticamente, sem pedir
-   permissão manual. Workflow: `.github/workflows/auto-merge-cursor-prs.yml`.
-   Política: `APPROVAL_POLICY.md` e `.cursor/approval-policies/ROUTING.md`.
-   Template para outros repositórios: `scripts/github-auto-merge/`.
+4. **PRs do Cursor** (`cursor/*`): **aceitar automaticamente** — nunca pedir
+   aprovação manual à Priscila. Criar PR **sem rascunho**; workflow:
+   `.github/workflows/auto-merge-cursor-prs.yml` (varredura a cada hora + push na main).
+   Skill: `.cursor/skills/auto-aceitar-prs/`. Política: `APPROVAL_POLICY.md`.
+   Template outros repos: `scripts/github-auto-merge/`.
+   **GitHub (uma vez):** Settings → Actions → *Allow GitHub Actions to create and approve pull requests*.
 
 ## Sobre o banco de reembolsos (`reembolsos/`)
 

@@ -2,19 +2,27 @@ name: Auto-aprovar e mergear PRs do Cursor
 
 on:
   pull_request_target:
-    types: [opened, synchronize, reopened, ready_for_review]
+    types: [opened, synchronize, reopened, ready_for_review, edited]
   push:
     branches: [main]
+  schedule:
+    # Varredura de PRs cursor/* abertos (caso algum evento falhe)
+    - cron: "20 * * * *"
   workflow_dispatch: {}
 
 permissions:
   contents: write
   pull-requests: write
 
+concurrency:
+  group: auto-merge-cursor-${{ github.repository }}
+  cancel-in-progress: false
+
 jobs:
   auto-merge:
     if: >-
       github.event_name == 'workflow_dispatch' ||
+      github.event_name == 'schedule' ||
       github.event_name == 'push' ||
       startsWith(github.event.pull_request.head.ref, 'cursor/')
     runs-on: ubuntu-latest
@@ -27,6 +35,11 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           if [ "${{ github.event_name }}" = "pull_request_target" ]; then
+            ref="${{ github.event.pull_request.head.ref }}"
+            if [[ ! "$ref" =~ ^cursor/ ]]; then
+              echo "numbers=" >> "$GITHUB_OUTPUT"
+              exit 0
+            fi
             echo "numbers=${{ github.event.pull_request.number }}" >> "$GITHUB_OUTPUT"
           else
             nums=$(gh pr list --state open --json number,headRefName \
@@ -53,18 +66,20 @@ jobs:
             gh pr ready "$n" || true
           done
 
-      - name: Aprovar e mergear
+      - name: Aprovar
+        if: steps.meta.outputs.numbers != ''
+        uses: hmarr/auto-approve-action@v4
+        continue-on-error: true
+
+      - name: Mergear com squash
         if: steps.meta.outputs.numbers != ''
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           for n in ${{ steps.meta.outputs.numbers }}; do
-            echo "Aprovando PR #$n..."
-            gh pr review "$n" --approve 2>/dev/null || \
-              echo "Aviso: aprovação bloqueada — ative 'Allow GitHub Actions to create and approve pull requests' nas configurações do repositório"
             echo "Mergeando PR #$n..."
-            if ! gh pr merge "$n" --squash --delete-branch --admin 2>/dev/null && \
-               ! gh pr merge "$n" --squash --delete-branch 2>/dev/null; then
-              echo "::warning::PR #$n não pôde ser mergeado (conflito ou requisitos pendentes)"
-            fi
+            gh pr merge "$n" --squash --delete-branch --admin || \
+            gh pr merge "$n" --squash --delete-branch || \
+            (gh pr merge "$n" --auto --squash --delete-branch && echo "Auto-merge habilitado para #$n") || \
+            echo "::warning::PR #$n não mergeado — conflito, checks pendentes ou permissão"
           done
