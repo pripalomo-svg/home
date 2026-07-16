@@ -1,76 +1,71 @@
 ---
 name: foto-para-banco
-description: Quando a Priscila enviar foto, imagem, print ou PDF visual — extrair dados e registrar no banco correto (organização, reembolsos, etc.) e avisar o que mudou.
+description: Extrai dados de fotos, prints e imagens enviados pela Priscila e grava no banco SQLite correto (investimentos, finanças, consultório, reembolsos). Use quando a usuária enviar foto, imagem, print, screenshot, comprovante, recibo, extrato ou documento visual para cadastrar.
 ---
 
-# Foto → Banco de dados
+# Foto → banco específico
 
-## Quando usar
+## Quando aplicar
 
-Ative esta skill sempre que a Priscila enviar:
-- print de app bancário / corretora / Tesouro Direto
-- nota fiscal, recibo, boleto, extrato
-- foto de documento, agenda, lista
-- qualquer imagem com dados para cadastrar
+- Priscila envia **foto, print ou screenshot**
+- Pedido implícito ou explícito para **cadastrar / anexar / salvar** dados
+- Comprovantes: banco, corretora, Tesouro, Cigna, consultório, NF, boleto
 
-## Fluxo obrigatório
+## Fluxo (sempre nesta ordem)
 
-1. **Ler a imagem** — extrair todos os campos visíveis (valores, datas, nomes, protocolos, CNPJ, etc.)
-2. **Identificar o módulo** (tabela abaixo)
-3. **Salvar registro** em `organizacao/dados/foto_registro.json` (criar se não existir)
-4. **Rodar** `python3 organizacao/registrar_foto.py organizacao/dados/foto_registro.json`
-5. **Commit + push** se estiver em cloud agent
-6. **Responder sempre com** (ver também skill `link-atualizacao`):
-   - bloco **✅ Banco atualizado**
-   - bloco **🔗 Ver esta atualização** com link **específico** do módulo (tabela em `link-atualizacao/SKILL.md`)
-   - bloco **Links Seus** (catálogo geral)
+1. **Ler a imagem** — extrair só o que está visível
+2. **Escolher módulo** — tabela em [reference.md](reference.md)
+3. **Montar** `organizacao/dados/foto_registro.json`
+4. **Executar:**
+   ```bash
+   cd organizacao
+   python3 registrar_foto.py dados/foto_registro.json
+   ```
+5. **Reembolsos médicos:** usar `reembolsos/` (não `registrar_foto.py`) — ver [reference.md](reference.md)
+6. **Commit + push** se em cloud agent
+7. **Responder** com os 3 blocos abaixo (sem a Priscila pedir link)
 
-## Roteamento — qual banco?
+## Resposta obrigatória
 
-| Se a foto mostra… | Módulo | Destino |
-|-------------------|--------|---------|
-| Investimento, Tesouro, CDB, FII, ação, corretora | `investimentos` | `templates/investimentos.csv` → `investimentos` |
-| Gasto, receita, PIX, cartão, fatura | `financas` | `templates/financas.csv` |
-| Reembolso médico, Cigna, NF, recibo clínico | `reembolsos` | `reembolsos/` via `reembolsos.py` |
-| Paciente, prontuário, sessão | `consultorio` | `templates/pacientes.csv` / `atendimentos.csv` |
-| Documento genérico, contrato, PDF | `arquivo` | tabela `arquivos` + pasta `documentos/` |
-| Não der para classificar | `nota` | tabela `notas` com texto extraído |
+```markdown
+## ✅ Banco atualizado
+- **Módulo:** [investimentos | financas | pacientes | …]
+- **Entrou:** [resumo do registro]
+- **Pendente:** [campos que não apareciam na foto, ou "nenhum"]
 
-## Formato do JSON (`foto_registro.json`)
+## 🔗 Ver esta atualização
+👉 **[Título do painel]:** [link específico de links_modulos.json]
+
+**No seu PC:** `Imagens\home\[caminho do arquivo_pc]`
+
+## Links Seus
+[catálogo geral — ver AGENTS.md]
+```
+
+Link específico: ler `organizacao/dados/links_modulos.json` ou `ultima_atualizacao.json` → campo `link_ver`.
+
+## Regras
+
+| Faça | Não faça |
+|------|----------|
+| `null` para campo invisível | Inventar telefone, CPF, valor |
+| Checar protocolo/ticker antes de duplicar | Pular `registrar_foto.py` |
+| Regenerar painéis (script já faz) | Só dizer "salvei" sem link |
+
+## JSON mínimo
 
 ```json
 {
   "modulo": "investimentos",
   "fonte": "foto",
-  "descricao_foto": "Confirmação Tesouro Direto Nu Invest",
-  "registros": [
-    {
-      "nome": "Tesouro Direto — protocolo 103681346",
-      "tipo": "tesouro_prefixado",
-      "instituicao": "Nu Invest",
-      "valor_atual": null,
-      "notas": "Protocolo 103681346 criado com sucesso. Aguardando liquidação."
-    }
-  ]
+  "descricao_foto": "o que é a imagem",
+  "registros": [{ }]
 }
 ```
 
-Campos `null` = não visível na foto — **não inventar** valores.
+Campos por módulo: [reference.md](reference.md)  
+Exemplo real (Tesouro Direto): [examples.md](examples.md)
 
-## Regras
+## Script
 
-- **Nunca inventar** telefone, CPF, valor ou nome de paciente
-- Se faltar valor obrigatório, cadastrar com `notas` explicando e `valor_atual` só se visível
-- Duplicatas: buscar por protocolo, ticker ou data+valor antes de inserir
-- Após registrar, regenerar painéis (`ATUALIZAR.bat` ou scripts `gerar_*`)
-- Log em `organizacao/ultima_atualizacao.json` — a Priscila pode consultar
-
-## Mensagem padrão ao atualizar
-
-```
-✅ Banco atualizado
-- Módulo: investimentos
-- Adicionado: Tesouro Direto protocolo 103681346 (Nu Invest)
-- Pendente: valor (não aparecia na foto)
-- Painéis: index.html e investimentos.html regenerados
-```
+`organizacao/registrar_foto.py` — grava no banco, atualiza `ultima_atualizacao.json` com `link_ver`, regenera HTML.

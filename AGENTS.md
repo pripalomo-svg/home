@@ -9,7 +9,7 @@
    - **✅ Banco atualizado** (módulo, o que entrou, pendências)
    - **🔗 Ver esta atualização** — link **específico** do painel alterado (skill `.cursor/skills/link-atualizacao/SKILL.md`)
    - Nunca omitir o link direto; a Priscila não deve pedir.
-   - Fotos: skill `.cursor/skills/foto-para-banco/SKILL.md`
+   - Fotos/prints: skill `.cursor/skills/foto-para-banco/SKILL.md` (auto ao receber imagem)
    - Mapa de links: `organizacao/dados/links_modulos.json`
 
    **Links Seus — Reembolsos**
