@@ -1,0 +1,133 @@
+{
+  "empresa": {
+    "nome_empresarial": "PRISCILA PALOMO PSICOLOGIA LTDA",
+    "natureza_juridica": "Sociedade Empresária Limitada Unipessoal",
+    "enquadramento": "Microempresa (ME) — Lei Complementar nº 123/2006",
+    "capital_social": 5000.0,
+    "capital_social_formatado": "R$ 5.000,00 (cinco mil reais)",
+    "data_constituicao": "2026-07-02",
+    "prazo_duracao": "Indeterminado",
+    "exercicio_social": "01 de janeiro a 31 de dezembro",
+    "conselho_fiscal": "Não possui",
+    "junta_comercial": "Junta Comercial do Estado de São Paulo (JUCESP)",
+    "endereco": {
+      "logradouro": "Rua Guaipá",
+      "numero": "452",
+      "complemento": "Apt. 132",
+      "bairro": "Vila Leopoldina",
+      "municipio": "São Paulo",
+      "uf": "SP",
+      "cep": "05089-000"
+    }
+  },
+  "atividades": [
+    {
+      "cnae": "8650-0/03",
+      "descricao": "Serviços de psicologia clínica e psicanálise",
+      "tipo": "Principal"
+    },
+    {
+      "cnae": "8599-6/04",
+      "descricao": "Serviços de treinamento e desenvolvimento profissional e gerencial e palestras",
+      "tipo": "Secundária"
+    }
+  ],
+  "socios": [
+    {
+      "nome": "PRISCILA DA SILVA HERBAS PALOMO",
+      "funcao": "Sócia-Administradora (única)",
+      "nacionalidade": "Brasileira",
+      "estado_civil": "Casada",
+      "data_nascimento": "1983-03-30",
+      "profissao": "Psicóloga",
+      "cpf": "313.050.718-32",
+      "rg": "28.403.129",
+      "rg_orgao_emissor": "SSP/SP (expedido por DETRAN-SP em 27/09/2023)",
+      "cor_raca": "Branca",
+      "endereco": "Rua Guaipá, 452, Apt. 132 — Vila Leopoldina, São Paulo/SP, CEP 05089-000",
+      "participacao": "100% das quotas — capital totalmente integralizado"
+    }
+  ],
+  "documentos": [
+    {
+      "arquivo": "contrato_social_PRISCILA_2026.pdf",
+      "tipo": "Contrato Social",
+      "descricao": "Constituição da sociedade empresária limitada unipessoal PRISCILA PALOMO PSICOLOGIA LTDA, com 13 cláusulas (denominação, sede, objeto, capital, administração, exercício social, transferência de quotas, sucessão, deliberações e disposições gerais).",
+      "data": "2026-07-02",
+      "local": "São Paulo/SP",
+      "destinatario": "JUCESP",
+      "paginas": 3,
+      "assinado": false
+    },
+    {
+      "arquivo": "contrato_PRISCILA_2026_assinado.pdf",
+      "tipo": "Contrato Social",
+      "descricao": "Versão assinada do Contrato Social de constituição da PRISCILA PALOMO PSICOLOGIA LTDA.",
+      "data": "2026-07-02",
+      "local": "São Paulo/SP",
+      "destinatario": "JUCESP",
+      "paginas": 3,
+      "assinado": true
+    },
+    {
+      "arquivo": "desempedimento.pdf",
+      "tipo": "Declaração de Desimpedimento",
+      "descricao": "Declaração, sob as penas da lei, de que a administradora não está impedida de exercer a administração da sociedade por lei especial ou condenação criminal.",
+      "data": "2026-07-10",
+      "local": "São Paulo/SP",
+      "destinatario": "JUCESP",
+      "paginas": 1,
+      "assinado": false
+    },
+    {
+      "arquivo": "desempedimento_assinado.pdf",
+      "tipo": "Declaração de Desimpedimento",
+      "descricao": "Versão assinada da Declaração de Desimpedimento da sócia-administradora.",
+      "data": "2026-07-10",
+      "local": "São Paulo/SP",
+      "destinatario": "JUCESP",
+      "paginas": 1,
+      "assinado": true
+    },
+    {
+      "arquivo": "Enquadramento.pdf",
+      "tipo": "Declaração de Enquadramento — ME",
+      "descricao": "Requerimento de arquivamento e declaração de enquadramento da sociedade na condição de Microempresa, nos termos da Lei Complementar nº 123/2006.",
+      "data": "2026-07-10",
+      "local": "São Paulo/SP",
+      "destinatario": "JUCESP",
+      "paginas": 1,
+      "assinado": false
+    },
+    {
+      "arquivo": "Enquadramento_assinado.pdf",
+      "tipo": "Declaração de Enquadramento — ME",
+      "descricao": "Versão assinada da Declaração de Enquadramento como Microempresa.",
+      "data": "2026-07-10",
+      "local": "São Paulo/SP",
+      "destinatario": "JUCESP",
+      "paginas": 1,
+      "assinado": true
+    },
+    {
+      "arquivo": "Licenciamento.pdf",
+      "tipo": "Declaração de Licenciamento",
+      "descricao": "Declaração de ciência de que o estabelecimento não poderá exercer atividades sem parecer municipal de viabilidade e sem Certificado de Licenciamento Integrado válido (Via Rápida Empresa — Decreto Estadual nº 55.660/2010).",
+      "data": null,
+      "local": "São Paulo/SP",
+      "destinatario": "Via Rápida Empresa / JUCESP",
+      "paginas": 1,
+      "assinado": false
+    },
+    {
+      "arquivo": "Licenciamento_assinado.pdf",
+      "tipo": "Declaração de Licenciamento",
+      "descricao": "Versão assinada da Declaração de Licenciamento (Certificado de Licenciamento Integrado).",
+      "data": null,
+      "local": "São Paulo/SP",
+      "destinatario": "Via Rápida Empresa / JUCESP",
+      "paginas": 1,
+      "assinado": true
+    }
+  ]
+}
