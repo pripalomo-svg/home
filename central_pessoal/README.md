@@ -60,6 +60,18 @@ Para cada conversa, o importador:
 - copia e indexa o PDF em `arquivos/pacientes/`;
 - atualiza a mesma sessão em uma nova execução, sem criar duplicatas.
 
+Para um PDF consolidado no formato **“Pacientes — Sessões (por pessoa)”**,
+use o importador de índice:
+
+```bash
+python3 importar_indice_pacientes.py /caminho/Pacientes_Sessoes_por_pessoa.pdf
+```
+
+Ele separa as referências por paciente, reaproveita cadastros e aliases
+existentes e cria um registro individual para cada pessoa. Como esse tipo de
+PDF contém somente títulos e datas, o prontuário identifica o conteúdo como
+índice — nunca como transcrição ou evolução clínica.
+
 ## Pastas sugeridas
 
 Use `arquivos/` como ponto de partida:
