@@ -1,9 +1,18 @@
 titulo;data_inicio;hora_inicio;data_fim;hora_fim;tipo;paciente_codigo;local;status;notas
-Sessão Maria José;2026-07-21;10:00;;;atendimento;PAC-001;Consultório/Online;confirmado;Importado Notion
-Sessão Beatriz Jubilut;2026-07-21;14:00;;;atendimento;PAC-002;Online;confirmado;Bia — online semanal
-Sessão Luigi Caloi;2026-07-21;11:00;;;atendimento;PAC-003;Consultório;confirmado;Presencial semanal
+Sessão Maria José;2026-07-21;10:00;;;atendimento;PAC-001;Online;confirmado;
+Sessão Beatriz Jubilut;2026-07-21;14:00;;;atendimento;PAC-002;Online;confirmado;
+Sessão Luigi Caloi;2026-07-21;11:00;;;atendimento;PAC-003;Consultório;confirmado;
 Sessão Fernando de Castro;2026-07-22;09:00;;;atendimento;PAC-004;Online;confirmado;
-Sessão Felipe Zandona;2026-07-22;15:00;;;atendimento;PAC-005;Online;confirmado;Fê
+Sessão Felipe Zandona;2026-07-22;15:00;;;atendimento;PAC-005;Online;confirmado;
 Sessão Monica Mattos;2026-07-22;16:00;;;atendimento;PAC-006;Online;confirmado;
 Sessão Luís Octavio;2026-07-23;10:00;;;atendimento;PAC-007;Online;confirmado;
 Sessão Gabriel Gasparetto;2026-07-23;13:00;;;atendimento;PAC-008;Consultório;confirmado;
+Sessão Bruna Galon;2026-07-24;09:00;;;atendimento;PAC-009;Online;confirmado;
+Sessão Luisa Cabalin;2026-07-24;11:00;;;atendimento;PAC-010;Online;confirmado;
+Sessão Clara;2026-07-24;14:00;;;atendimento;PAC-011;Online;confirmado;
+Sessão Lívia Padiar;2026-07-25;15:00;;;atendimento;PAC-012;Online;confirmado;
+Sessão Sthephanie;2026-07-25;16:00;;;atendimento;PAC-013;Online;confirmado;
+Sessão Claudia;2026-07-28;08:00;;;atendimento;PAC-014;Online;confirmado;
+Sessão Márcia;2026-07-28;17:00;;;atendimento;PAC-015;Online;confirmado;
+Sessão Larissa;2026-07-29;10:00;;;atendimento;PAC-017;Online;confirmado;
+Sessão Rochele;2026-07-29;11:00;;;atendimento;PAC-018;Online;confirmado;
