@@ -2,13 +2,21 @@
 
 ## Preferências da Priscila (sempre seguir)
 
-1. **Em TODA mensagem/resumo, incluir os links do banco de dados de
-   reembolsos** para ela verificar como está ficando:
-   - Painel de visualização: https://raw.githack.com/pripalomo-svg/home/main/reembolsos/index.html
-   - Controle editável: https://raw.githack.com/pripalomo-svg/home/main/reembolsos/controle.html
-   - Pasta no GitHub: https://github.com/pripalomo-svg/home/tree/main/reembolsos
-   - Se o trabalho estiver em uma branch ainda não merged, informar também o
-     link da branch: `https://raw.githack.com/pripalomo-svg/home/<branch>/reembolsos/index.html`
+1. **Em TODA conversa sobre reembolsos**, incluir o bloco **Links Seus** no
+   formato abaixo (sempre as duas versões do painel e do controle quando houver
+   branch de PR aberta; senão, só a principal):
+
+   **Links Seus**
+   - 📊 Painel de visualização:
+     [versão mais atual (filial do PR)](https://raw.githack.com/pripalomo-svg/home/cursor/recibo-fisio-junho-e9b5/reembolsos/index.html)
+     · [versão da principal](https://raw.githack.com/pripalomo-svg/home/main/reembolsos/index.html)
+   - 🗂️ Controle editável:
+     [versão mais atual (filial do PR)](https://raw.githack.com/pripalomo-svg/home/cursor/recibo-fisio-junho-e9b5/reembolsos/controle.html)
+     · [versão da main](https://raw.githack.com/pripalomo-svg/home/main/reembolsos/controle.html)
+   - 📁 Pasta no GitHub: https://github.com/pripalomo-svg/home/tree/main/reembolsos
+   - 💾 Banco SQLite: https://github.com/pripalomo-svg/home/raw/main/reembolsos/reembolsos.db
+
+   Branch atual do PR (atualizar ao mudar de branch): `cursor/recibo-fisio-junho-e9b5`
 2. Comunicação direta e concisa, sem elogios desnecessários (ver
    `reembolsos/documentos/referencia/memoria-familia-palomo.md`).
 3. Existe um lembrete diário automático dos links (workflow
