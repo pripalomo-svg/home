@@ -25,6 +25,7 @@ echo  [1/4] Importando investimentos...
 python importar_investimentos.py templates\investimentos.csv
 
 echo  [2/5] Importando pacientes, financas, agenda...
+python preencher_pacientes_horarios.py
 python importar_dados.py pacientes templates\pacientes.csv
 python -c "import sqlite3;c=sqlite3.connect('organizacao.db');c.execute(\"UPDATE pacientes SET status='alta' WHERE nome LIKE 'Paciente %%preencher%%' OR codigo IN ('PAC-019','PAC-020')\");c.commit()"
 python importar_dados.py atendimentos templates\atendimentos.csv
