@@ -2,27 +2,25 @@
 
 ## Preferências da Priscila (sempre seguir)
 
-1. **Em TODA conversa sobre reembolsos OU organização**, incluir o bloco
-   **Links Seus** no formato abaixo (sempre as duas versões do painel quando
-   houver branch de PR aberta; senão, só a principal):
+1. **Em TODA interação com a Priscila** (qualquer assunto neste repositório),
+   incluir o bloco **Links Seus** no final da resposta, neste formato:
 
    **Links Seus — Reembolsos**
-   - 📊 Painel: https://raw.githack.com/pripalomo-svg/home/main/reembolsos/index.html
-   - 🗂️ Controle: https://raw.githack.com/pripalomo-svg/home/main/reembolsos/controle.html
+   - 📊 Painel: https://htmlpreview.github.io/?https://raw.githubusercontent.com/pripalomo-svg/home/main/reembolsos/index.html
+   - 🗂️ Controle: https://htmlpreview.github.io/?https://raw.githubusercontent.com/pripalomo-svg/home/main/reembolsos/controle.html
    - 📁 GitHub: https://github.com/pripalomo-svg/home/tree/main/reembolsos
 
    **Links Seus — Organização**
-   - 🔗 Todos os links: https://raw.githack.com/pripalomo-svg/home/main/organizacao/links.html
-   - ➕ Como adicionar conteúdo: https://raw.githack.com/pripalomo-svg/home/main/organizacao/adicionar_conteudo.html
-   - 🏠 Painel: https://raw.githack.com/pripalomo-svg/home/main/organizacao/index.html
-   - ❓ Guia: https://raw.githack.com/pripalomo-svg/home/main/organizacao/como_usar.html
-   - 📈 Investimentos: https://raw.githack.com/pripalomo-svg/home/main/organizacao/investimentos.html
-   - ✏️ Pacientes: https://raw.githack.com/pripalomo-svg/home/main/organizacao/cadastro_pacientes.html
+   - 🔗 Todos os links: https://htmlpreview.github.io/?https://raw.githubusercontent.com/pripalomo-svg/home/main/organizacao/links.html
+   - ➕ Como adicionar conteúdo: https://htmlpreview.github.io/?https://raw.githubusercontent.com/pripalomo-svg/home/main/organizacao/adicionar_conteudo.html
+   - 🏠 Painel: https://htmlpreview.github.io/?https://raw.githubusercontent.com/pripalomo-svg/home/main/organizacao/index.html
+   - ❓ Guia: https://htmlpreview.github.io/?https://raw.githubusercontent.com/pripalomo-svg/home/main/organizacao/como_usar.html
+   - 📈 Investimentos: https://htmlpreview.github.io/?https://raw.githubusercontent.com/pripalomo-svg/home/main/organizacao/investimentos.html
+   - ✏️ Pacientes: https://htmlpreview.github.io/?https://raw.githubusercontent.com/pripalomo-svg/home/main/organizacao/cadastro_pacientes.html
    - 📁 GitHub: https://github.com/pripalomo-svg/home/tree/main/organizacao
+   - ⬇️ Baixar ZIP: https://github.com/pripalomo-svg/home/archive/refs/heads/main.zip
 
    **No PC (pasta Imagens):** `C:\Users\SEU_USUARIO\Imagens\home\organizacao\`
-
-   Branch atual do PR (atualizar ao mudar de branch): `cursor/organizacao-pessoal-7356`
 2. Comunicação direta e concisa, sem elogios desnecessários (ver
    `reembolsos/documentos/referencia/memoria-familia-palomo.md`).
 3. Existe um lembrete diário automático dos links (workflow
