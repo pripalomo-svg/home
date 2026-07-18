@@ -140,6 +140,7 @@ TEMPLATE = r"""<!DOCTYPE html>
     <a href="cadastro_pacientes.html" style="font-size:.78rem;color:#fff;background:rgba(255,255,255,.12);padding:6px 14px;border-radius:8px;text-decoration:none;font-weight:600">✏️ Cadastrar pacientes</a>
     <a href="como_usar.html" style="font-size:.78rem;color:#fff;background:rgba(34,197,94,.25);padding:6px 14px;border-radius:8px;text-decoration:none;font-weight:600;border:1px solid rgba(34,197,94,.4)">❓ Como usar</a>
     <a href="investimentos.html" style="font-size:.78rem;color:#fff;background:rgba(255,255,255,.12);padding:6px 14px;border-radius:8px;text-decoration:none;font-weight:600">📈 Investimentos</a>
+    <a href="prontuarios.html" style="font-size:.78rem;color:#fff;background:rgba(124,58,237,.4);padding:6px 14px;border-radius:8px;text-decoration:none;font-weight:600;border:1px solid rgba(167,139,250,.5)">📋 Prontuários</a>
     <a href="../reembolsos/index.html" style="font-size:.78rem;color:#fff;background:rgba(255,255,255,.12);padding:6px 14px;border-radius:8px;text-decoration:none;font-weight:600">🏥 Reembolsos</a>
   </div>
 </header>
@@ -193,6 +194,10 @@ TEMPLATE = r"""<!DOCTYPE html>
 
 <!-- CONSULTÓRIO -->
 <div class="section" id="sec-consultorio">
+  <div style="background:linear-gradient(135deg,#4c1d95,#7c3aed);color:#fff;border-radius:14px;padding:16px 20px;margin-bottom:16px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px">
+    <div><b style="font-size:1rem">📋 Prontuários</b><br><span style="font-size:.8rem;opacity:.9">Acesso a todos os prontuários em um só lugar</span></div>
+    <a href="prontuarios.html" style="background:#fff;color:#4c1d95;padding:10px 18px;border-radius:10px;text-decoration:none;font-weight:800;font-size:.85rem">Abrir índice de prontuários →</a>
+  </div>
   <div class="stats" id="statsConsultorio"></div>
   <div class="filters">
     <input type="search" id="buscaPaciente" placeholder="Buscar paciente por nome ou código…">
