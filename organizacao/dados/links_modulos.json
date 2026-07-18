@@ -31,6 +31,14 @@
       "planilha": "organizacao/templates/pacientes.csv",
       "log": "organizacao/ultima_atualizacao.json"
     },
+    "prontuarios": {
+      "titulo": "Prontuários",
+      "link_painel": "{base}/organizacao/prontuarios.html",
+      "link_indice": "{base}/organizacao/prontuarios.html",
+      "arquivo_pc": "organizacao/prontuarios.html",
+      "planilha": "organizacao/templates/prontuarios.csv",
+      "log": "organizacao/notion/paginas_pacientes.json"
+    },
     "atendimentos": {
       "titulo": "Atendimentos / sessões",
       "link_painel": "{base}/organizacao/index.html#consultorio",

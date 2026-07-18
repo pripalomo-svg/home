@@ -1,0 +1,552 @@
+{
+  "Beatriz Jubilut": {
+    "codigo": "PAC-002",
+    "total_sessoes": 7,
+    "sessoes": [
+      {
+        "id": "2ee5e66b0dc18006952ffd31498e6e5b",
+        "data": "19/01/2026",
+        "url": "https://app.notion.com/p/2ee5e66b0dc18006952ffd31498e6e5b"
+      },
+      {
+        "id": "75f3a7aed65a47e5aeb48a9993e2a62a",
+        "data": null,
+        "url": "https://app.notion.com/p/75f3a7aed65a47e5aeb48a9993e2a62a"
+      },
+      {
+        "id": "3125e66b0dc180a7bfedc4215b7b1c0e",
+        "data": "25/02/2026",
+        "url": "https://app.notion.com/p/3125e66b0dc180a7bfedc4215b7b1c0e"
+      },
+      {
+        "id": "2fc5e66b0dc180dea43ff2554f8c8ec3",
+        "data": "02/02/2026",
+        "url": "https://app.notion.com/p/2fc5e66b0dc180dea43ff2554f8c8ec3"
+      },
+      {
+        "id": "ce115e99ff29400f9fc9a8ba4133a24d",
+        "data": "19/01/2026",
+        "url": "https://app.notion.com/p/ce115e99ff29400f9fc9a8ba4133a24d"
+      },
+      {
+        "id": "2ee5e66b0dc1819db395d2c2872f639a",
+        "data": null,
+        "url": "https://app.notion.com/p/2ee5e66b0dc1819db395d2c2872f639a"
+      },
+      {
+        "id": "e99ca7ca8f42430b906a8cfe98d27e5c",
+        "data": null,
+        "url": "https://app.notion.com/p/e99ca7ca8f42430b906a8cfe98d27e5c"
+      }
+    ],
+    "conteudo_notion": "<callout icon=\"💬\" color=\"blue_bg\">\n\tConversas e sessões consolidadas — **PAC-002**\n</callout>\n**Paciente:** Beatriz Jubilut\n**Código:** PAC-002\n\n## Sessões (7)\n\n<details>\n<summary>Sessão 1 — 19/01/2026</summary>\n\t- <mention-page url=\"https://app.notion.com/p/2ee5e66b0dc18006952ffd31498e6e5b\"/>\n\t- **Notas:** Novo emprego (novembro). Estresse com carona (Regina). Dificuldade em aceitar ajuda financeira (Mi). Padrões familiares.\n</details>\n\n<details>\n<summary>Sessão 2 — data não informada</summary>\n\t- <mention-page url=\"https://app.notion.com/p/75f3a7aed65a47e5aeb48a9993e2a62a\"/>\n</details>\n\n<details>\n<summary>Sessão 3 — 25/02/2026</summary>\n\t- <mention-page url=\"https://app.notion.com/p/3125e66b0dc180a7bfedc4215b7b1c0e\"/>\n</details>\n\n<details>\n<summary>Sessão 4 — 02/02/2026</summary>\n\t- <mention-page url=\"https://app.notion.com/p/2fc5e66b0dc180dea43ff2554f8c8ec3\"/>\n</details>\n\n<details>\n<summary>Sessão 5 — 19/01/2026</summary>\n\t- <mention-page url=\"https://app.notion.com/p/ce115e99ff29400f9fc9a8ba4133a24d\"/>\n</details>\n\n<details>\n<summary>Sessão 6 — data não informada</summary>\n\t- <mention-page url=\"https://app.notion.com/p/2ee5e66b0dc1819db395d2c2872f639a\"/>\n</details>\n\n<details>\n<summary>Sessão 7 — data não informada</summary>\n\t- <mention-page url=\"https://app.notion.com/p/e99ca7ca8f42430b906a8cfe98d27e5c\"/>\n</details>\n"
+  },
+  "Bruna Galon Paiva": {
+    "codigo": "PAC-009",
+    "total_sessoes": 5,
+    "sessoes": [
+      {
+        "id": "f161e209941c41eb91424153f40d77c3",
+        "data": "20/01/2026",
+        "url": "https://app.notion.com/p/f161e209941c41eb91424153f40d77c3"
+      },
+      {
+        "id": "4289abbd5477482bb8dce01f7c319981",
+        "data": "13/01/2026",
+        "url": "https://app.notion.com/p/4289abbd5477482bb8dce01f7c319981"
+      },
+      {
+        "id": "6df2c0273bc04bbd84bfecc6f0960dc7",
+        "data": null,
+        "url": "https://app.notion.com/p/6df2c0273bc04bbd84bfecc6f0960dc7"
+      },
+      {
+        "id": "2ee5e66b0dc180dea924f1ace8dde4c4",
+        "data": "20/01/2026",
+        "url": "https://app.notion.com/p/2ee5e66b0dc180dea924f1ace8dde4c4"
+      },
+      {
+        "id": "2fc5e66b0dc18061b299f4456d2b86ef",
+        "data": "03/02/2026",
+        "url": "https://app.notion.com/p/2fc5e66b0dc18061b299f4456d2b86ef"
+      }
+    ],
+    "conteudo_notion": "<callout icon=\"💬\" color=\"blue_bg\">\n\tConversas e sessões consolidadas — **PAC-009**\n</callout>\n**Paciente:** Bruna Galon Paiva\n**Código:** PAC-009\n\n## Sessões (5)\n\n<details>\n<summary>Sessão 1 — 20/01/2026</summary>\n\t- <mention-page url=\"https://app.notion.com/p/f161e209941c41eb91424153f40d77c3\"/>\n\t- **Notas:** Desânimo com provas, autocrítica. Retomada de treinos/social. Decisão de não ir à Disney. Mar passou no ABCG.\n\t- **Resumo consolidado:** Desmotivação após resultados de residência médica. Sente-se estagnada e com aversão aos estudos. Planeja prova para 20 de fevereiro.\n</details>\n\n<details>\n<summary>Sessão 2 — 13/01/2026</summary>\n\t- <mention-page url=\"https://app.notion.com/p/4289abbd5477482bb8dce01f7c319981\"/>\n\t- **Notas:** Desmotivação pós-provas (80 pts). Dificuldade com rotina. Comparação com Mar (EUA). Estratégias: Ritalina, novos ambientes.\n</details>\n\n<details>\n<summary>Sessão 3 — data não informada</summary>\n\t- <mention-page url=\"https://app.notion.com/p/6df2c0273bc04bbd84bfecc6f0960dc7\"/>\n\t- **Notas:** Apoio pós-exames. Autocrítica vs crescimento. Viagem com Mar. Metáfora da espiral (vida).\n</details>\n\n<details>\n<summary>Sessão 4 — 20/01/2026</summary>\n\t- <mention-page url=\"https://app.notion.com/p/2ee5e66b0dc180dea924f1ace8dde4c4\"/>\n</details>\n\n<details>\n<summary>Sessão 5 — 03/02/2026</summary>\n\t- <mention-page url=\"https://app.notion.com/p/2fc5e66b0dc18061b299f4456d2b86ef\"/>\n</details>\n"
+  },
+  "Clara": {
+    "codigo": "PAC-011",
+    "total_sessoes": 3,
+    "sessoes": [
+      {
+        "id": "2f15e66b0dc180538d47c196a602f984",
+        "data": null,
+        "url": "https://app.notion.com/p/2f15e66b0dc180538d47c196a602f984"
+      },
+      {
+        "id": "39d4a14d2e08402cbae4b63785a149ad",
+        "data": "23/01/2026",
+        "url": "https://app.notion.com/p/39d4a14d2e08402cbae4b63785a149ad"
+      },
+      {
+        "id": "3125e66b0dc1801486dcdac8cb1946ab",
+        "data": "25/02/2026",
+        "url": "https://app.notion.com/p/3125e66b0dc1801486dcdac8cb1946ab"
+      }
+    ],
+    "conteudo_notion": "<callout icon=\"💬\" color=\"blue_bg\">\n\tConversas e sessões consolidadas — **PAC-011**\n</callout>\n**Paciente:** Clara\n**Código:** PAC-011\n\n## Sessões (3)\n\n<details>\n<summary>Sessão 1 — data não informada</summary>\n\t- <mention-page url=\"https://app.notion.com/p/2f15e66b0dc180538d47c196a602f984\"/>\n\t- **Resumo consolidado:** Ansiedade em entrevistas em dinamarquês. Conflitos de valores com o parceiro Sebastião (sustentabilidade vs. capitalismo/racismo).\n</details>\n\n<details>\n<summary>Sessão 2 — 23/01/2026</summary>\n\t- <mention-page url=\"https://app.notion.com/p/39d4a14d2e08402cbae4b63785a149ad\"/>\n</details>\n\n<details>\n<summary>Sessão 3 — 25/02/2026</summary>\n\t- <mention-page url=\"https://app.notion.com/p/3125e66b0dc1801486dcdac8cb1946ab\"/>\n</details>\n"
+  },
+  "Claudia": {
+    "codigo": "PAC-014",
+    "total_sessoes": 5,
+    "sessoes": [
+      {
+        "id": "fd7e780f9e734c7bbd721ed68af3075d",
+        "data": "16/12/2025",
+        "url": "https://app.notion.com/p/fd7e780f9e734c7bbd721ed68af3075d"
+      },
+      {
+        "id": "2cb5e66b0dc180ea9471ed366f64494a",
+        "data": "16/12/2025",
+        "url": "https://app.notion.com/p/2cb5e66b0dc180ea9471ed366f64494a"
+      },
+      {
+        "id": "2e95e66b0dc180ebac71d7988261033e",
+        "data": "15/01/2026",
+        "url": "https://app.notion.com/p/2e95e66b0dc180ebac71d7988261033e"
+      },
+      {
+        "id": "3025e66b0dc180b0aff6cc94c2e0a75c",
+        "data": "09/02/2026",
+        "url": "https://app.notion.com/p/3025e66b0dc180b0aff6cc94c2e0a75c"
+      },
+      {
+        "id": "34a5e66b0dc1809f9561df0cf933c3bd",
+        "data": "22/04/2026",
+        "url": "https://app.notion.com/p/34a5e66b0dc1809f9561df0cf933c3bd"
+      }
+    ],
+    "conteudo_notion": "<callout icon=\"💬\" color=\"blue_bg\">\n\tConversas e sessões consolidadas — **PAC-014**\n</callout>\n**Paciente:** Claudia\n**Código:** PAC-014\n\n## Sessões (5)\n\n<details>\n<summary>Sessão 1 — 16/12/2025</summary>\n\t- <mention-page url=\"https://app.notion.com/p/fd7e780f9e734c7bbd721ed68af3075d\"/>\n</details>\n\n<details>\n<summary>Sessão 2 — 16/12/2025</summary>\n\t- <mention-page url=\"https://app.notion.com/p/2cb5e66b0dc180ea9471ed366f64494a\"/>\n</details>\n\n<details>\n<summary>Sessão 3 — 15/01/2026</summary>\n\t- <mention-page url=\"https://app.notion.com/p/2e95e66b0dc180ebac71d7988261033e\"/>\n</details>\n\n<details>\n<summary>Sessão 4 — 09/02/2026</summary>\n\t- <mention-page url=\"https://app.notion.com/p/3025e66b0dc180b0aff6cc94c2e0a75c\"/>\n</details>\n\n<details>\n<summary>Sessão 5 — 22/04/2026</summary>\n\t- <mention-page url=\"https://app.notion.com/p/34a5e66b0dc1809f9561df0cf933c3bd\"/>\n</details>\n"
+  },
+  "Felipe Zandona Barbosa": {
+    "codigo": "PAC-005",
+    "total_sessoes": 3,
+    "sessoes": [
+      {
+        "id": "7d66884e18294b2eb0fdcfbde2dfa50e",
+        "data": "16/12/2025",
+        "url": "https://app.notion.com/p/7d66884e18294b2eb0fdcfbde2dfa50e"
+      },
+      {
+        "id": "2cb5e66b0dc180fba764d8f075f535de",
+        "data": null,
+        "url": "https://app.notion.com/p/2cb5e66b0dc180fba764d8f075f535de"
+      },
+      {
+        "id": "3065e66b0dc18061915ad808eab209a8",
+        "data": "13/02/2026",
+        "url": "https://app.notion.com/p/3065e66b0dc18061915ad808eab209a8"
+      }
+    ],
+    "conteudo_notion": "<callout icon=\"💬\" color=\"blue_bg\">\n\tConversas e sessões consolidadas — **PAC-005**\n</callout>\n**Paciente:** Felipe Zandona Barbosa\n**Código:** PAC-005\n\n## Sessões (3)\n\n<details>\n<summary>Sessão 1 — 16/12/2025</summary>\n\t- <mention-page url=\"https://app.notion.com/p/7d66884e18294b2eb0fdcfbde2dfa50e\"/>\n</details>\n\n<details>\n<summary>Sessão 2 — data não informada</summary>\n\t- <mention-page url=\"https://app.notion.com/p/2cb5e66b0dc180fba764d8f075f535de\"/>\n</details>\n\n<details>\n<summary>Sessão 3 — 13/02/2026</summary>\n\t- <mention-page url=\"https://app.notion.com/p/3065e66b0dc18061915ad808eab209a8\"/>\n</details>\n"
+  },
+  "Fernando de Castro": {
+    "codigo": "PAC-004",
+    "total_sessoes": 4,
+    "sessoes": [
+      {
+        "id": "4709ad62e43f4f02a5ef0f3d877267a9",
+        "data": "12/12/2025",
+        "url": "https://app.notion.com/p/4709ad62e43f4f02a5ef0f3d877267a9"
+      },
+      {
+        "id": "2f15e66b0dc1805584ebcd2d87f08ac7",
+        "data": "23/01/2026",
+        "url": "https://app.notion.com/p/2f15e66b0dc1805584ebcd2d87f08ac7"
+      },
+      {
+        "id": "3685e66b0dc1800eb3b4d1427d0e80c7",
+        "data": "22/05/2026",
+        "url": "https://app.notion.com/p/3685e66b0dc1800eb3b4d1427d0e80c7"
+      },
+      {
+        "id": "36f5e66b0dc1803cb097f759c9c2cb15",
+        "data": "29/05/2026",
+        "url": "https://app.notion.com/p/36f5e66b0dc1803cb097f759c9c2cb15"
+      }
+    ],
+    "conteudo_notion": "<callout icon=\"💬\" color=\"blue_bg\">\n\tConversas e sessões consolidadas — **PAC-004**\n</callout>\n**Paciente:** Fernando de Castro\n**Código:** PAC-004\n\n## Sessões (4)\n\n<details>\n<summary>Sessão 1 — 12/12/2025</summary>\n\t- <mention-page url=\"https://app.notion.com/p/4709ad62e43f4f02a5ef0f3d877267a9\"/>\n</details>\n\n<details>\n<summary>Sessão 2 — 23/01/2026</summary>\n\t- <mention-page url=\"https://app.notion.com/p/2f15e66b0dc1805584ebcd2d87f08ac7\"/>\n</details>\n\n<details>\n<summary>Sessão 3 — 22/05/2026</summary>\n\t- <mention-page url=\"https://app.notion.com/p/3685e66b0dc1800eb3b4d1427d0e80c7\"/>\n</details>\n\n<details>\n<summary>Sessão 4 — 29/05/2026</summary>\n\t- <mention-page url=\"https://app.notion.com/p/36f5e66b0dc1803cb097f759c9c2cb15\"/>\n</details>\n"
+  },
+  "Gabriel Gasparetto": {
+    "codigo": "PAC-008",
+    "total_sessoes": 4,
+    "sessoes": [
+      {
+        "id": "2c75e66b0dc1808285b7eef05eb98add",
+        "data": "12/12/2025",
+        "url": "https://app.notion.com/p/2c75e66b0dc1808285b7eef05eb98add"
+      },
+      {
+        "id": "30d5e66b0dc1808895b6d1faa7e36e22",
+        "data": "20/02/2026",
+        "url": "https://app.notion.com/p/30d5e66b0dc1808895b6d1faa7e36e22"
+      },
+      {
+        "id": "67182519941840bc9232a696157f7313",
+        "data": null,
+        "url": "https://app.notion.com/p/67182519941840bc9232a696157f7313"
+      },
+      {
+        "id": "36d5e66b0dc1808aad2fcf096cae4901",
+        "data": "27/05/2026",
+        "url": "https://app.notion.com/p/36d5e66b0dc1808aad2fcf096cae4901"
+      }
+    ],
+    "conteudo_notion": "<callout icon=\"💬\" color=\"blue_bg\">\n\tConversas e sessões consolidadas — **PAC-008**\n</callout>\n**Paciente:** Gabriel Gasparetto\n**Código:** PAC-008\n\n## Sessões (4)\n\n<details>\n<summary>Sessão 1 — 12/12/2025</summary>\n\t- <mention-page url=\"https://app.notion.com/p/2c75e66b0dc1808285b7eef05eb98add\"/>\n</details>\n\n<details>\n<summary>Sessão 2 — 20/02/2026</summary>\n\t- <mention-page url=\"https://app.notion.com/p/30d5e66b0dc1808895b6d1faa7e36e22\"/>\n</details>\n\n<details>\n<summary>Sessão 3 — data não informada</summary>\n\t- <mention-page url=\"https://app.notion.com/p/67182519941840bc9232a696157f7313\"/>\n</details>\n\n<details>\n<summary>Sessão 4 — 27/05/2026</summary>\n\t- <mention-page url=\"https://app.notion.com/p/36d5e66b0dc1808aad2fcf096cae4901\"/>\n</details>\n"
+  },
+  "Gabrielli": {
+    "codigo": "PAC-016",
+    "total_sessoes": 0,
+    "sessoes": [],
+    "conteudo_notion": "<callout icon=\"💬\" color=\"blue_bg\">\n\tConversas e sessões consolidadas — **PAC-016**\n</callout>\n**Paciente:** Gabrielli\n**Código:** PAC-016\n\n## Sessões (0)\n"
+  },
+  "Larissa": {
+    "codigo": "PAC-017",
+    "total_sessoes": 8,
+    "sessoes": [
+      {
+        "id": "3605e66b0dc18055bcf2d1c9d9db6762",
+        "data": "14/05/2026",
+        "url": "https://app.notion.com/p/3605e66b0dc18055bcf2d1c9d9db6762"
+      },
+      {
+        "id": "35e5e66b0dc180b7b6b3c8bd32b79633",
+        "data": "12/05/2026",
+        "url": "https://app.notion.com/p/35e5e66b0dc180b7b6b3c8bd32b79633"
+      },
+      {
+        "id": "36e5e66b0dc180e88d59dddb08ada9a4",
+        "data": "28/05/2026",
+        "url": "https://app.notion.com/p/36e5e66b0dc180e88d59dddb08ada9a4"
+      },
+      {
+        "id": "36c5e66b0dc180a284bafd8561b3fae6",
+        "data": "26/05/2026",
+        "url": "https://app.notion.com/p/36c5e66b0dc180a284bafd8561b3fae6"
+      },
+      {
+        "id": "3515e66b0dc1805090d0f0db61387cb1",
+        "data": "29/04/2026",
+        "url": "https://app.notion.com/p/3515e66b0dc1805090d0f0db61387cb1"
+      },
+      {
+        "id": "3495e66b0dc180d5a054dff3a0fcd35f",
+        "data": "21/04/2026",
+        "url": "https://app.notion.com/p/3495e66b0dc180d5a054dff3a0fcd35f"
+      },
+      {
+        "id": "34b5e66b0dc1806d9d46c649515abb79",
+        "data": "23/04/2026",
+        "url": "https://app.notion.com/p/34b5e66b0dc1806d9d46c649515abb79"
+      },
+      {
+        "id": "3675e66b0dc180929ecbd8ceaeedd7de",
+        "data": "21/05/2026",
+        "url": "https://app.notion.com/p/3675e66b0dc180929ecbd8ceaeedd7de"
+      }
+    ],
+    "conteudo_notion": "<callout icon=\"💬\" color=\"blue_bg\">\n\tConversas e sessões consolidadas — **PAC-017**\n</callout>\n**Paciente:** Larissa\n**Código:** PAC-017\n\n## Sessões (8)\n\n<details>\n<summary>Sessão 1 — 14/05/2026</summary>\n\t- <mention-page url=\"https://app.notion.com/p/3605e66b0dc18055bcf2d1c9d9db6762\"/>\n</details>\n\n<details>\n<summary>Sessão 2 — 12/05/2026</summary>\n\t- <mention-page url=\"https://app.notion.com/p/35e5e66b0dc180b7b6b3c8bd32b79633\"/>\n</details>\n\n<details>\n<summary>Sessão 3 — 28/05/2026</summary>\n\t- <mention-page url=\"https://app.notion.com/p/36e5e66b0dc180e88d59dddb08ada9a4\"/>\n</details>\n\n<details>\n<summary>Sessão 4 — 26/05/2026</summary>\n\t- <mention-page url=\"https://app.notion.com/p/36c5e66b0dc180a284bafd8561b3fae6\"/>\n</details>\n\n<details>\n<summary>Sessão 5 — 29/04/2026</summary>\n\t- <mention-page url=\"https://app.notion.com/p/3515e66b0dc1805090d0f0db61387cb1\"/>\n</details>\n\n<details>\n<summary>Sessão 6 — 21/04/2026</summary>\n\t- <mention-page url=\"https://app.notion.com/p/3495e66b0dc180d5a054dff3a0fcd35f\"/>\n</details>\n\n<details>\n<summary>Sessão 7 — 23/04/2026</summary>\n\t- <mention-page url=\"https://app.notion.com/p/34b5e66b0dc1806d9d46c649515abb79\"/>\n</details>\n\n<details>\n<summary>Sessão 8 — 21/05/2026</summary>\n\t- <mention-page url=\"https://app.notion.com/p/3675e66b0dc180929ecbd8ceaeedd7de\"/>\n</details>\n"
+  },
+  "Luigi Caloi": {
+    "codigo": "PAC-003",
+    "total_sessoes": 6,
+    "sessoes": [
+      {
+        "id": "cc7d2678fc88407fb22c0f4164c6ee18",
+        "data": "20/01/2026",
+        "url": "https://app.notion.com/p/cc7d2678fc88407fb22c0f4164c6ee18"
+      },
+      {
+        "id": "8991b71549734bc69c97450a6607c43d",
+        "data": null,
+        "url": "https://app.notion.com/p/8991b71549734bc69c97450a6607c43d"
+      },
+      {
+        "id": "4b86bc33b8bd4e458f33a24eb845e83a",
+        "data": null,
+        "url": "https://app.notion.com/p/4b86bc33b8bd4e458f33a24eb845e83a"
+      },
+      {
+        "id": "fe81ca04c0ab40539cd0e3501a537b6d",
+        "data": "20/01/2026",
+        "url": "https://app.notion.com/p/fe81ca04c0ab40539cd0e3501a537b6d"
+      },
+      {
+        "id": "3495e66b0dc18032b317ff0eafe8b80c",
+        "data": "21/04/2026",
+        "url": "https://app.notion.com/p/3495e66b0dc18032b317ff0eafe8b80c"
+      },
+      {
+        "id": "35e5e66b0dc18000949efb2d609bee93",
+        "data": "12/05/2026",
+        "url": "https://app.notion.com/p/35e5e66b0dc18000949efb2d609bee93"
+      }
+    ],
+    "conteudo_notion": "<callout icon=\"💬\" color=\"blue_bg\">\n\tConversas e sessões consolidadas — **PAC-003**\n</callout>\n**Paciente:** Luigi Caloi\n**Código:** PAC-003\n\n## Sessões (6)\n\n<details>\n<summary>Sessão 1 — 20/01/2026</summary>\n\t- <mention-page url=\"https://app.notion.com/p/cc7d2678fc88407fb22c0f4164c6ee18\"/>\n\t- **Notas:** Entrevistas acadêmicas (Chicago, Insper). Novo relacionamento com Jasmine (fluido, seguro). Comparação com Gabi.\n\t- **Resumo consolidado:** Anotação baseada em arquivo de vídeo de novembro de 2025. Paciente ativo com sessões semanais presenciais.\n</details>\n\n<details>\n<summary>Sessão 2 — data não informada</summary>\n\t- <mention-page url=\"https://app.notion.com/p/8991b71549734bc69c97450a6607c43d\"/>\n</details>\n\n<details>\n<summary>Sessão 3 — data não informada</summary>\n\t- <mention-page url=\"https://app.notion.com/p/4b86bc33b8bd4e458f33a24eb845e83a\"/>\n</details>\n\n<details>\n<summary>Sessão 4 — 20/01/2026</summary>\n\t- <mention-page url=\"https://app.notion.com/p/fe81ca04c0ab40539cd0e3501a537b6d\"/>\n</details>\n\n<details>\n<summary>Sessão 5 — 21/04/2026</summary>\n\t- <mention-page url=\"https://app.notion.com/p/3495e66b0dc18032b317ff0eafe8b80c\"/>\n</details>\n\n<details>\n<summary>Sessão 6 — 12/05/2026</summary>\n\t- <mention-page url=\"https://app.notion.com/p/35e5e66b0dc18000949efb2d609bee93\"/>\n</details>\n"
+  },
+  "Luisa Cabalin": {
+    "codigo": "PAC-010",
+    "total_sessoes": 6,
+    "sessoes": [
+      {
+        "id": "2e75e66b0dc1813e8f6fe31759de9594",
+        "data": "13/01/2026",
+        "url": "https://app.notion.com/p/2e75e66b0dc1813e8f6fe31759de9594"
+      },
+      {
+        "id": "76265cde8e4c499d9c50a419e6ef3fa2",
+        "data": "08/12/2025",
+        "url": "https://app.notion.com/p/76265cde8e4c499d9c50a419e6ef3fa2"
+      },
+      {
+        "id": "2c35e66b0dc180998e72e239607a83ca",
+        "data": "08/12/2025",
+        "url": "https://app.notion.com/p/2c35e66b0dc180998e72e239607a83ca"
+      },
+      {
+        "id": "a7a00b9262c044b885b0ae05d242fe38",
+        "data": null,
+        "url": "https://app.notion.com/p/a7a00b9262c044b885b0ae05d242fe38"
+      },
+      {
+        "id": "643cf9fde25f45779d37cacf8d95bf2e",
+        "data": null,
+        "url": "https://app.notion.com/p/643cf9fde25f45779d37cacf8d95bf2e"
+      },
+      {
+        "id": "3505e66b0dc180158318f9c3c778e350",
+        "data": "28/04/2026",
+        "url": "https://app.notion.com/p/3505e66b0dc180158318f9c3c778e350"
+      }
+    ],
+    "conteudo_notion": "<callout icon=\"💬\" color=\"blue_bg\">\n\tConversas e sessões consolidadas — **PAC-010**\n</callout>\n**Paciente:** Luisa Cabalin\n**Código:** PAC-010\n\n## Sessões (6)\n\n<details>\n<summary>Sessão 1 — 13/01/2026</summary>\n\t- <mention-page url=\"https://app.notion.com/p/2e75e66b0dc1813e8f6fe31759de9594\"/>\n\t- **Resumo consolidado:** Trabalhou no final de ano no banco BNP. Conflitos familiares envolvendo a irmã de seu parceiro Pedro durante o Natal.\n</details>\n\n<details>\n<summary>Sessão 2 — 08/12/2025</summary>\n\t- <mention-page url=\"https://app.notion.com/p/76265cde8e4c499d9c50a419e6ef3fa2\"/>\n</details>\n\n<details>\n<summary>Sessão 3 — 08/12/2025</summary>\n\t- <mention-page url=\"https://app.notion.com/p/2c35e66b0dc180998e72e239607a83ca\"/>\n</details>\n\n<details>\n<summary>Sessão 4 — data não informada</summary>\n\t- <mention-page url=\"https://app.notion.com/p/a7a00b9262c044b885b0ae05d242fe38\"/>\n</details>\n\n<details>\n<summary>Sessão 5 — data não informada</summary>\n\t- <mention-page url=\"https://app.notion.com/p/643cf9fde25f45779d37cacf8d95bf2e\"/>\n</details>\n\n<details>\n<summary>Sessão 6 — 28/04/2026</summary>\n\t- <mention-page url=\"https://app.notion.com/p/3505e66b0dc180158318f9c3c778e350\"/>\n</details>\n"
+  },
+  "Luís Octavio Almeida": {
+    "codigo": "PAC-007",
+    "total_sessoes": 2,
+    "sessoes": [
+      {
+        "id": "3445e66b0dc180e29159f40e4356ac24",
+        "data": "16/04/2026",
+        "url": "https://app.notion.com/p/3445e66b0dc180e29159f40e4356ac24"
+      },
+      {
+        "id": "3605e66b0dc1802aa629e664253e1c15",
+        "data": "14/05/2026",
+        "url": "https://app.notion.com/p/3605e66b0dc1802aa629e664253e1c15"
+      }
+    ],
+    "conteudo_notion": "<callout icon=\"💬\" color=\"blue_bg\">\n\tConversas e sessões consolidadas — **PAC-007**\n</callout>\n**Paciente:** Luís Octavio Almeida\n**Código:** PAC-007\n\n## Sessões (2)\n\n<details>\n<summary>Sessão 1 — 16/04/2026</summary>\n\t- <mention-page url=\"https://app.notion.com/p/3445e66b0dc180e29159f40e4356ac24\"/>\n</details>\n\n<details>\n<summary>Sessão 2 — 14/05/2026</summary>\n\t- <mention-page url=\"https://app.notion.com/p/3605e66b0dc1802aa629e664253e1c15\"/>\n</details>\n"
+  },
+  "Lívia Padiar": {
+    "codigo": "PAC-012",
+    "total_sessoes": 9,
+    "sessoes": [
+      {
+        "id": "2994f817f03a47678fefc9e5f56021d9",
+        "data": "10/12/2025",
+        "url": "https://app.notion.com/p/2994f817f03a47678fefc9e5f56021d9"
+      },
+      {
+        "id": "f55824dc9af542f5aca8b8930d286773",
+        "data": "19/01/2026",
+        "url": "https://app.notion.com/p/f55824dc9af542f5aca8b8930d286773"
+      },
+      {
+        "id": "e0ceacb074194e7e88f07c3a495e2385",
+        "data": null,
+        "url": "https://app.notion.com/p/e0ceacb074194e7e88f07c3a495e2385"
+      },
+      {
+        "id": "2e85e66b0dc1813c9b2cee05a595296a",
+        "data": "14/01/2026",
+        "url": "https://app.notion.com/p/2e85e66b0dc1813c9b2cee05a595296a"
+      },
+      {
+        "id": "2c55e66b0dc180608b2de39418f04bf3",
+        "data": "10/12/2025",
+        "url": "https://app.notion.com/p/2c55e66b0dc180608b2de39418f04bf3"
+      },
+      {
+        "id": "30d5e66b0dc180399e11c5f01c3a0b67",
+        "data": "20/02/2026",
+        "url": "https://app.notion.com/p/30d5e66b0dc180399e11c5f01c3a0b67"
+      },
+      {
+        "id": "3135e66b0dc18008bf05dcd55d0a15c1",
+        "data": "26/02/2026",
+        "url": "https://app.notion.com/p/3135e66b0dc18008bf05dcd55d0a15c1"
+      },
+      {
+        "id": "34b5e66b0dc18051a0e5c94b5d09e4cf",
+        "data": "23/04/2026",
+        "url": "https://app.notion.com/p/34b5e66b0dc18051a0e5c94b5d09e4cf"
+      },
+      {
+        "id": "d6affe478e62421393c831b1d0d21f6e",
+        "data": "19/01/2026",
+        "url": "https://app.notion.com/p/d6affe478e62421393c831b1d0d21f6e"
+      }
+    ],
+    "conteudo_notion": "<callout icon=\"💬\" color=\"blue_bg\">\n\tConversas e sessões consolidadas — **PAC-012**\n</callout>\n**Paciente:** Lívia Padiar\n**Código:** PAC-012\n\n## Sessões (9)\n\n<details>\n<summary>Sessão 1 — 10/12/2025</summary>\n\t- <mention-page url=\"https://app.notion.com/p/2994f817f03a47678fefc9e5f56021d9\"/>\n</details>\n\n<details>\n<summary>Sessão 2 — 19/01/2026</summary>\n\t- <mention-page url=\"https://app.notion.com/p/f55824dc9af542f5aca8b8930d286773\"/>\n\t- **Notas:** Vitória: Cinema (Avatar). Crise de pânico na casa de Léo (ansiedade separação). Gatilhos mãe/casa. Apoio de Léo.\n</details>\n\n<details>\n<summary>Sessão 3 — data não informada</summary>\n\t- <mention-page url=\"https://app.notion.com/p/e0ceacb074194e7e88f07c3a495e2385\"/>\n</details>\n\n<details>\n<summary>Sessão 4 — 14/01/2026</summary>\n\t- <mention-page url=\"https://app.notion.com/p/2e85e66b0dc1813c9b2cee05a595296a\"/>\n</details>\n\n<details>\n<summary>Sessão 5 — 10/12/2025</summary>\n\t- <mention-page url=\"https://app.notion.com/p/2c55e66b0dc180608b2de39418f04bf3\"/>\n</details>\n\n<details>\n<summary>Sessão 6 — 20/02/2026</summary>\n\t- <mention-page url=\"https://app.notion.com/p/30d5e66b0dc180399e11c5f01c3a0b67\"/>\n</details>\n\n<details>\n<summary>Sessão 7 — 26/02/2026</summary>\n\t- <mention-page url=\"https://app.notion.com/p/3135e66b0dc18008bf05dcd55d0a15c1\"/>\n</details>\n\n<details>\n<summary>Sessão 8 — 23/04/2026</summary>\n\t- <mention-page url=\"https://app.notion.com/p/34b5e66b0dc18051a0e5c94b5d09e4cf\"/>\n</details>\n\n<details>\n<summary>Sessão 9 — 19/01/2026</summary>\n\t- <mention-page url=\"https://app.notion.com/p/d6affe478e62421393c831b1d0d21f6e\"/>\n</details>\n"
+  },
+  "Maria José": {
+    "codigo": "PAC-001",
+    "total_sessoes": 4,
+    "sessoes": [
+      {
+        "id": "2c65e66b0dc1800b92fdd4e79dd472b2",
+        "data": null,
+        "url": "https://app.notion.com/p/2c65e66b0dc1800b92fdd4e79dd472b2"
+      },
+      {
+        "id": "2cb5e66b0dc180b7a621c8be81e76be4",
+        "data": "16/12/2025",
+        "url": "https://app.notion.com/p/2cb5e66b0dc180b7a621c8be81e76be4"
+      },
+      {
+        "id": "3135e66b0dc1806199adc306dd477205",
+        "data": "26/02/2026",
+        "url": "https://app.notion.com/p/3135e66b0dc1806199adc306dd477205"
+      },
+      {
+        "id": "3eeecb6edf534836b510ec2ae48432dc",
+        "data": null,
+        "url": "https://app.notion.com/p/3eeecb6edf534836b510ec2ae48432dc"
+      }
+    ],
+    "conteudo_notion": "<callout icon=\"💬\" color=\"blue_bg\">\n\tConversas e sessões consolidadas — **PAC-001**\n</callout>\n**Paciente:** Maria José\n**Código:** PAC-001\n\n## Sessões (4)\n\n<details>\n<summary>Sessão 1 — data não informada</summary>\n\t- <mention-page url=\"https://app.notion.com/p/2c65e66b0dc1800b92fdd4e79dd472b2\"/>\n</details>\n\n<details>\n<summary>Sessão 2 — 16/12/2025</summary>\n\t- <mention-page url=\"https://app.notion.com/p/2cb5e66b0dc180b7a621c8be81e76be4\"/>\n</details>\n\n<details>\n<summary>Sessão 3 — 26/02/2026</summary>\n\t- <mention-page url=\"https://app.notion.com/p/3135e66b0dc1806199adc306dd477205\"/>\n</details>\n\n<details>\n<summary>Sessão 4 — data não informada</summary>\n\t- <mention-page url=\"https://app.notion.com/p/3eeecb6edf534836b510ec2ae48432dc\"/>\n</details>\n"
+  },
+  "Monica Mattos Fernandes": {
+    "codigo": "PAC-006",
+    "total_sessoes": 6,
+    "sessoes": [
+      {
+        "id": "c96c9d47b8324d19b5cd09c6f779d767",
+        "data": "21/01/2026",
+        "url": "https://app.notion.com/p/c96c9d47b8324d19b5cd09c6f779d767"
+      },
+      {
+        "id": "5266472e67124363b48703f5d8d85084",
+        "data": "11/12/2025",
+        "url": "https://app.notion.com/p/5266472e67124363b48703f5d8d85084"
+      },
+      {
+        "id": "9d3ff2269cfd45949f64f3b59401171f",
+        "data": "14/01/2026",
+        "url": "https://app.notion.com/p/9d3ff2269cfd45949f64f3b59401171f"
+      },
+      {
+        "id": "459783bbbb5148dc96317d1fa4e8d151",
+        "data": "04/02/2026",
+        "url": "https://app.notion.com/p/459783bbbb5148dc96317d1fa4e8d151"
+      },
+      {
+        "id": "8eab5ade239a4d4abfb6d20882aebc31",
+        "data": "04/02/2026",
+        "url": "https://app.notion.com/p/8eab5ade239a4d4abfb6d20882aebc31"
+      },
+      {
+        "id": "3055e66b0dc180678822e7239b622389",
+        "data": "12/02/2026",
+        "url": "https://app.notion.com/p/3055e66b0dc180678822e7239b622389"
+      }
+    ],
+    "conteudo_notion": "<callout icon=\"💬\" color=\"blue_bg\">\n\tConversas e sessões consolidadas — **PAC-006**\n</callout>\n**Paciente:** Monica Mattos Fernandes\n**Código:** PAC-006\n\n## Sessões (6)\n\n<details>\n<summary>Sessão 1 — 21/01/2026</summary>\n\t- <mention-page url=\"https://app.notion.com/p/c96c9d47b8324d19b5cd09c6f779d767\"/>\n</details>\n\n<details>\n<summary>Sessão 2 — 11/12/2025</summary>\n\t- <mention-page url=\"https://app.notion.com/p/5266472e67124363b48703f5d8d85084\"/>\n</details>\n\n<details>\n<summary>Sessão 3 — 14/01/2026</summary>\n\t- <mention-page url=\"https://app.notion.com/p/9d3ff2269cfd45949f64f3b59401171f\"/>\n</details>\n\n<details>\n<summary>Sessão 4 — 04/02/2026</summary>\n\t- <mention-page url=\"https://app.notion.com/p/459783bbbb5148dc96317d1fa4e8d151\"/>\n</details>\n\n<details>\n<summary>Sessão 5 — 04/02/2026</summary>\n\t- <mention-page url=\"https://app.notion.com/p/8eab5ade239a4d4abfb6d20882aebc31\"/>\n</details>\n\n<details>\n<summary>Sessão 6 — 12/02/2026</summary>\n\t- <mention-page url=\"https://app.notion.com/p/3055e66b0dc180678822e7239b622389\"/>\n</details>\n"
+  },
+  "Márcia": {
+    "codigo": "PAC-015",
+    "total_sessoes": 2,
+    "sessoes": [
+      {
+        "id": "84e0a2729263450ba41619d746afd456",
+        "data": "14/01/2026",
+        "url": "https://app.notion.com/p/84e0a2729263450ba41619d746afd456"
+      },
+      {
+        "id": "2e85e66b0dc18043a8d9d0001a8dc1c6",
+        "data": "14/01/2026",
+        "url": "https://app.notion.com/p/2e85e66b0dc18043a8d9d0001a8dc1c6"
+      }
+    ],
+    "conteudo_notion": "<callout icon=\"💬\" color=\"blue_bg\">\n\tConversas e sessões consolidadas — **PAC-015**\n</callout>\n**Paciente:** Márcia\n**Código:** PAC-015\n\n## Sessões (2)\n\n<details>\n<summary>Sessão 1 — 14/01/2026</summary>\n\t- <mention-page url=\"https://app.notion.com/p/84e0a2729263450ba41619d746afd456\"/>\n</details>\n\n<details>\n<summary>Sessão 2 — 14/01/2026</summary>\n\t- <mention-page url=\"https://app.notion.com/p/2e85e66b0dc18043a8d9d0001a8dc1c6\"/>\n</details>\n"
+  },
+  "Rochele": {
+    "codigo": "PAC-018",
+    "total_sessoes": 3,
+    "sessoes": [
+      {
+        "id": "36e5e66b0dc18021a69ee11fec1d65b5",
+        "data": null,
+        "url": "https://app.notion.com/p/36e5e66b0dc18021a69ee11fec1d65b5"
+      },
+      {
+        "id": "34a5e66b0dc180a6bfa2f6c086a0949f",
+        "data": "22/04/2026",
+        "url": "https://app.notion.com/p/34a5e66b0dc180a6bfa2f6c086a0949f"
+      },
+      {
+        "id": "3515e66b0dc180dba490cdfad63fc8fa",
+        "data": "29/04/2026",
+        "url": "https://app.notion.com/p/3515e66b0dc180dba490cdfad63fc8fa"
+      }
+    ],
+    "conteudo_notion": "<callout icon=\"💬\" color=\"blue_bg\">\n\tConversas e sessões consolidadas — **PAC-018**\n</callout>\n**Paciente:** Rochele\n**Código:** PAC-018\n\n## Sessões (3)\n\n<details>\n<summary>Sessão 1 — data não informada</summary>\n\t- <mention-page url=\"https://app.notion.com/p/36e5e66b0dc18021a69ee11fec1d65b5\"/>\n</details>\n\n<details>\n<summary>Sessão 2 — 22/04/2026</summary>\n\t- <mention-page url=\"https://app.notion.com/p/34a5e66b0dc180a6bfa2f6c086a0949f\"/>\n</details>\n\n<details>\n<summary>Sessão 3 — 29/04/2026</summary>\n\t- <mention-page url=\"https://app.notion.com/p/3515e66b0dc180dba490cdfad63fc8fa\"/>\n</details>\n"
+  },
+  "Sthephanie": {
+    "codigo": "PAC-013",
+    "total_sessoes": 8,
+    "sessoes": [
+      {
+        "id": "ffe11942bc134458922a305f47619510",
+        "data": "16/12/2025",
+        "url": "https://app.notion.com/p/ffe11942bc134458922a305f47619510"
+      },
+      {
+        "id": "5422b2623c0444a1ab9b8bdc2b2a32d2",
+        "data": "13/01/2026",
+        "url": "https://app.notion.com/p/5422b2623c0444a1ab9b8bdc2b2a32d2"
+      },
+      {
+        "id": "bc9f6d509acc417c889fc426afd2d915",
+        "data": "20/01/2026",
+        "url": "https://app.notion.com/p/bc9f6d509acc417c889fc426afd2d915"
+      },
+      {
+        "id": "2fc5e66b0dc180c9ad95f336a58d3068",
+        "data": "03/02/2026",
+        "url": "https://app.notion.com/p/2fc5e66b0dc180c9ad95f336a58d3068"
+      },
+      {
+        "id": "2e75e66b0dc1814ba255fb95959fc483",
+        "data": "13/01/2026",
+        "url": "https://app.notion.com/p/2e75e66b0dc1814ba255fb95959fc483"
+      },
+      {
+        "id": "2cb5e66b0dc180a5a843ca54cb6dab6d",
+        "data": "16/12/2025",
+        "url": "https://app.notion.com/p/2cb5e66b0dc180a5a843ca54cb6dab6d"
+      },
+      {
+        "id": "35e5e66b0dc18051a7f0cb454825a872",
+        "data": "12/05/2026",
+        "url": "https://app.notion.com/p/35e5e66b0dc18051a7f0cb454825a872"
+      },
+      {
+        "id": "62984f1c45bf44e9bb05143c458c7311",
+        "data": null,
+        "url": "https://app.notion.com/p/62984f1c45bf44e9bb05143c458c7311"
+      }
+    ],
+    "conteudo_notion": "<callout icon=\"💬\" color=\"blue_bg\">\n\tConversas e sessões consolidadas — **PAC-013**\n</callout>\n**Paciente:** Sthephanie\n**Código:** PAC-013\n\n## Sessões (8)\n\n<details>\n<summary>Sessão 1 — 16/12/2025</summary>\n\t- <mention-page url=\"https://app.notion.com/p/ffe11942bc134458922a305f47619510\"/>\n</details>\n\n<details>\n<summary>Sessão 2 — 13/01/2026</summary>\n\t- <mention-page url=\"https://app.notion.com/p/5422b2623c0444a1ab9b8bdc2b2a32d2\"/>\n</details>\n\n<details>\n<summary>Sessão 3 — 20/01/2026</summary>\n\t- <mention-page url=\"https://app.notion.com/p/bc9f6d509acc417c889fc426afd2d915\"/>\n</details>\n\n<details>\n<summary>Sessão 4 — 03/02/2026</summary>\n\t- <mention-page url=\"https://app.notion.com/p/2fc5e66b0dc180c9ad95f336a58d3068\"/>\n</details>\n\n<details>\n<summary>Sessão 5 — 13/01/2026</summary>\n\t- <mention-page url=\"https://app.notion.com/p/2e75e66b0dc1814ba255fb95959fc483\"/>\n</details>\n\n<details>\n<summary>Sessão 6 — 16/12/2025</summary>\n\t- <mention-page url=\"https://app.notion.com/p/2cb5e66b0dc180a5a843ca54cb6dab6d\"/>\n</details>\n\n<details>\n<summary>Sessão 7 — 12/05/2026</summary>\n\t- <mention-page url=\"https://app.notion.com/p/35e5e66b0dc18051a7f0cb454825a872\"/>\n</details>\n\n<details>\n<summary>Sessão 8 — data não informada</summary>\n\t- <mention-page url=\"https://app.notion.com/p/62984f1c45bf44e9bb05143c458c7311\"/>\n</details>\n"
+  }
+}
