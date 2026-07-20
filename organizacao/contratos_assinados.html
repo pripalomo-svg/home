@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contratos assinados · Consultório</title>
+<style>
+:root{--az:#1a3a5c;--az2:#2056a0;--bg:#f4f6fb;--tx:#17203a;--ci:#6b7280;--ok:#2e7d32;--er:#b91c1c;}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(--tx);line-height:1.55;padding:24px 18px 60px;max-width:980px;margin:0 auto}
+h1{font-size:1.55rem;margin-bottom:6px} h1 em{color:#e94560;font-style:normal}
+.sub{color:var(--ci);font-size:.9rem;margin-bottom:18px}
+.aviso{background:#fff8e8;border:1px solid #e8d29a;border-left:4px solid #c9a227;border-radius:10px;padding:12px 14px;font-size:.88rem;margin-bottom:18px}
+.card{background:#fff;border-radius:14px;padding:18px;box-shadow:0 1px 8px rgba(0,0,0,.06);margin-bottom:16px}
+.card h2{font-size:1.05rem;margin-bottom:10px;color:var(--az)}
+table{width:100%;border-collapse:collapse;font-size:.86rem}
+th,td{text-align:left;padding:10px 8px;border-bottom:1px solid #e8ecf3;vertical-align:top}
+th{font-size:.72rem;text-transform:uppercase;letter-spacing:.06em;color:var(--ci)}
+.vazio{color:var(--ci);text-align:center;padding:28px 8px}
+textarea{width:100%;min-height:160px;border:1.5px solid #dde3ec;border-radius:10px;padding:12px;font:inherit;resize:vertical}
+.btn{display:inline-block;background:var(--az);color:#fff;border:none;border-radius:9px;padding:10px 16px;font-weight:700;cursor:pointer;margin-top:10px}
+.btn:hover{filter:brightness(1.06)}
+.meta{font-size:.78rem;color:var(--ci);margin-top:8px}
+.ok{color:var(--ok);font-weight:600}.er{color:var(--er);font-weight:600}
+a{color:var(--az2)}
+.nav a{margin-right:12px;font-size:.85rem}
+</style>
+</head>
+<body>
+<p class="nav"><a href="links.html">← Links</a> <a href="contrato_paciente.html">Novo contrato</a> <a href="cadastro_pacientes.html">Pacientes</a></p>
+<h1>Contratos <em>assinados</em></h1>
+<p class="sub">Arquivo dos contratos enviados ao e-mail · pripalomo@gmail.com · atualizado 2026-07-20T13:25:58</p>
+
+<div class="aviso">
+  <strong>Histórico do Gmail:</strong> ainda sem acesso à caixa <code>pripalomo@gmail.com</code> neste ambiente
+  (login Google bloqueado). O EmailJS envia só o <em>texto</em> do contrato — não anexa o PDF.
+  Para recuperar os antigos: no Gmail busque <code>Contrato assinado</code> ou
+  <code>NOVO CONTRATO DE PACIENTE FINALIZADO</code>, copie o corpo do e-mail e cole abaixo
+  (ou salve .txt/.eml em <code>documentos/contratos_assinados/</code> e rode
+  <code>python3 gerar_contratos_assinados.py</code>).
+</div>
+
+<div class="card">
+  <h2>Arquivo (0)</h2>
+  <table>
+    <thead><tr><th>Paciente</th><th>Data</th><th>Honorários</th><th>WhatsApp</th><th>E-mail</th><th>Fonte</th><th>PDF</th></tr></thead>
+    <tbody>
+<tr><td colspan="7" class="vazio">Nenhum contrato arquivado ainda. Cole e-mails abaixo ou coloque PDFs/.txt em documentos/contratos_assinados/</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="card">
+  <h2>Colar e-mail do EmailJS → gerar PDF</h2>
+  <p class="meta">Cole o corpo completo do e-mail (começa com NOVO CONTRATO DE PACIENTE FINALIZADO).</p>
+  <textarea id="emailTxt" placeholder="NOVO CONTRATO DE PACIENTE FINALIZADO&#10;&#10;Nome: ..."></textarea>
+  <button class="btn" type="button" onclick="gerarDoEmail()">Gerar e baixar PDF</button>
+  <p id="status" class="meta"></p>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script>
+function campo(texto, lab){
+  const re = new RegExp(lab + '\\s*:\\s*(.+)', 'i');
+  const m = texto.match(re);
+  return m ? m[1].trim() : '';
+}
+function gerarDoEmail(){
+  const t = document.getElementById('emailTxt').value || '';
+  const st = document.getElementById('status');
+  if(!/NOVO CONTRATO|DADOS DO PACIENTE/i.test(t)){
+    st.innerHTML = '<span class="er">Texto não parece um e-mail de contrato.</span>';
+    return;
+  }
+  const nome = campo(t, 'Nome');
+  if(!nome){ st.innerHTML = '<span class="er">Nome do paciente não encontrado.</span>'; return; }
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF({unit:'mm', format:'a4'});
+  let y = 18; const M=16; const W=210-M*2;
+  const linha = (txt, h=6, size=11, bold=false) => {
+    doc.setFont('helvetica', bold?'bold':'normal'); doc.setFontSize(size);
+    const ls = doc.splitTextToSize(String(txt), W);
+    if(y + ls.length*h > 280){ doc.addPage(); y=18; }
+    doc.text(ls, M, y); y += ls.length*h;
+  };
+  doc.setTextColor(26,58,92);
+  linha('CONTRATO ASSINADO — Arquivo do e-mail', 7, 14, true);
+  linha('Paciente: ' + nome, 6, 11, true);
+  ['CPF','Nascimento','WhatsApp','E-mail','Endereco','Endereço','Contato de emergencia','Contato de emergência','Data e hora','Honorarios','Honorários'].forEach(l=>{
+    const v = campo(t, l); if(v) linha(l + ': ' + v);
+  });
+  y += 4; linha('--- Resumo completo ---', 6, 10, true);
+  t.split(/\n/).forEach(ln => linha(ln, 5, 9));
+  const fname = 'Contrato_Assinado_' + nome.replace(/\s+/g,'_') + '.pdf';
+  doc.save(fname);
+  st.innerHTML = '<span class="ok">PDF baixado: ' + fname + '. Salve em documentos/contratos_assinados/ e rode o gerador.</span>';
+}
+</script>
+</body>
+</html>

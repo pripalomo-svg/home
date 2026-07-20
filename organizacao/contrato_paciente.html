@@ -509,6 +509,45 @@ async function ensureEmailJSLoaded(){
   return window.emailjs;
 }
 
+function arquivarContratoLocal(pac){
+  try{
+    const chave = 'arquivoContratosAssinados';
+    const lista = JSON.parse(localStorage.getItem(chave) || '[]');
+    const reg = {
+      id: pac.id || Date.now(),
+      nome: pac.nome,
+      cpf: pac.cpf,
+      email: pac.email,
+      tel: pac.tel,
+      honorarios: pac.honorarios,
+      dataHora: pac.dataHora,
+      nasc: pac.nasc,
+      endereco: [pac.rua, pac.numEnd, pac.bairro, pac.cidade, pac.uf].filter(Boolean).join(', ')
+    };
+    const semDup = lista.filter(x => !(x.nome === reg.nome && x.dataHora === reg.dataHora));
+    semDup.unshift(reg);
+    localStorage.setItem(chave, JSON.stringify(semDup.slice(0, 200)));
+    localStorage.setItem('ultimoContratoPacienteFinalizado', JSON.stringify(pac));
+  }catch(e){ console.warn('Falha ao arquivar localmente', e); }
+}
+
+function baixarRegistroJson(pac){
+  try{
+    const blob = new Blob([JSON.stringify(pac, null, 2)], {type:'application/json'});
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = `Contrato_Assinado_${sem(pac.nome || 'Paciente').replace(/\s+/g,'_')}.json`;
+    a.click();
+    setTimeout(() => URL.revokeObjectURL(a.href), 1500);
+  }catch(e){ console.warn(e); }
+}
+
+async function pdfBase64(pac){
+  const doc = buildPDF(pac);
+  const dataUri = doc.output('datauristring');
+  return dataUri.split(',')[1] || '';
+}
+
 async function enviarContratoEmailJS(pac, silencioso=false){
   const emailjsLib = await ensureEmailJSLoaded();
   emailjsLib.init(EMAIL_CFG.publicKey);
@@ -527,6 +566,13 @@ async function enviarContratoEmailJS(pac, silencioso=false){
     patient_phone: pac.tel || '—',
     honorarios: pac.honorarios || '—'
   };
+  try{
+    const b64 = await pdfBase64(pac);
+    if(b64){
+      payload.content = b64;
+      payload.arquivo_pdf_nome = `Contrato_Assinado_${sem(pac.nome || 'Paciente').replace(/\s+/g,'_')}.pdf`;
+    }
+  }catch(e){ console.warn('PDF base64 indisponivel para e-mail', e); }
   const res = await emailjsLib.send(EMAIL_CFG.serviceId, EMAIL_CFG.templateId, payload);
   if(!silencioso) setEmailStatus(`E-mail enviado para ${EMAIL_CFG.toEmail}.`, 'ok');
   return res;
@@ -536,7 +582,7 @@ function finalizar(){
   limparErro();
   if(!validarFormulario()) return;
   D = coletarDados();
-  localStorage.setItem('ultimoContratoPacienteFinalizado', JSON.stringify(D));
+  arquivarContratoLocal(D);
   $('nomeS').textContent = D.nome;
   $('formArea').style.display = 'none';
   $('telaSucesso').style.display = 'block';
@@ -545,7 +591,10 @@ function finalizar(){
     console.error('Falha ao enviar e-mail:', err);
     setEmailStatus(`Falha no envio automatico para ${EMAIL_CFG.toEmail}. Use o botao de reenviar.`, 'err');
   });
-  setTimeout(() => baixarPDF(true), 450);
+  setTimeout(() => {
+    baixarPDF(true);
+    baixarRegistroJson(D);
+  }, 450);
   window.scrollTo({top: 0, behavior: 'smooth'});
 }
 

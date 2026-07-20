@@ -30,6 +30,13 @@
       "arquivo_pc": "organizacao/contrato_paciente.html",
       "log": "organizacao/ultima_atualizacao.json"
     },
+    "contratos_assinados": {
+      "titulo": "Contratos assinados",
+      "link_painel": "{base}/organizacao/contratos_assinados.html",
+      "arquivo_pc": "organizacao/contratos_assinados.html",
+      "pasta_pdf": "organizacao/documentos/contratos_assinados/",
+      "log": "organizacao/dados/contratos_assinados.json"
+    },
     "consultorio": {
       "titulo": "Consultório",
       "link_painel": "{base}/organizacao/index.html#consultorio",
