@@ -1,6 +1,75 @@
 {
-  "atualizado_em": "2026-07-20T13:25:58",
+  "atualizado_em": "2026-07-20T13:51:48",
   "destino_email": "pripalomo@gmail.com",
-  "observacao": "Os e-mails do formulário (EmailJS) enviam só o resumo em texto — sem PDF anexo. Histórico do Gmail ainda não acessível neste ambiente. Novos contratos passam a gerar PDF + registro JSON automaticamente.",
-  "contratos": []
+  "observacao": "Histórico EmailJS (logs /enviar). Só 4 envios 200 OK. Os demais foram teste, 413 (variável >50KB) ou 422 (destinatário vazio). Conteúdo do paciente está no Gmail — EmailJS não guarda o corpo no log colado.",
+  "contratos": [
+    {
+      "id": "evento_EX9VYZRuxCVDQYJTwFVuVLSr",
+      "nome": "(abrir e-mail do dia — nome no Gmail)",
+      "data_hora": "22/06/2026, 10:50:04",
+      "fonte": "emailjs_ok",
+      "status": "200 OK",
+      "site": "https://radiant-muffin-5fd3d5.netlify.app/",
+      "evento": "evento_EX9VYZRuxCVDQYJTwFVuVLSr",
+      "gmail_busca": "after:2026/6/21 before:2026/6/23 (\"Contrato assinado\" OR \"NOVO CONTRATO\")",
+      "arquivo_pdf": null,
+      "honorarios": null,
+      "whatsapp": null,
+      "email": null
+    },
+    {
+      "id": "evento_uvMF22Zn8tQF3HSTsxUkDGob",
+      "nome": "(abrir e-mail do dia — nome no Gmail)",
+      "data_hora": "18/05/2026, 13:33:49",
+      "fonte": "emailjs_ok",
+      "status": "200 OK",
+      "site": "https://radiant-muffin-5fd3d5.netlify.app/",
+      "evento": "evento_uvMF22Zn8tQF3HSTsxUkDGob",
+      "gmail_busca": "after:2026/5/17 before:2026/5/19 (\"Contrato assinado\" OR \"NOVO CONTRATO\")",
+      "arquivo_pdf": null,
+      "honorarios": null,
+      "whatsapp": null,
+      "email": null
+    },
+    {
+      "id": "evento_5jHorQmRvgkhujvR4t367SK",
+      "nome": "(abrir e-mail do dia — nome no Gmail)",
+      "data_hora": "25/03/2026, 16:09:30",
+      "fonte": "emailjs_ok",
+      "status": "200 OK",
+      "site": "https://stellular-faloodeh-e95467.netlify.app/",
+      "evento": "evento_5jHorQmRvgkhujvR4t367SK",
+      "gmail_busca": "after:2026/3/24 before:2026/3/26 (\"Contrato assinado\" OR \"NOVO CONTRATO\")",
+      "arquivo_pdf": null,
+      "honorarios": null,
+      "whatsapp": null,
+      "email": null
+    },
+    {
+      "id": "evento_alxC44Yr65RL36YEjzUYnrl1",
+      "nome": "(abrir e-mail do dia — nome no Gmail)",
+      "data_hora": "25/03/2026, 15:03:06",
+      "fonte": "emailjs_ok",
+      "status": "200 OK",
+      "site": "https://cute-basbousa-aa4e35.netlify.app/",
+      "evento": "evento_alxC44Yr65RL36YEjzUYnrl1",
+      "gmail_busca": "after:2026/3/24 before:2026/3/26 (\"Contrato assinado\" OR \"NOVO CONTRATO\")",
+      "arquivo_pdf": null,
+      "honorarios": null,
+      "whatsapp": null,
+      "email": null
+    }
+  ],
+  "falhas_ignoradas": [
+    {
+      "data": "20/03/2026, 17:33:33",
+      "status": 422,
+      "motivo": "destinatário vazio"
+    },
+    {
+      "data": "20/03/2026",
+      "status": 413,
+      "motivo": "variáveis > 50 KB (vários envios)"
+    }
+  ]
 }

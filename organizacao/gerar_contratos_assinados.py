@@ -10,6 +10,7 @@ import json
 import re
 from datetime import datetime
 from pathlib import Path
+from urllib.parse import quote
 
 ROOT = Path(__file__).resolve().parent
 JSON_PATH = ROOT / "dados" / "contratos_assinados.json"
@@ -158,14 +159,24 @@ def gerar_html(data: dict) -> str:
     rows = []
     for c in contratos:
         pdf = c.get("arquivo_pdf") or ""
-        link = f'<a href="{pdf}">Baixar PDF</a>' if pdf else "—"
+        if pdf:
+            link = f'<a href="{pdf}">Baixar PDF</a>'
+        elif c.get("gmail_busca"):
+            q = c["gmail_busca"]
+            gmail_url = "https://mail.google.com/mail/u/0/#search/" + quote(q, safe="")
+            link = (
+                f'<a href="{_esc(gmail_url)}" target="_blank" rel="noopener">Abrir no Gmail</a>'
+                f'<div class="meta"><code>{_esc(q)}</code></div>'
+            )
+        else:
+            link = "—"
         rows.append(
             "<tr>"
             f"<td>{_esc(c.get('nome'))}</td>"
             f"<td>{_esc(c.get('data_hora') or '—')}</td>"
             f"<td>{_esc(c.get('honorarios') or '—')}</td>"
-            f"<td>{_esc(c.get('whatsapp') or '—')}</td>"
-            f"<td>{_esc(c.get('email') or '—')}</td>"
+            f"<td>{_esc(c.get('evento') or c.get('whatsapp') or '—')}</td>"
+            f"<td>{_esc(c.get('site') or c.get('email') or '—')}</td>"
             f"<td>{_esc(c.get('fonte') or '—')}</td>"
             f"<td>{link}</td>"
             "</tr>"
@@ -209,18 +220,15 @@ a{{color:var(--az2)}}
 <p class="sub">Arquivo dos contratos enviados ao e-mail · { _esc(data.get('destino_email') or 'pripalomo@gmail.com') } · atualizado { _esc(atualizado) }</p>
 
 <div class="aviso">
-  <strong>Histórico do Gmail:</strong> ainda sem acesso à caixa <code>pripalomo@gmail.com</code> neste ambiente
-  (login Google bloqueado). O EmailJS envia só o <em>texto</em> do contrato — não anexa o PDF.
-  Para recuperar os antigos: no Gmail busque <code>Contrato assinado</code> ou
-  <code>NOVO CONTRATO DE PACIENTE FINALIZADO</code>, copie o corpo do e-mail e cole abaixo
-  (ou salve .txt/.eml em <code>documentos/contratos_assinados/</code> e rode
-  <code>python3 gerar_contratos_assinados.py</code>).
+  <strong>EmailJS:</strong> {len([c for c in contratos if c.get('fonte')=='emailjs_ok'])} envios <code>200 OK</code> encontrados no histórico.
+  O log não traz o nome do paciente — isso está no Gmail. Clique em <em>Abrir no Gmail</em>,
+  copie o corpo do e-mail e cole abaixo para gerar o PDF.
 </div>
 
 <div class="card">
   <h2>Arquivo ({len(contratos)})</h2>
   <table>
-    <thead><tr><th>Paciente</th><th>Data</th><th>Honorários</th><th>WhatsApp</th><th>E-mail</th><th>Fonte</th><th>PDF</th></tr></thead>
+    <thead><tr><th>Paciente</th><th>Data</th><th>Honorários</th><th>Evento / WhatsApp</th><th>Site / E-mail</th><th>Fonte</th><th>PDF / Gmail</th></tr></thead>
     <tbody>
 {tabela}
     </tbody>

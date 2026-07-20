@@ -1,12 +1,17 @@
 [
   {
-    "quando": "2026-07-20T13:30:00",
-    "fonte": "sistema",
-    "descricao": "Página de contratos assinados criada — Gmail ainda sem acesso; importação por colagem de e-mail pronta",
+    "quando": "2026-07-20T13:50:00",
+    "fonte": "emailjs",
+    "descricao": "4 envios EmailJS 200 OK registrados (22/06, 18/05, 25/03 x2) — nomes no Gmail",
     "modulo": "contratos_assinados",
-    "registros": [],
+    "registros": [
+      "22/06/2026 10:50",
+      "18/05/2026 13:33",
+      "25/03/2026 16:09",
+      "25/03/2026 15:03"
+    ],
     "pendentes": [
-      "acesso ao Gmail (pripalomo@gmail.com) para importar histórico EmailJS"
+      "colar corpos dos 4 e-mails do Gmail para gerar PDFs com nome do paciente"
     ],
     "link_ver": "https://htmlpreview.github.io/?https://raw.githubusercontent.com/pripalomo-svg/home/main/organizacao/contratos_assinados.html",
     "titulo_painel": "Contratos assinados",
