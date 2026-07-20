@@ -24,6 +24,12 @@
       "planilha": "organizacao/templates/pacientes.csv",
       "log": "organizacao/ultima_atualizacao.json"
     },
+    "contrato_paciente": {
+      "titulo": "Contrato do paciente",
+      "link_painel": "{base}/organizacao/contrato_paciente.html",
+      "arquivo_pc": "organizacao/contrato_paciente.html",
+      "log": "organizacao/ultima_atualizacao.json"
+    },
     "consultorio": {
       "titulo": "Consultório",
       "link_painel": "{base}/organizacao/index.html#consultorio",
