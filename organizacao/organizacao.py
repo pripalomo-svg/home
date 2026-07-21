@@ -29,10 +29,22 @@ def conectar():
     return conn
 
 
+def _migrar(conn):
+    """Ajustes em bancos criados antes de mudanças no schema."""
+    cols = {r["name"] for r in conn.execute("PRAGMA table_info(investimentos)")}
+    if cols and "titular_id" not in cols:
+        conn.execute(
+            "ALTER TABLE investimentos ADD COLUMN titular_id INTEGER REFERENCES pessoas(id) DEFAULT 1"
+        )
+        conn.execute("UPDATE investimentos SET titular_id = 1 WHERE titular_id IS NULL")
+        conn.execute("DROP VIEW IF EXISTS vw_investimentos_resumo")
+
+
 def init(recriar=False):
     if recriar and DB.exists():
         DB.unlink()
     conn = conectar()
+    _migrar(conn)
     conn.executescript(SCHEMA.read_text(encoding="utf-8"))
     conn.executescript(SEED.read_text(encoding="utf-8"))
     conn.commit()
