@@ -25,24 +25,33 @@ MESES_PT = {
 
 
 def carregar():
-    lancamentos = []
-    vistos = set()
+    """Une os extratos. Lançamentos repetidos DENTRO de um mesmo arquivo são
+    legítimos (ex.: duas aplicações iguais no mesmo dia). Entre arquivos
+    diferentes, a mesma linha só conta uma vez (extratos sobrepostos):
+    para cada lançamento usa-se a maior contagem vista em um único arquivo."""
+    contagens = defaultdict(int)
+    dados = {}
     for arq in sorted(EXTRATOS.glob("*.csv")):
+        no_arquivo = defaultdict(int)
         with open(arq, newline="", encoding="utf-8-sig") as f:
             for row in csv.DictReader(f, delimiter=";"):
                 if not row.get("data") or not row.get("valor"):
                     continue
                 chave = (row["data"], row["descricao"], row["valor"])
-                if chave in vistos:  # evita duplicar se extratos se sobrepõem
-                    continue
-                vistos.add(chave)
-                lancamentos.append({
+                no_arquivo[chave] += 1
+                dados[chave] = {
                     "data": row["data"],
                     "descricao": row["descricao"],
                     "valor": float(row["valor"]),
                     "fluxo": row["fluxo"],
                     "categoria": row.get("categoria") or "Outros",
-                })
+                }
+        for chave, qtd in no_arquivo.items():
+            contagens[chave] = max(contagens[chave], qtd)
+
+    lancamentos = []
+    for chave, qtd in contagens.items():
+        lancamentos.extend([dict(dados[chave])] * qtd)
     lancamentos.sort(key=lambda x: x["data"])
     return lancamentos
 
