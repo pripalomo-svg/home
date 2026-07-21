@@ -23,6 +23,7 @@ Consulte `organizacao/dados/links_modulos.json` ou use a tabela:
 |--------|----------------------------------|
 | `investimentos` | https://htmlpreview.github.io/?https://raw.githubusercontent.com/pripalomo-svg/home/main/organizacao/investimentos.html |
 | `financas` | https://htmlpreview.github.io/?https://raw.githubusercontent.com/pripalomo-svg/home/main/organizacao/index.html#financas |
+| `fluxo_caixa` / `extratos` | https://htmlpreview.github.io/?https://raw.githubusercontent.com/pripalomo-svg/home/main/organizacao/fluxo_caixa.html |
 | `pacientes` / `consultorio` | https://htmlpreview.github.io/?https://raw.githubusercontent.com/pripalomo-svg/home/main/organizacao/index.html#consultorio |
 | `atendimentos` | https://htmlpreview.github.io/?https://raw.githubusercontent.com/pripalomo-svg/home/main/organizacao/index.html#consultorio |
 | `agenda` | https://htmlpreview.github.io/?https://raw.githubusercontent.com/pripalomo-svg/home/main/organizacao/index.html#agenda |
