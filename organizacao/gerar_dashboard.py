@@ -138,6 +138,7 @@ TEMPLATE = r"""<!DOCTYPE html>
     <a href="cadastro_pacientes.html" style="font-size:.78rem;color:#fff;background:rgba(255,255,255,.12);padding:6px 14px;border-radius:8px;text-decoration:none;font-weight:600">✏️ Cadastrar pacientes</a>
     <a href="como_usar.html" style="font-size:.78rem;color:#fff;background:rgba(34,197,94,.25);padding:6px 14px;border-radius:8px;text-decoration:none;font-weight:600;border:1px solid rgba(34,197,94,.4)">❓ Como usar</a>
     <a href="investimentos.html" style="font-size:.78rem;color:#fff;background:rgba(255,255,255,.12);padding:6px 14px;border-radius:8px;text-decoration:none;font-weight:600">📈 Investimentos</a>
+    <a href="fluxo_caixa.html" style="font-size:.78rem;color:#fff;background:rgba(255,255,255,.12);padding:6px 14px;border-radius:8px;text-decoration:none;font-weight:600">💸 Fluxo de Caixa</a>
     <a href="../reembolsos/index.html" style="font-size:.78rem;color:#fff;background:rgba(255,255,255,.12);padding:6px 14px;border-radius:8px;text-decoration:none;font-weight:600">🏥 Reembolsos</a>
   </div>
 </header>
@@ -236,6 +237,13 @@ TEMPLATE = r"""<!DOCTYPE html>
 <!-- FINANÇAS -->
 <div class="section" id="sec-financas">
   <div class="stats" id="statsFinancas"></div>
+  <div class="panel" style="padding:16px 18px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px">
+    <div>
+      <b style="font-size:.92rem">💸 Fluxo de Caixa — conta Itaú</b>
+      <p style="color:var(--mut);font-size:.78rem;margin-top:3px">Entradas, saídas e investimentos mês a mês, a partir do extrato bancário.</p>
+    </div>
+    <a href="fluxo_caixa.html" style="background:var(--blue);color:#fff;padding:10px 22px;border-radius:9px;text-decoration:none;font-weight:700;font-size:.84rem">Abrir fluxo de caixa →</a>
+  </div>
   <div class="panel">
     <div class="panel-h">💰 Lançamentos recentes</div>
     <div style="overflow-x:auto"><table><thead><tr>

@@ -129,6 +129,16 @@ Guia completo: [`notion/README.md`](notion/README.md)
 
 O painel já linka para o sistema de reembolsos em `../reembolsos/index.html` e a Central de Controle Familiar.
 
+## Fluxo de Caixa (extratos bancários)
+
+Painel `fluxo_caixa.html` com **entradas, saídas e investimentos mês a mês**, gerado a partir dos extratos em `extratos/*.csv` (separador `;`, colunas `data;descricao;valor;fluxo;categoria`, fluxo: `entrada|saida|aplicacao|resgate`).
+
+```bash
+python3 gerar_fluxo_caixa.py   # regenera fluxo_caixa.html
+```
+
+Já incluído: extrato Itaú de 22/04/2026 a 21/07/2026 (conferido com os saldos do PDF). Para cobrir mais meses, adicione novos CSVs em `extratos/` — lançamentos duplicados entre extratos são ignorados automaticamente.
+
 ## Comandos úteis
 
 ```bash

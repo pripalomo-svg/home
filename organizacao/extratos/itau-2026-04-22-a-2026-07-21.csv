@@ -1,0 +1,196 @@
+data;descricao;valor;fluxo;categoria
+2026-04-22;PIX Marcia;-220.00;saida;Pessoas e serviços
+2026-04-22;TED McKinsey;300.07;entrada;TED recebida (McKinsey)
+2026-04-23;PIX Sérgio;-190.50;saida;Pessoas e serviços
+2026-04-23;Rendimento aplicação automática;0.01;entrada;Rendimento conta
+2026-04-27;PIX X Farmácia;-30.92;saida;Saúde e farmácia
+2026-04-27;Estorno PIX X Farmácia;30.92;entrada;Estornos
+2026-04-27;PIX X Farmácia;-26.31;saida;Saúde e farmácia
+2026-04-27;PIX recebido Priscila (conta própria);1500.00;entrada;Transferência própria
+2026-04-28;PIX Instituto;-700.00;saida;Saúde e farmácia
+2026-04-28;Boleto Banco Bradesco;-1237.05;saida;Boletos e títulos
+2026-04-28;Rendimento aplicação automática;0.13;entrada;Rendimento conta
+2026-04-29;Remuneração / salário;17479.43;entrada;Salário
+2026-04-29;PIX Rogério;-180.00;saida;Pessoas e serviços
+2026-04-30;Drogaria São Paulo;-250.94;saida;Saúde e farmácia
+2026-04-30;Drogaria São Paulo;-110.94;saida;Saúde e farmácia
+2026-04-30;PIX Ff Tech;-361.64;saida;Compras
+2026-04-30;Estorno PIX Ff Tech;361.64;entrada;Estornos
+2026-04-30;PIX Ciranda;-193.00;saida;Educação (Ciranda/escola)
+2026-04-30;PIX Luciana;-76.00;saida;Pessoas e serviços
+2026-04-30;Rendimento aplicação automática;0.04;entrada;Rendimento conta
+2026-05-04;PIX Ciranda Berçário;-6900.30;saida;Educação (Ciranda/escola)
+2026-05-04;PIX Impulso;-200.00;saida;Pessoas e serviços
+2026-05-04;PIX recebido Priscila (conta própria);3500.00;entrada;Transferência própria
+2026-05-04;PIX Kathiane;-230.00;saida;Pessoas e serviços
+2026-05-04;PIX recebido Larissa;61.00;entrada;PIX recebido
+2026-05-04;PIX Marcia;-1980.00;saida;Pessoas e serviços
+2026-05-04;PIX recebido Priscila (conta própria);2800.00;entrada;Transferência própria
+2026-05-04;Rendimento aplicação automática;0.35;entrada;Rendimento conta
+2026-05-04;Cartão Personnalité Black;-7540.21;saida;Cartão de crédito
+2026-05-04;Eletropaulo (débito automático);-381.57;saida;Energia
+2026-05-04;TED recebida Caixa Econômica;4138.60;entrada;TED recebida
+2026-05-05;PIX recebido Priscila (conta própria);2500.00;entrada;Transferência própria
+2026-05-05;Condomínio Edifício Verana;-2906.84;saida;Moradia (condomínio)
+2026-05-05;PIX recebido Priscila (conta própria);1400.00;entrada;Transferência própria
+2026-05-05;Claro (débito automático);-323.87;saida;Telefone e internet
+2026-05-06;PIX Mariana;-50.00;saida;Pessoas e serviços
+2026-05-07;PIX recebido Priscila (conta própria);1200.00;entrada;Transferência própria
+2026-05-08;PIX Gran Turismo;-85.00;saida;Pessoas e serviços
+2026-05-08;TED McKinsey;126.00;entrada;TED recebida (McKinsey)
+2026-05-08;Leroy Merlin;-871.90;saida;Compras
+2026-05-08;PIX recebido Priscila (conta própria);1400.00;entrada;Transferência própria
+2026-05-08;Aplicação Cofrinhos;-5000.00;aplicacao;Cofrinhos (CDB)
+2026-05-08;Aplicação Cofrinhos;-5000.00;aplicacao;Cofrinhos (CDB)
+2026-05-08;Aplicação Cofrinhos;-3000.00;aplicacao;Cofrinhos (CDB)
+2026-05-08;Rendimento aplicação automática;0.25;entrada;Rendimento conta
+2026-05-11;TED McKinsey;214.85;entrada;TED recebida (McKinsey)
+2026-05-12;PIX recebido Priscila (conta própria);3000.00;entrada;Transferência própria
+2026-05-13;PIX José Maria;-530.00;saida;Pessoas e serviços
+2026-05-13;Rendimento aplicação automática;0.03;entrada;Rendimento conta
+2026-05-14;PIX X Farmácia;-199.64;saida;Saúde e farmácia
+2026-05-14;PIX Roda Viva;-195.00;saida;Pessoas e serviços
+2026-05-14;PIX Ciranda Berçário;-126.00;saida;Educação (Ciranda/escola)
+2026-05-14;Rendimento aplicação automática;0.03;entrada;Rendimento conta
+2026-05-15;Financiamento imobiliário (parcela 038/420);-6408.75;saida;Moradia (financiamento)
+2026-05-15;PIX recebido Priscila (conta própria);1000.00;entrada;Transferência própria
+2026-05-15;Rendimento aplicação automática;0.28;entrada;Rendimento conta
+2026-05-18;Aplicação Cofrinhos;-4000.00;aplicacao;Cofrinhos (CDB)
+2026-05-18;Porto Seguro Vida (débito automático);-109.85;saida;Seguros
+2026-05-18;Rendimento aplicação automática;0.12;entrada;Rendimento conta
+2026-05-25;PIX MO Esfi;-100.00;saida;Pessoas e serviços
+2026-05-25;PIX recebido Priscila (conta própria);1600.00;entrada;Transferência própria
+2026-05-25;PIX Luis Fernando;-524.00;saida;Pessoas e serviços
+2026-05-25;PIX Ciranda Berçário;-180.00;saida;Educação (Ciranda/escola)
+2026-05-26;TED recebida Priscila (conta própria);3000.00;entrada;Transferência própria
+2026-05-26;PIX recebido Priscila (conta própria);2000.00;entrada;Transferência própria
+2026-05-27;PIX recebido Mariana;50.00;entrada;PIX recebido
+2026-05-28;Remuneração / salário;16998.16;entrada;Salário
+2026-05-28;TED McKinsey;810.98;entrada;TED recebida (McKinsey)
+2026-05-28;PIX X Farmácia;-86.28;saida;Saúde e farmácia
+2026-05-28;PIX Rogério;-180.00;saida;Pessoas e serviços
+2026-05-29;PIX recebido Priscila (conta própria);500.00;entrada;Transferência própria
+2026-05-29;PIX Marcia;-220.00;saida;Pessoas e serviços
+2026-05-29;Receita Federal (imposto);-3501.63;saida;Impostos
+2026-05-29;Rendimento aplicação automática;0.11;entrada;Rendimento conta
+2026-06-01;Beleza Express;-106.00;saida;Beleza e cuidados
+2026-06-01;Beleza Express;-106.00;saida;Beleza e cuidados
+2026-06-01;Beleza Express;-70.00;saida;Beleza e cuidados
+2026-06-01;PIX Ciranda Berçário;-6900.30;saida;Educação (Ciranda/escola)
+2026-06-01;Pagamento título;-2682.99;saida;Boletos e títulos
+2026-06-01;PIX recebido Priscila (conta própria);99.71;entrada;Transferência própria
+2026-06-01;PIX recebido Priscila (conta própria);1750.00;entrada;Transferência própria
+2026-06-01;PIX recebido Priscila (conta própria);2187.50;entrada;Transferência própria
+2026-06-01;Rendimento aplicação automática;0.08;entrada;Rendimento conta
+2026-06-01;Cartão Personnalité Black;-11706.56;saida;Cartão de crédito
+2026-06-01;Cartão Personnalité (anuidade/encargos);-44.35;saida;Cartão de crédito
+2026-06-02;PIX recebido Priscila (conta própria);2000.00;entrada;Transferência própria
+2026-06-02;PIX recebido Priscila (conta própria);2000.00;entrada;Transferência própria
+2026-06-02;PIX Secretaria;-834.39;saida;Secretaria
+2026-06-02;PIX Secretaria;-766.06;saida;Secretaria
+2026-06-02;Eletropaulo (débito automático);-322.32;saida;Energia
+2026-06-03;PIX Marcia;-2160.00;saida;Pessoas e serviços
+2026-06-03;Aplicação Cofrinhos;-100.00;aplicacao;Cofrinhos (CDB)
+2026-06-03;Compra cripto BTC;-300.00;aplicacao;Cripto
+2026-06-03;Rendimento aplicação automática;0.02;entrada;Rendimento conta
+2026-06-05;Aplicação Cofrinhos;-200.00;aplicacao;Cofrinhos (CDB)
+2026-06-05;Aplicação Cofrinhos;-150.00;aplicacao;Cofrinhos (CDB)
+2026-06-05;Aplicação Cofrinhos;-500.00;aplicacao;Cofrinhos (CDB)
+2026-06-05;PIX recebido Priscila (conta própria);2100.00;entrada;Transferência própria
+2026-06-05;Decolar.com (viagem);-12464.88;saida;Viagens
+2026-06-05;Resgate CDB Cofrinhos;10000.01;resgate;Cofrinhos (CDB)
+2026-06-05;Resgate CDB Cofrinhos;5000.00;resgate;Cofrinhos (CDB)
+2026-06-05;Resgate CDB Cofrinhos;6600.01;resgate;Cofrinhos (CDB)
+2026-06-05;PIX Karine;-6400.00;saida;Pessoas e serviços
+2026-06-05;PIX Ana Gabriela;-3417.00;saida;Pessoas e serviços
+2026-06-05;Pagamento título;-2818.15;saida;Boletos e títulos
+2026-06-05;Compra cripto USDC;-50.00;aplicacao;Cripto
+2026-06-05;PIX Marcia;-240.00;saida;Pessoas e serviços
+2026-06-05;PIX Kathiane;-100.00;saida;Pessoas e serviços
+2026-06-05;Rendimento aplicação automática;0.03;entrada;Rendimento conta
+2026-06-05;Claro (débito automático);-337.32;saida;Telefone e internet
+2026-06-08;Resgate CDB Cofrinhos;20000.01;resgate;Cofrinhos (CDB)
+2026-06-08;PIX Marketplace;-185.92;saida;Compras
+2026-06-08;PIX Nathalia;-310.80;saida;Pessoas e serviços
+2026-06-08;Aplicação Cofrinhos;-10000.00;aplicacao;Cofrinhos (CDB)
+2026-06-08;PIX MO Esfi;-111.00;saida;Pessoas e serviços
+2026-06-08;Amazon;-39.99;saida;Compras
+2026-06-08;PIX recebido Priscila (conta própria);2000.00;entrada;Transferência própria
+2026-06-09;Prêmio VGBL VG5657;-150.00;aplicacao;VGBL
+2026-06-09;Prêmio VGBL VG5657;-1000.00;aplicacao;VGBL
+2026-06-09;Rendimento aplicação automática;0.01;entrada;Rendimento conta
+2026-06-10;TED McKinsey;1387.80;entrada;TED recebida (McKinsey)
+2026-06-11;Aplicação Cofrinhos;-500.00;aplicacao;Cofrinhos (CDB)
+2026-06-11;PIX recebido Priscila (conta própria);2000.00;entrada;Transferência própria
+2026-06-15;Financiamento imobiliário (parcela 039/420);-6406.84;saida;Moradia (financiamento)
+2026-06-15;PIX recebido Mariana;20.00;entrada;PIX recebido
+2026-06-15;PIX recebido Larissa;55.00;entrada;PIX recebido
+2026-06-15;Rendimento aplicação automática;0.07;entrada;Rendimento conta
+2026-06-16;PIX Pequenos Hormônios (clínica);-800.00;saida;Saúde e farmácia
+2026-06-16;PIX recebido Priscila (conta própria);2000.00;entrada;Transferência própria
+2026-06-16;PIX Luciana;-110.00;saida;Pessoas e serviços
+2026-06-16;Porto Seguro Vida (débito automático);-109.85;saida;Seguros
+2026-06-17;PIX recebido Mariana;63.00;entrada;PIX recebido
+2026-06-18;Aplicação Cofrinhos;-500.00;aplicacao;Cofrinhos (CDB)
+2026-06-18;PIX Ciranda;-3069.30;saida;Educação (Ciranda/escola)
+2026-06-18;Rendimento aplicação automática;0.08;entrada;Rendimento conta
+2026-06-19;PIX recebido Priscila (conta própria);1800.00;entrada;Transferência própria
+2026-06-19;PIX X Farmácia;-306.20;saida;Saúde e farmácia
+2026-06-19;TED McKinsey;232.07;entrada;TED recebida (McKinsey)
+2026-06-23;Fatura cartão Personnalité;-5000.00;saida;Cartão de crédito
+2026-06-23;Amazon;-162.00;saida;Compras
+2026-06-23;Rendimento aplicação automática;0.15;entrada;Rendimento conta
+2026-06-25;Aplicação Cofrinhos;-500.00;aplicacao;Cofrinhos (CDB)
+2026-06-25;Rendimento aplicação automática;0.01;entrada;Rendimento conta
+2026-06-29;Remuneração / salário;17867.97;entrada;Salário
+2026-06-29;PIX Wendy (fisioterapia);-1600.00;saida;Saúde e farmácia
+2026-06-29;RD Saúde;-230.10;saida;Saúde e farmácia
+2026-06-29;PIX Luciana;-28.00;saida;Pessoas e serviços
+2026-06-30;PIX recebido Secretaria D;2973.29;entrada;PIX recebido
+2026-06-30;PIX Escola;-2014.00;saida;Educação (Ciranda/escola)
+2026-07-01;PIX Ciranda Berçário;-6900.30;saida;Educação (Ciranda/escola)
+2026-07-01;Rendimento aplicação automática;0.05;entrada;Rendimento conta
+2026-07-01;Cartão Personnalité Black;-3706.77;saida;Cartão de crédito
+2026-07-01;Cartão Personnalité (anuidade/encargos);-31.85;saida;Cartão de crédito
+2026-07-02;Aplicação Cofrinhos;-500.00;aplicacao;Cofrinhos (CDB)
+2026-07-02;PIX Marcia;-1980.00;saida;Pessoas e serviços
+2026-07-02;PIX Marcia;-180.00;saida;Pessoas e serviços
+2026-07-02;Rendimento aplicação automática;0.01;entrada;Rendimento conta
+2026-07-02;Eletropaulo (débito automático);-436.33;saida;Energia
+2026-07-03;TED McKinsey;212.01;entrada;TED recebida (McKinsey)
+2026-07-03;PIX Ângela;-250.00;saida;Pessoas e serviços
+2026-07-03;PIX recebido Larissa;50.00;entrada;PIX recebido
+2026-07-06;Aplicação Cofrinhos;-150.00;aplicacao;Cofrinhos (CDB)
+2026-07-06;Aplicação Cofrinhos;-200.00;aplicacao;Cofrinhos (CDB)
+2026-07-06;PIX recebido Priscila (conta própria);8725.00;entrada;Transferência própria
+2026-07-06;PIX Secretaria;-766.06;saida;Secretaria
+2026-07-06;Compra cripto USDC;-50.00;aplicacao;Cripto
+2026-07-06;PIX recebido Priscila (conta própria);1800.00;entrada;Transferência própria
+2026-07-06;Condomínio Edifício Verana;-2477.07;saida;Moradia (condomínio)
+2026-07-06;Claro (débito automático);-337.32;saida;Telefone e internet
+2026-07-07;PIX recebido Priscila (conta própria);1400.00;entrada;Transferência própria
+2026-07-07;PIX Gustavo;-240.00;saida;Pessoas e serviços
+2026-07-08;PIX Edvaldo;-70.00;saida;Pessoas e serviços
+2026-07-08;PIX Walter;-10.00;saida;Pessoas e serviços
+2026-07-10;Aplicação Cofrinhos;-500.00;aplicacao;Cofrinhos (CDB)
+2026-07-10;PIX Secretaria;-766.06;saida;Secretaria
+2026-07-10;PIX recebido Priscila (conta própria);2500.00;entrada;Transferência própria
+2026-07-10;Rendimento aplicação automática;0.02;entrada;Rendimento conta
+2026-07-10;Prêmio VGBL VG5657;-150.00;aplicacao;VGBL
+2026-07-13;PIX Marcia;-258.00;saida;Pessoas e serviços
+2026-07-13;TED recebida TAM Linhas Aéreas;330.50;entrada;TED recebida
+2026-07-15;Financiamento imobiliário (parcela 040/420);-6405.10;saida;Moradia (financiamento)
+2026-07-15;TED McKinsey;216.00;entrada;TED recebida (McKinsey)
+2026-07-15;Rendimento aplicação automática;0.24;entrada;Rendimento conta
+2026-07-16;Aplicação Cofrinhos;-100.00;aplicacao;Cofrinhos (CDB)
+2026-07-16;Porto Seguro Vida (débito automático);-109.85;saida;Seguros
+2026-07-16;Rendimento aplicação automática;0.09;entrada;Rendimento conta
+2026-07-16;Aplicação Cofrinhos;-500.00;aplicacao;Cofrinhos (CDB)
+2026-07-16;Aplicação Cofrinhos;-1000.00;aplicacao;Cofrinhos (CDB)
+2026-07-16;Aplicação Cofrinhos;-1000.00;aplicacao;Cofrinhos (CDB)
+2026-07-16;Aplicação Cofrinhos;-1000.00;aplicacao;Cofrinhos (CDB)
+2026-07-17;PIX On do Regis;-145.08;saida;Pessoas e serviços
+2026-07-17;PIX Clarissa (médica);-690.00;saida;Saúde e farmácia
+2026-07-17;PIX recebido Priscila (conta própria);1500.00;entrada;Transferência própria
+2026-07-20;Remuneração / salário;3348.37;entrada;Salário
+2026-07-21;Rendimento aplicação automática (implícito no saldo);0.08;entrada;Rendimento conta
