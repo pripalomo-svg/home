@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Links rápidos · Central de Organização</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Segoe UI',system-ui,sans-serif;background:#f4f6fb;color:#17203a;line-height:1.6;padding:24px 20px 60px;max-width:900px;margin:0 auto}
+  h1{font-size:1.6rem;margin-bottom:6px} h1 em{color:#e94560;font-style:normal}
+  .sub{color:#8a93a8;font-size:.9rem;margin-bottom:24px}
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px;margin-bottom:28px}
+  .card{background:#fff;border-radius:14px;padding:18px 20px;box-shadow:0 1px 8px rgba(0,0,0,.06);border-top:4px solid #7c5cde;text-decoration:none;color:inherit;display:block;transition:.15s}
+  .card:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(0,0,0,.1)}
+  .card.g{border-color:#22c55e}.card.b{border-color:#3b82f6}.card.o{border-color:#f59e0b}.card.r{border-color:#e94560}
+  .card h2{font-size:1rem;margin-bottom:6px}
+  .card p{font-size:.82rem;color:#6b7280}
+  .card .ico{font-size:1.5rem;margin-bottom:8px}
+  section{margin-bottom:28px}
+  section>h3{font-size:.75rem;text-transform:uppercase;letter-spacing:.08em;color:#8a93a8;margin-bottom:12px}
+  .path{background:#1a1a2e;color:#e2e8f0;padding:12px 16px;border-radius:10px;font-size:.78rem;overflow-x:auto;margin:16px 0}
+  .btn{display:inline-block;background:#7c5cde;color:#fff;padding:10px 18px;border-radius:9px;text-decoration:none;font-weight:700;font-size:.85rem;margin:4px 6px 4px 0}
+  .btn:hover{filter:brightness(1.08)}
+  footer{font-size:.75rem;color:#8a93a8;margin-top:32px;text-align:center}
+</style>
+</head>
+<body>
+
+<h1>🔗 Links <em>rápidos</em></h1>
+<p class="sub">Central de Organização · Priscila Palomo · salve esta página nos favoritos</p>
+
+<div class="path">
+  <b>No seu PC (pasta Imagens):</b><br>
+  <code>C:\Users\SEU_USUARIO\Imagens\home\organizacao\</code><br>
+  <small>Substitua SEU_USUARIO · Win+R → <code>%USERPROFILE%\Imagens</code></small>
+</div>
+
+<section>
+  <h3>Ver e usar</h3>
+  <div class="grid">
+    <a class="card g" href="index.html">
+      <div class="ico">🏠</div>
+      <h2>Painel principal</h2>
+      <p>Família, pacientes, finanças, agenda — tudo em um lugar</p>
+    </a>
+    <a class="card b" href="adicionar_conteudo.html">
+      <div class="ico">➕</div>
+      <h2>Como adicionar conteúdo</h2>
+      <p>Passo a passo para cada tipo de dado (pacientes, finanças…)</p>
+    </a>
+    <a class="card g" href="como_usar.html">
+      <div class="ico">❓</div>
+      <h2>Guia completo</h2>
+      <p>Para quem nunca usou — do zero ao painel atualizado</p>
+    </a>
+    <a class="card o" href="investimentos.html">
+      <div class="ico">📈</div>
+      <h2>Investimentos</h2>
+      <p>Carteira + projeção 20 anos com slider de aporte</p>
+    </a>
+    <a class="card" href="prontuarios.html" style="border-color:#7c3aed">
+      <div class="ico">📋</div>
+      <h2>Prontuários</h2>
+      <p>Índice com link para o prontuário de cada paciente (Notion)</p>
+    </a>
+    <a class="card" href="cadastro_pacientes.html">
+      <div class="ico">✏️</div>
+      <h2>Cadastrar pacientes</h2>
+      <p>Formulário visual — exporta CSV automaticamente</p>
+    </a>
+    <a class="card r" href="../reembolsos/index.html">
+      <div class="ico">🏥</div>
+      <h2>Reembolsos Cigna</h2>
+      <p>Sistema de reembolsos médicos da família</p>
+    </a>
+  </div>
+</section>
+
+<section>
+  <h3>Notion e sincronização</h3>
+  <div class="grid">
+    <a class="card b" href="notion/COMO_CONFIGURAR_API.md">
+      <div class="ico">🔗</div>
+      <h2>Configurar API Notion</h2>
+      <p>Token + conexão às databases (uma vez só)</p>
+    </a>
+    <a class="card" href="notion_ajuda.html">
+      <div class="ico">📥</div>
+      <h2>Importar do Notion</h2>
+      <p>Export manual ZIP/CSV</p>
+    </a>
+  </div>
+</section>
+
+<section>
+  <h3>Atalhos Windows (duplo-clique)</h3>
+  <div class="grid">
+    <div class="card o">
+      <div class="ico">🔄</div>
+      <h2>ATUALIZAR.bat</h2>
+      <p>Importa CSVs e regenera todos os painéis</p>
+    </div>
+    <div class="card b">
+      <div class="ico">☁️</div>
+      <h2>SINCRONIZAR_NOTION.bat</h2>
+      <p>Puxa sessões e prontuários do Notion</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h3>Planilhas para editar (templates)</h3>
+  <div class="grid">
+    <a class="card" href="templates/pacientes.csv"><h2>pacientes.csv</h2><p>Consultório — 20 pacientes</p></a>
+    <a class="card" href="templates/atendimentos.csv"><h2>atendimentos.csv</h2><p>Sessões realizadas</p></a>
+    <a class="card" href="templates/agenda.csv"><h2>agenda.csv</h2><p>Compromissos da semana</p></a>
+    <a class="card" href="templates/financas.csv"><h2>financas.csv</h2><p>Receitas e despesas</p></a>
+    <a class="card" href="templates/investimentos.csv"><h2>investimentos.csv</h2><p>Carteira de investimentos</p></a>
+    <a class="card" href="templates/youtube_videos.csv"><h2>youtube_videos.csv</h2><p>Vídeos e roteiros</p></a>
+  </div>
+</section>
+
+<p>
+  <a class="btn" href="index.html">← Voltar ao painel</a>
+  <a class="btn" href="adicionar_conteudo.html" style="background:#22c55e">➕ Adicionar conteúdo</a>
+</p>
+
+<footer>
+  Online: <a href="https://raw.githack.com/pripalomo-svg/home/main/organizacao/links.html">raw.githack.com/…/links.html</a>
+</footer>
+
+</body>
+</html>

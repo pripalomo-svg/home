@@ -1,0 +1,19 @@
+{
+  "modulo": "investimentos",
+  "fonte": "foto",
+  "descricao_foto": "E-mail Tesouro Direto e B3 — protocolo criado via Nu Invest (16/07/2026)",
+  "registros": [
+    {
+      "nome": "Tesouro Direto — protocolo 103681346",
+      "protocolo": "103681346",
+      "tipo": "tesouro_prefixado",
+      "instituicao": "Nu Invest (NU INVESTIMENTOS S.A. - CTVM)",
+      "valor_atual": null,
+      "valor_aplicado": null,
+      "data_contratacao": "2026-07-16",
+      "data_atualizacao": "2026-07-16",
+      "cor": "#10b981",
+      "notas": "Protocolo 103681346 criado com sucesso (Tesouro Direto/B3). Titular: Priscila da Silva Herbas Palomo. Aguardando liquidação — valor não constava na imagem."
+    }
+  ]
+}

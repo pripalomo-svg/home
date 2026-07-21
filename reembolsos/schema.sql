@@ -16,7 +16,10 @@ CREATE TABLE IF NOT EXISTS prestadores (
     id            INTEGER PRIMARY KEY AUTOINCREMENT,
     nome          TEXT NOT NULL UNIQUE,
     especialidade TEXT,
-    cpf_cnpj      TEXT
+    cpf_cnpj      TEXT,
+    endereco      TEXT,
+    telefone      TEXT,
+    observacoes   TEXT
 );
 
 -- Solicitações de reembolso (claims)

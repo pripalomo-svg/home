@@ -1,21 +1,21 @@
 codigo;nome;telefone;email;data_nascimento;convenio;queixa_principal;status;frequencia;dia_horario;valor_sessao;data_inicio;prontuario_path;observacoes
-PAC-001;;;;;particular;;;ativo;semanal;segunda 08h;250;;;documentos/prontuarios/PAC-001
-PAC-002;;;;;particular;;;ativo;semanal;segunda 09h;250;;;documentos/prontuarios/PAC-002
-PAC-003;;;;;particular;;;ativo;semanal;segunda 10h;250;;;documentos/prontuarios/PAC-003
-PAC-004;;;;;particular;;;ativo;semanal;segunda 14h;250;;;documentos/prontuarios/PAC-004
-PAC-005;;;;;particular;;;ativo;semanal;segunda 15h;250;;;documentos/prontuarios/PAC-005
-PAC-006;;;;;particular;;;ativo;semanal;segunda 16h;250;;;documentos/prontuarios/PAC-006
-PAC-007;;;;;particular;;;ativo;semanal;terça 08h;250;;;documentos/prontuarios/PAC-007
-PAC-008;;;;;particular;;;ativo;semanal;terça 09h;250;;;documentos/prontuarios/PAC-008
-PAC-009;;;;;particular;;;ativo;semanal;terça 10h;250;;;documentos/prontuarios/PAC-009
-PAC-010;;;;;particular;;;ativo;semanal;terça 14h;250;;;documentos/prontuarios/PAC-010
-PAC-011;;;;;particular;;;ativo;semanal;terça 15h;250;;;documentos/prontuarios/PAC-011
-PAC-012;;;;;particular;;;ativo;semanal;terça 16h;250;;;documentos/prontuarios/PAC-012
-PAC-013;;;;;particular;;;ativo;semanal;quarta 08h;250;;;documentos/prontuarios/PAC-013
-PAC-014;;;;;particular;;;ativo;semanal;quarta 09h;250;;;documentos/prontuarios/PAC-014
-PAC-015;;;;;particular;;;ativo;semanal;quarta 10h;250;;;documentos/prontuarios/PAC-015
-PAC-016;;;;;particular;;;ativo;semanal;quinta 08h;250;;;documentos/prontuarios/PAC-016
-PAC-017;;;;;particular;;;ativo;quinzenal;quinta 09h;280;;;documentos/prontuarios/PAC-017
-PAC-018;;;;;particular;;;ativo;quinzenal;quinta 10h;280;;;documentos/prontuarios/PAC-018
-PAC-019;;;;;particular;;;ativo;quinzenal;sexta 08h;280;;;documentos/prontuarios/PAC-019
-PAC-020;;;;;particular;;;ativo;quinzenal;sexta 09h;280;;;documentos/prontuarios/PAC-020
+PAC-001;Maria José;;;;particular;família Augusto/Figueiredo;ativo;semanal;terça 10h online;280;2025-12-16;documentos/prontuarios/PAC-001;Notion
+PAC-002;Beatriz Jubilut;;;;particular;ansiedade/TDAH familiar;ativo;semanal;segunda 14h online;280;2026-01-19;documentos/prontuarios/PAC-002;Notion — Bia
+PAC-003;Luigi Caloi;;;;particular;estado emocional;ativo;semanal;terça 11h presencial;280;2025-11-01;documentos/prontuarios/PAC-003;Notion
+PAC-004;Fernando de Castro;;;;particular;trabalho/autoestima;ativo;semanal;sexta 09h online;280;2025-12-12;documentos/prontuarios/PAC-004;Notion
+PAC-005;Felipe Zandona Barbosa;;;;particular;a definir;ativo;semanal;terça 15h online;280;2025-12-16;documentos/prontuarios/PAC-005;Notion — Fê
+PAC-006;Monica Mattos Fernandes;;;;particular;autoimagem pós-aposentadoria;ativo;semanal;quarta 16h online;280;2025-12-11;documentos/prontuarios/PAC-006;Notion
+PAC-007;Luís Octavio Almeida;;;;particular;conflitos internos;ativo;quinzenal;quinta 10h online (quinzenal);280;2026-01-29;documentos/prontuarios/PAC-007;Notion
+PAC-008;Gabriel Gasparetto;;;;particular;a definir;ativo;semanal;sexta 13h presencial;280;2025-12-12;documentos/prontuarios/PAC-008;Notion
+PAC-009;Bruna Galon Paiva;;;;particular;desmotivação/residência médica;ativo;semanal;terça 09h online;280;2026-01-13;documentos/prontuarios/PAC-009;Notion
+PAC-010;Luisa Cabalin;;;;particular;trabalho/família;ativo;semanal;terça 11h online;280;2025-12-08;documentos/prontuarios/PAC-010;Notion
+PAC-011;Clara;;;;particular;ansiedade/relacionamento;ativo;semanal;sexta 14h online;280;2026-01-23;documentos/prontuarios/PAC-011;Notion
+PAC-012;Lívia Padiar;;;;particular;a definir;ativo;semanal;quarta 15h online;280;2025-12-10;documentos/prontuarios/PAC-012;Notion
+PAC-013;Sthephanie;;;;particular;a definir;ativo;semanal;terça 16h online;280;2025-12-16;documentos/prontuarios/PAC-013;Notion
+PAC-014;Claudia;;;;particular;a definir;ativo;semanal;terça 08h online;280;2025-12-16;documentos/prontuarios/PAC-014;Notion
+PAC-015;Márcia;;;;particular;a definir;ativo;semanal;quarta 17h online;280;2026-01-14;documentos/prontuarios/PAC-015;Notion
+PAC-016;Gabrielli;;;;particular;a definir;ativo;semanal;a confirmar;280;2026-01-26;documentos/prontuarios/PAC-016;Notion
+PAC-017;Larissa;;;;particular;a definir;ativo;semanal;terça 10h online;280;2026-04-21;documentos/prontuarios/PAC-017;Notion
+PAC-018;Rochele;;;;particular;a definir;ativo;semanal;quarta 11h online;280;2026-04-22;documentos/prontuarios/PAC-018;Notion — Rô
+PAC-019;;;;;particular;;;ativo;semanal;;;;documentos/prontuarios/PAC-019
+PAC-020;;;;;particular;;;ativo;semanal;;;;documentos/prontuarios/PAC-020

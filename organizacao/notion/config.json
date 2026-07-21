@@ -1,0 +1,22 @@
+{
+  "databases": {
+    "agenda_sessoes": "1b477a96-9a03-49f5-89d4-dbf4be5ce4a5",
+    "consolidacao_anotacoes": "530b270b-77d3-4777-8d65-dfe061ab6540",
+    "atendimentos": "4099af45-be94-42ec-b50a-9a47a0d42a3c"
+  },
+  "propriedades": {
+    "agenda_sessoes": {
+      "titulo": "Título da Sessão",
+      "data": "Data da Sessão",
+      "notas": "Notas da Sessão"
+    },
+    "consolidacao_anotacoes": {
+      "paciente": "Paciente",
+      "data": "Data da Sessão",
+      "resumo": "Resumo",
+      "temas": "Principais Temas"
+    }
+  },
+  "sync_interval_hours": 24,
+  "notas": "Token em token.txt. Veja COMO_CONFIGURAR_API.md"
+}

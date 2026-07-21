@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Base de Dados — Priscila Palomo Psicologia Ltda</title>
+<style>
+  :root {
+    --bg: #f4f6fb;
+    --card: #ffffff;
+    --ink: #1c2333;
+    --muted: #66708a;
+    --brand: #4f46e5;
+    --brand-soft: #eef0ff;
+    --green: #0f9d58;
+    --green-soft: #e6f6ec;
+    --amber: #b45309;
+    --amber-soft: #fef3e2;
+    --line: #e6e9f2;
+    --radius: 14px;
+    --shadow: 0 1px 3px rgba(28, 35, 51, .06), 0 8px 24px rgba(28, 35, 51, .07);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: "Segoe UI", system-ui, -apple-system, Roboto, "Helvetica Neue", sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.55;
+  }
+  header {
+    background: linear-gradient(135deg, #3730a3 0%, #4f46e5 55%, #7c3aed 100%);
+    color: #fff;
+    padding: 44px 24px 88px;
+  }
+  .container { max-width: 1060px; margin: 0 auto; padding: 0 24px; }
+  header .container { padding: 0; max-width: 1060px; margin: 0 auto; padding: 0 24px; }
+  .kicker {
+    display: inline-block;
+    font-size: .78rem;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    background: rgba(255,255,255,.16);
+    border: 1px solid rgba(255,255,255,.28);
+    padding: 4px 12px;
+    border-radius: 999px;
+    margin-bottom: 14px;
+  }
+  header h1 { font-size: 1.9rem; font-weight: 700; letter-spacing: -.01em; }
+  header p.sub { margin-top: 8px; opacity: .85; max-width: 640px; }
+  main { margin-top: -52px; padding-bottom: 64px; }
+
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 16px;
+    margin-bottom: 28px;
+  }
+  .stat {
+    background: var(--card);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: 18px 20px;
+  }
+  .stat .num { font-size: 1.7rem; font-weight: 700; color: var(--brand); }
+  .stat .lbl { font-size: .85rem; color: var(--muted); }
+
+  section.card {
+    background: var(--card);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: 26px 28px;
+    margin-bottom: 26px;
+  }
+  section.card > h2 {
+    font-size: 1.15rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 18px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--line);
+  }
+  .icon {
+    width: 34px; height: 34px;
+    display: inline-flex; align-items: center; justify-content: center;
+    background: var(--brand-soft);
+    color: var(--brand);
+    border-radius: 9px;
+    font-size: 1rem;
+  }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 14px 26px;
+  }
+  .field .k {
+    font-size: .72rem;
+    text-transform: uppercase;
+    letter-spacing: .08em;
+    color: var(--muted);
+    margin-bottom: 2px;
+  }
+  .field .v { font-size: .95rem; font-weight: 500; }
+
+  table { width: 100%; border-collapse: collapse; font-size: .92rem; }
+  thead th {
+    text-align: left;
+    font-size: .72rem;
+    text-transform: uppercase;
+    letter-spacing: .08em;
+    color: var(--muted);
+    padding: 10px 12px;
+    border-bottom: 2px solid var(--line);
+    white-space: nowrap;
+  }
+  tbody td {
+    padding: 12px;
+    border-bottom: 1px solid var(--line);
+    vertical-align: top;
+  }
+  tbody tr:last-child td { border-bottom: none; }
+  tbody tr:hover { background: #fafbff; }
+
+  .badge {
+    display: inline-block;
+    font-size: .74rem;
+    font-weight: 600;
+    padding: 3px 10px;
+    border-radius: 999px;
+    white-space: nowrap;
+  }
+  .badge.ok    { background: var(--green-soft); color: var(--green); }
+  .badge.warn  { background: var(--amber-soft); color: var(--amber); }
+  .badge.brand { background: var(--brand-soft); color: var(--brand); }
+
+  .mono { font-family: "SFMono-Regular", Consolas, monospace; font-size: .86em; }
+  .file { font-weight: 600; }
+  .file a { color: var(--ink); text-decoration: none; }
+  .file a:hover { color: var(--brand); text-decoration: underline; }
+  .desc { color: var(--muted); font-size: .86rem; margin-top: 3px; }
+  a.dl {
+    display: block;
+    margin-top: 6px;
+    font-size: .78rem;
+    color: var(--brand);
+    text-decoration: none;
+    font-weight: 600;
+  }
+  a.dl:hover { text-decoration: underline; }
+
+  .note {
+    font-size: .84rem;
+    color: var(--muted);
+    background: var(--brand-soft);
+    border-left: 3px solid var(--brand);
+    padding: 12px 16px;
+    border-radius: 0 10px 10px 0;
+    margin-top: 18px;
+  }
+  footer {
+    text-align: center;
+    color: var(--muted);
+    font-size: .82rem;
+    padding: 8px 24px 40px;
+  }
+  @media (max-width: 640px) {
+    header h1 { font-size: 1.4rem; }
+    section.card { padding: 20px 18px; }
+    .hide-sm { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="container">
+    <span class="kicker">Base de dados societária</span>
+    <h1>PRISCILA PALOMO PSICOLOGIA LTDA</h1>
+    <p class="sub">Dados organizados a partir dos documentos de constituição da empresa:
+    contrato social, declaração de desimpedimento, enquadramento como Microempresa e
+    declaração de licenciamento.</p>
+  </div>
+</header>
+
+<main class="container">
+
+  <div class="stats" id="stats"></div>
+
+  <section class="card">
+    <h2><span class="icon">&#127970;</span> Dados da Empresa</h2>
+    <div class="grid" id="empresa"></div>
+  </section>
+
+  <section class="card">
+    <h2><span class="icon">&#128188;</span> Atividades Econômicas (CNAE)</h2>
+    <table>
+      <thead><tr><th>CNAE</th><th>Descrição</th><th>Tipo</th></tr></thead>
+      <tbody id="atividades"></tbody>
+    </table>
+  </section>
+
+  <section class="card">
+    <h2><span class="icon">&#128100;</span> Quadro Societário</h2>
+    <div id="socios"></div>
+  </section>
+
+  <section class="card">
+    <h2><span class="icon">&#128196;</span> Documentos Arquivados</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Documento</th>
+          <th class="hide-sm">Data</th>
+          <th class="hide-sm">Destinatário</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody id="documentos"></tbody>
+    </table>
+    <p class="note">Cada documento possui duas versões arquivadas: a minuta original e a
+    versão assinada. A mesma estrutura está gravada na base SQLite
+    (<span class="mono">empresa.db</span>), nas tabelas
+    <span class="mono">empresas</span>, <span class="mono">socios</span>,
+    <span class="mono">atividades</span> e <span class="mono">documentos</span>.</p>
+  </section>
+
+</main>
+
+<footer>Gerado automaticamente a partir dos PDFs enviados &middot; São Paulo/SP &middot; 2026</footer>
+
+<script>
+const DADOS = {
+  empresa: {
+    "Nome empresarial": "PRISCILA PALOMO PSICOLOGIA LTDA",
+    "Natureza jurídica": "Sociedade Empresária Limitada Unipessoal",
+    "Enquadramento": "Microempresa (ME) — LC nº 123/2006",
+    "Capital social": "R$ 5.000,00 (cinco mil reais), totalmente integralizado",
+    "Data de constituição": "02/07/2026",
+    "Prazo de duração": "Indeterminado",
+    "Exercício social": "01 de janeiro a 31 de dezembro",
+    "Conselho fiscal": "Não possui",
+    "Registro": "Junta Comercial do Estado de São Paulo (JUCESP)",
+    "Endereço da sede": "Rua Guaipá, 452, Apt. 132 — Vila Leopoldina, São Paulo/SP, CEP 05089-000"
+  },
+  atividades: [
+    { cnae: "8650-0/03", descricao: "Serviços de psicologia clínica e psicanálise", tipo: "Principal" },
+    { cnae: "8599-6/04", descricao: "Serviços de treinamento e desenvolvimento profissional e gerencial e palestras", tipo: "Secundária" }
+  ],
+  socios: [
+    {
+      nome: "PRISCILA DA SILVA HERBAS PALOMO",
+      funcao: "Sócia-Administradora (única)",
+      campos: {
+        "Nacionalidade": "Brasileira",
+        "Estado civil": "Casada",
+        "Data de nascimento": "30/03/1983",
+        "Profissão": "Psicóloga",
+        "CPF": "313.050.718-32",
+        "RG": "28.403.129 SSP/SP (DETRAN-SP, 27/09/2023)",
+        "Cor/Raça": "Branca",
+        "Participação": "100% das quotas",
+        "Endereço": "Rua Guaipá, 452, Apt. 132 — Vila Leopoldina, São Paulo/SP, CEP 05089-000"
+      }
+    }
+  ],
+  documentos: [
+    { arquivo: "contrato_social_PRISCILA_2026.pdf", tipo: "Contrato Social", data: "02/07/2026", destinatario: "JUCESP", assinado: false,
+      desc: "Constituição da sociedade — 13 cláusulas (denominação, sede, objeto, capital, administração, sucessão etc.)." },
+    { arquivo: "contrato_PRISCILA_2026_assinado.pdf", tipo: "Contrato Social", data: "02/07/2026", destinatario: "JUCESP", assinado: true,
+      desc: "Versão assinada do contrato social de constituição." },
+    { arquivo: "desempedimento.pdf", tipo: "Declaração de Desimpedimento", data: "10/07/2026", destinatario: "JUCESP", assinado: false,
+      desc: "Declara que a administradora não está impedida de exercer a administração da sociedade." },
+    { arquivo: "desempedimento_assinado.pdf", tipo: "Declaração de Desimpedimento", data: "10/07/2026", destinatario: "JUCESP", assinado: true,
+      desc: "Versão assinada da declaração de desimpedimento." },
+    { arquivo: "Enquadramento.pdf", tipo: "Declaração de Enquadramento — ME", data: "10/07/2026", destinatario: "JUCESP", assinado: false,
+      desc: "Requer o arquivamento e declara o enquadramento como Microempresa (LC nº 123/2006)." },
+    { arquivo: "Enquadramento_assinado.pdf", tipo: "Declaração de Enquadramento — ME", data: "10/07/2026", destinatario: "JUCESP", assinado: true,
+      desc: "Versão assinada da declaração de enquadramento como ME." },
+    { arquivo: "Licenciamento.pdf", tipo: "Declaração de Licenciamento", data: "—", destinatario: "Via Rápida Empresa / JUCESP", assinado: false,
+      desc: "Ciência da necessidade de parecer municipal de viabilidade e do Certificado de Licenciamento Integrado (Decreto Estadual nº 55.660/2010)." },
+    { arquivo: "Licenciamento_assinado.pdf", tipo: "Declaração de Licenciamento", data: "—", destinatario: "Via Rápida Empresa / JUCESP", assinado: true,
+      desc: "Versão assinada da declaração de licenciamento." }
+  ].map(d => ({ ...d, href: "documentos/" + d.arquivo }))
+};
+
+function el(tag, cls, html) {
+  const e = document.createElement(tag);
+  if (cls) e.className = cls;
+  if (html !== undefined) e.innerHTML = html;
+  return e;
+}
+
+// Estatísticas
+const assinados = DADOS.documentos.filter(d => d.assinado).length;
+const stats = [
+  [DADOS.documentos.length, "Documentos arquivados"],
+  [assinados, "Versões assinadas"],
+  [DADOS.atividades.length, "Atividades CNAE"],
+  [DADOS.socios.length, "Sócio(a)"]
+];
+const statsBox = document.getElementById("stats");
+stats.forEach(([n, l]) => {
+  const s = el("div", "stat");
+  s.appendChild(el("div", "num", n));
+  s.appendChild(el("div", "lbl", l));
+  statsBox.appendChild(s);
+});
+
+// Empresa
+const empBox = document.getElementById("empresa");
+Object.entries(DADOS.empresa).forEach(([k, v]) => {
+  const f = el("div", "field");
+  f.appendChild(el("div", "k", k));
+  f.appendChild(el("div", "v", v));
+  empBox.appendChild(f);
+});
+
+// Atividades
+const atvBox = document.getElementById("atividades");
+DADOS.atividades.forEach(a => {
+  const tr = el("tr");
+  tr.appendChild(el("td", "mono", a.cnae));
+  tr.appendChild(el("td", "", a.descricao));
+  const badge = a.tipo === "Principal" ? "brand" : "warn";
+  tr.appendChild(el("td", "", `<span class="badge ${badge}">${a.tipo}</span>`));
+  atvBox.appendChild(tr);
+});
+
+// Sócios
+const socBox = document.getElementById("socios");
+DADOS.socios.forEach(s => {
+  const head = el("div", "", `<strong>${s.nome}</strong> &nbsp;<span class="badge brand">${s.funcao}</span>`);
+  head.style.marginBottom = "14px";
+  socBox.appendChild(head);
+  const grid = el("div", "grid");
+  Object.entries(s.campos).forEach(([k, v]) => {
+    const f = el("div", "field");
+    f.appendChild(el("div", "k", k));
+    f.appendChild(el("div", "v", v));
+    grid.appendChild(f);
+  });
+  socBox.appendChild(grid);
+});
+
+// Documentos
+const docBox = document.getElementById("documentos");
+DADOS.documentos.forEach(d => {
+  const tr = el("tr");
+  const td1 = el("td");
+  td1.appendChild(el("div", "file", `<a href="${d.href}" target="_blank" rel="noopener">${d.arquivo}</a>`));
+  td1.appendChild(el("div", "desc", `${d.tipo} — ${d.desc}`));
+  tr.appendChild(td1);
+  tr.appendChild(el("td", "hide-sm", d.data));
+  tr.appendChild(el("td", "hide-sm", d.destinatario));
+  const td4 = el("td");
+  td4.appendChild(el("span", d.assinado ? "badge ok" : "badge warn", d.assinado ? "Assinado" : "Minuta"));
+  const link = el("a", "dl", "&#8595; abrir");
+  link.href = d.href;
+  link.target = "_blank";
+  td4.appendChild(link);
+  tr.appendChild(td4);
+  docBox.appendChild(tr);
+});
+</script>
+</body>
+</html>

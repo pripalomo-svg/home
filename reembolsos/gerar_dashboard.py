@@ -37,8 +37,16 @@ def carregar():
     portal = [dict(r) for r in conn.execute(
         "SELECT * FROM submissoes_portal ORDER BY data_tratamento DESC")]
 
+    prestadores = [dict(r) for r in conn.execute(
+        """SELECT p.*, COUNT(r.id) AS claims,
+                  COALESCE(SUM(r.valor_pago),0) AS pago,
+                  COALESCE(SUM(r.valor_reembolsado),0) AS reemb,
+                  MIN(r.data_atendimento) AS primeira, MAX(r.data_atendimento) AS ultima
+           FROM prestadores p LEFT JOIN reembolsos r ON r.prestador_id = p.id
+           GROUP BY p.id ORDER BY pago DESC, p.nome""")]
+
     conn.close()
-    return reembolsos, docs, eob, portal
+    return reembolsos, docs, eob, portal, prestadores
 
 
 TEMPLATE = r"""<!DOCTYPE html>
@@ -142,6 +150,7 @@ TEMPLATE = r"""<!DOCTYPE html>
     <div class="tab" data-sec="documentos">📎 Documentos</div>
     <div class="tab" data-sec="eob">🧾 Detalhe EOBs Cigna</div>
     <div class="tab" data-sec="portal">🌐 Portal Cigna 2026</div>
+    <div class="tab" data-sec="prestadores">🩺 Prestadores</div>
     <div class="tab" data-sec="resumo">📊 Resumo</div>
   </div>
 
@@ -206,6 +215,18 @@ TEMPLATE = r"""<!DOCTYPE html>
     </div>
   </div>
 
+  <div class="section" id="sec-prestadores">
+    <div class="panel">
+      <h3>🩺 Diretório de prestadores</h3>
+      <p class="sub">Prestadores usados nos reembolsos + indicações ainda sem claim (diretório do Notion)</p>
+      <table><thead><tr>
+        <th>Nome</th><th>Especialidade</th><th>Endereço / contato</th>
+        <th class="num">Claims</th><th class="num">Pago R$</th><th class="num">Reemb. R$</th>
+        <th>Período</th><th>Observações</th>
+      </tr></thead><tbody id="prestcorpo"></tbody></table>
+    </div>
+  </div>
+
   <div class="section" id="sec-resumo">
     <div class="grid2">
       <div class="panel"><h3>👥 Por beneficiário</h3><p class="sub">Valor pago vs. reembolsado (R$)</p><div id="g-ben" style="padding-bottom:14px"></div></div>
@@ -223,6 +244,7 @@ const REEMBOLSOS = __REEMBOLSOS__;
 const DOCS = __DOCS__;
 const EOB = __EOB__;
 const PORTAL = __PORTAL__;
+const PRESTADORES = __PRESTADORES__;
 
 const fmt = v => (v==null?'—':v.toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2}));
 const fmtD = d => d ? d.split('-').reverse().join('/') : '—';
@@ -346,6 +368,17 @@ sel('portalcorpo').innerHTML = PORTAL.map(p=>`<tr>
   <td style="font-variant-numeric:tabular-nums">${p.n_clm||'—'}</td>
   <td class="nowrap">${fmtD(p.data_tratamento)}</td><td>${p.tipo||''}</td></tr>`).join('');
 
+/* ---------- prestadores ---------- */
+sel('prestcorpo').innerHTML = PRESTADORES.map(p=>`<tr>
+  <td><b>${esc(p.nome)}</b>${p.cpf_cnpj?`<br><span class="muted" style="font-size:.71rem">${esc(p.cpf_cnpj)}</span>`:''}</td>
+  <td>${esc(p.especialidade||'—')}</td>
+  <td style="font-size:.76rem">${esc(p.endereco||'—')}${p.telefone?'<br>📞 '+esc(p.telefone):''}</td>
+  <td class="num">${p.claims||'<span class="muted">—</span>'}</td>
+  <td class="num">${p.claims?fmt(p.pago):'<span class="muted">—</span>'}</td>
+  <td class="num">${p.claims?fmt(p.reemb):'<span class="muted">—</span>'}</td>
+  <td class="nowrap" style="font-size:.74rem">${p.primeira?fmtD(p.primeira)+'<br>a '+fmtD(p.ultima):'<span class="muted">—</span>'}</td>
+  <td style="font-size:.75rem;max-width:280px">${esc(p.observacoes||'')}</td></tr>`).join('');
+
 /* ---------- resumo (barras) ---------- */
 function barras(el, dados, duplo){
   const max = Math.max(...dados.map(d=>d.v1));
@@ -390,12 +423,13 @@ popularFiltros(); render();
 
 
 def main():
-    reembolsos, docs, eob, portal = carregar()
+    reembolsos, docs, eob, portal, prestadores = carregar()
     html = (TEMPLATE
             .replace("__REEMBOLSOS__", json.dumps(reembolsos, ensure_ascii=False))
             .replace("__DOCS__", json.dumps(docs, ensure_ascii=False))
             .replace("__EOB__", json.dumps(eob, ensure_ascii=False))
-            .replace("__PORTAL__", json.dumps(portal, ensure_ascii=False)))
+            .replace("__PORTAL__", json.dumps(portal, ensure_ascii=False))
+            .replace("__PRESTADORES__", json.dumps(prestadores, ensure_ascii=False)))
     SAIDA.write_text(html, encoding="utf-8")
     print(f"Painel gerado: {SAIDA}  ({len(reembolsos)} reembolsos, {len(docs)} documentos)")
 
