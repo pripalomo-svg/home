@@ -81,13 +81,27 @@ def resumir(lancamentos):
         elif lc["fluxo"] == "resgate":
             m["resgates"] += lc["valor"]
 
+    # Sempre exibe os últimos 6 meses (terminando no mês do lançamento mais
+    # recente), mesmo que algum mês não tenha extrato importado.
+    ultimo = max(meses)
+    ano, mm = int(ultimo[:4]), int(ultimo[5:])
+    janela = []
+    for _ in range(6):
+        janela.append(f"{ano:04d}-{mm:02d}")
+        mm -= 1
+        if mm == 0:
+            mm, ano = 12, ano - 1
+    janela.reverse()
+
+    com_dados = set(meses)
     linhas = []
-    for mes in sorted(meses):
+    for mes in janela:
         m = meses[mes]
         invest_liq = m["aplicacoes"] - m["resgates"]
         linhas.append({
             "mes": mes,
             "nome": f"{MESES_PT[mes[5:]]}/{mes[:4]}",
+            "sem_dados": mes not in com_dados,
             "entradas": round(m["entradas"], 2),
             "transf_propria": round(m["transf_propria"], 2),
             "saidas": round(m["saidas"], 2),
@@ -169,8 +183,8 @@ TEMPLATE = r"""<!DOCTYPE html>
   __AVISO__
   <div class="stats" id="stats"></div>
   <div class="panel">
-    <div class="panel-h">📅 Resumo mensal</div>
-    <div class="panel-sub">Entradas e saídas = movimentos da conta. Investimentos = aplicações (Cofrinhos/CDB, VGBL, cripto) menos resgates. Saldo = entradas − saídas − investimento líquido.</div>
+    <div class="panel-h">📅 Fluxo de caixa — últimos 6 meses</div>
+    <div class="panel-sub">Entradas e saídas = movimentos da conta. Investimentos = aplicações (Cofrinhos/CDB, VGBL, cripto) menos resgates. Saldo = entradas − saídas − investimento líquido. Meses em cinza ainda não têm extrato importado.</div>
     <div style="overflow-x:auto"><table>
       <thead><tr>
         <th>Mês</th><th class="num">Entradas</th><th class="num">↳ transf. própria</th>
@@ -233,7 +247,10 @@ document.getElementById('stats').innerHTML = [
   ['Saldo do período', fmt(tot.sl), tot.sl>=0?'sobrou na conta':'faltou na conta', tot.sl>=0?'pos':'neg'],
 ].map(([l,v,d,c])=>`<div class="stat"><span>${l}</span><b class="${c}">${v}</b><small>${d}</small></div>`).join('');
 
-document.getElementById('tbMeses').innerHTML = MESES.map(m=>`<tr>
+document.getElementById('tbMeses').innerHTML = MESES.map(m=> m.sem_dados ? `<tr style="opacity:.45">
+  <td><b>${m.nome}</b> <span style="font-size:.65rem;color:var(--mut)">sem extrato</span></td>
+  <td class="num" colspan="7" style="color:var(--mut)">envie o extrato deste mês para completar</td>
+</tr>` : `<tr>
   <td><b>${m.nome}</b></td>
   <td class="num pos">${fmt(m.entradas)}</td>
   <td class="num" style="color:var(--mut)">${fmt(m.transf_propria)}</td>
@@ -301,14 +318,14 @@ def main():
     linhas, cats = resumir(lanc)
     periodo = f"{lanc[0]['data']} a {lanc[-1]['data']}"
 
-    n_meses = len(linhas)
+    faltantes = [li["nome"] for li in linhas if li["sem_dados"]]
     aviso = ""
-    if n_meses < 6:
+    if faltantes:
         aviso = (
-            '<div class="aviso">⚠️ O extrato enviado cobre <b>' + periodo + "</b> "
-            f"({n_meses} meses, sendo o primeiro e o último parciais). Para completar os "
-            "últimos 6 meses, envie os extratos anteriores (jan–abr/2026) e coloque o CSV "
-            "em <code>extratos/</code> — o painel soma tudo automaticamente.</div>"
+            '<div class="aviso">⚠️ Extratos disponíveis cobrem <b>' + periodo + "</b>. "
+            "Meses sem extrato: <b>" + ", ".join(faltantes) + "</b> (e abril é parcial, "
+            "começa dia 22). Envie os extratos desses meses — coloco na planilha e o "
+            "painel completa os 6 meses automaticamente.</div>"
         )
 
     html = TEMPLATE
