@@ -21,6 +21,7 @@
    - 🏠 Painel: https://htmlpreview.github.io/?https://raw.githubusercontent.com/pripalomo-svg/home/main/organizacao/index.html
    - ❓ Guia: https://htmlpreview.github.io/?https://raw.githubusercontent.com/pripalomo-svg/home/main/organizacao/como_usar.html
    - 📈 Investimentos: https://htmlpreview.github.io/?https://raw.githubusercontent.com/pripalomo-svg/home/main/organizacao/investimentos.html
+   - 💸 Fluxo de Caixa: https://htmlpreview.github.io/?https://raw.githubusercontent.com/pripalomo-svg/home/main/organizacao/fluxo_caixa.html
    - ✏️ Pacientes: https://htmlpreview.github.io/?https://raw.githubusercontent.com/pripalomo-svg/home/main/organizacao/cadastro_pacientes.html
    - 📁 GitHub: https://github.com/pripalomo-svg/home/tree/main/organizacao
    - ⬇️ Baixar ZIP: https://github.com/pripalomo-svg/home/archive/refs/heads/main.zip

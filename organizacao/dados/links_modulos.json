@@ -16,6 +16,13 @@
       "planilha": "organizacao/templates/financas.csv",
       "log": "organizacao/ultima_atualizacao.json"
     },
+    "fluxo_caixa": {
+      "titulo": "Fluxo de Caixa (extratos)",
+      "link_painel": "{base}/organizacao/fluxo_caixa.html",
+      "arquivo_pc": "organizacao/fluxo_caixa.html",
+      "planilha": "organizacao/extratos/itau-2026-04-22-a-2026-07-21.csv",
+      "log": "organizacao/ultima_atualizacao.json"
+    },
     "pacientes": {
       "titulo": "Pacientes",
       "link_painel": "{base}/organizacao/cadastro_pacientes.html",
