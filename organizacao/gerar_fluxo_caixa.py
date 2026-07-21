@@ -184,13 +184,9 @@ TEMPLATE = r"""<!DOCTYPE html>
   <div class="stats" id="stats"></div>
   <div class="panel">
     <div class="panel-h">📅 Fluxo de caixa — últimos 6 meses</div>
-    <div class="panel-sub">Entradas e saídas = movimentos da conta. Investimentos = aplicações (Cofrinhos/CDB, VGBL, cripto) menos resgates. Saldo = entradas − saídas − investimento líquido. Meses em cinza ainda não têm extrato importado.</div>
-    <div style="overflow-x:auto"><table>
-      <thead><tr>
-        <th>Mês</th><th class="num">Entradas</th><th class="num">↳ transf. própria</th>
-        <th class="num">Saídas</th><th class="num">Aplicações</th><th class="num">Resgates</th>
-        <th class="num">Invest. líquido</th><th class="num">Saldo do mês</th>
-      </tr></thead>
+    <div class="panel-sub">Entradas e saídas = movimentos da conta. Investimentos = aplicações (Cofrinhos/CDB, VGBL, cripto) menos resgates. Saldo = entradas − saídas − investimento líquido. Meses com "—" ainda não têm extrato importado.</div>
+    <div style="overflow-x:auto"><table id="tabMeses">
+      <thead id="thMeses"></thead>
       <tbody id="tbMeses"></tbody>
     </table></div>
   </div>
@@ -247,27 +243,32 @@ document.getElementById('stats').innerHTML = [
   ['Saldo do período', fmt(tot.sl), tot.sl>=0?'sobrou na conta':'faltou na conta', tot.sl>=0?'pos':'neg'],
 ].map(([l,v,d,c])=>`<div class="stat"><span>${l}</span><b class="${c}">${v}</b><small>${d}</small></div>`).join('');
 
-document.getElementById('tbMeses').innerHTML = MESES.map(m=> m.sem_dados ? `<tr style="opacity:.45">
-  <td><b>${m.nome}</b> <span style="font-size:.65rem;color:var(--mut)">sem extrato</span></td>
-  <td class="num" colspan="7" style="color:var(--mut)">envie o extrato deste mês para completar</td>
-</tr>` : `<tr>
-  <td><b>${m.nome}</b></td>
-  <td class="num pos">${fmt(m.entradas)}</td>
-  <td class="num" style="color:var(--mut)">${fmt(m.transf_propria)}</td>
-  <td class="num neg">${fmt(m.saidas)}</td>
-  <td class="num inv">${fmt(m.aplicacoes)}</td>
-  <td class="num" style="color:var(--amber)">${fmt(m.resgates)}</td>
-  <td class="num inv">${fmt(m.invest_liquido)}</td>
-  <td class="num ${m.saldo>=0?'pos':'neg'}">${fmt(m.saldo)}</td>
-</tr>`).join('') + `<tr class="total">
-  <td>TOTAL</td>
-  <td class="num pos">${fmt(tot.e)}</td><td></td>
-  <td class="num neg">${fmt(tot.s)}</td>
-  <td class="num inv">${fmt(tot.ap)}</td>
-  <td class="num" style="color:var(--amber)">${fmt(tot.rg)}</td>
-  <td class="num inv">${fmt(tot.ap-tot.rg)}</td>
-  <td class="num ${tot.sl>=0?'pos':'neg'}">${fmt(tot.sl)}</td>
-</tr>`;
+// Tabela transposta: meses nas colunas, entradas/saídas nas linhas
+document.getElementById('thMeses').innerHTML = '<tr><th></th>' +
+  MESES.map(m=>`<th class="num">${m.nome.replace('/2026','')}${m.sem_dados?'<br><span style="font-weight:400;text-transform:none">sem extrato</span>':''}</th>`).join('') +
+  '<th class="num">TOTAL</th></tr>';
+
+const LINHAS_TAB = [
+  ['Entradas',        m=>m.entradas,       tot.e,          'pos',  v=>'pos'],
+  ['↳ transf. própria', m=>m.transf_propria, null,         '',     v=>''],
+  ['Saídas',          m=>m.saidas,         tot.s,          'neg',  v=>'neg'],
+  ['Aplicações',      m=>m.aplicacoes,     tot.ap,         'inv',  v=>'inv'],
+  ['Resgates',        m=>m.resgates,       tot.rg,         'amb',  v=>'amb'],
+  ['Invest. líquido', m=>m.invest_liquido, tot.ap-tot.rg,  'inv',  v=>'inv'],
+  ['Saldo do mês',    m=>m.saldo,          tot.sl,         '',     v=>v>=0?'pos':'neg'],
+];
+document.getElementById('tbMeses').innerHTML = LINHAS_TAB.map(([rotulo,pega,total,_,classeDe],idx)=>{
+  const ehSaldo = rotulo==='Saldo do mês';
+  const cels = MESES.map(m=>{
+    if(m.sem_dados) return '<td class="num" style="color:var(--mut);opacity:.5">—</td>';
+    const v = pega(m);
+    const c = classeDe(v);
+    return `<td class="num ${c}" ${c==='amb'?'style="color:var(--amber)"':''}>${fmt(v)}</td>`;
+  }).join('');
+  const tc = total==null ? '<td></td>' :
+    `<td class="num ${classeDe(total)}" ${classeDe(total)==='amb'?'style="color:var(--amber)"':''}><b>${fmt(total)}</b></td>`;
+  return `<tr ${ehSaldo?'class="total"':''}><td><b>${rotulo}</b></td>${cels}${tc}</tr>`;
+}).join('');
 
 function barras(el, dados, classe){
   const max = Math.max(...dados.map(d=>d[1]), 1);
