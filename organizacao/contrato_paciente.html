@@ -120,15 +120,17 @@ canvas#assinatura.ok{border-style:solid;border-color:var(--az3);}
 
 <div class="wrap">
   <div class="bloco-hon" id="blocoHon">
-    <div class="hon-lbl">🔒 Uso da profissional — defina os honorários e gere o link do paciente</div>
+    <div class="hon-lbl">🔒 Uso da profissional — nome + honorários → link do paciente</div>
+    <input class="hon-inp" type="text" id="nomeLink" placeholder="Nome do paciente (obrigatório para o controle)" style="margin-bottom:.55rem">
     <input class="hon-inp" type="text" id="valorHon" placeholder="Ex: R$ 180,00 · Pix ou dinheiro">
     <div style="font-size:.67rem;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:#9a7a1a;margin-bottom:.3rem;">Link para o paciente:</div>
     <div class="link-row">
-      <input type="text" id="linkGerado" readonly placeholder="Digite o valor acima para gerar o link">
+      <input type="text" id="linkGerado" readonly placeholder="Preencha nome e valor para gerar o link">
       <button class="btn-cop" type="button" onclick="copiarLink()">Copiar</button>
     </div>
-    <div class="msg-cop" id="msgCop">✓ Link copiado.</div>
-    <div class="muted">O link agora é montado com a URL atual da própria página. Isso evita preço desatualizado ou link apontando para outro endereço.</div>
+    <div class="msg-cop" id="msgCop">✓ Link copiado e registrado como <strong>enviado / pendente</strong>.</div>
+    <div class="muted">Ao copiar, o paciente entra na lista de pendentes. Quando ele <em>abre</em> o link você recebe um e-mail “abriu”. Quando <em>assina</em>, recebe “Contrato assinado”. Veja o status em contratos_assinados.html.</div>
+    <p style="margin-top:.7rem;font-size:.8rem"><a href="contratos_assinados.html" style="color:var(--az)">→ Ver pendentes / assinados</a></p>
   </div>
 
   <div class="aviso">
@@ -307,26 +309,70 @@ function emModoPaciente(){
   return url.searchParams.get('paciente') === '1';
 }
 
-function buildPatientLink(valor){
+const STATUS_KEY = 'contratosStatusLista';
+
+function lerStatusLista(){
+  try{ return JSON.parse(localStorage.getItem(STATUS_KEY) || '[]'); }
+  catch(e){ return []; }
+}
+
+function salvarStatusLista(lista){
+  localStorage.setItem(STATUS_KEY, JSON.stringify(lista.slice(0, 300)));
+}
+
+function upsertStatus(reg){
+  const lista = lerStatusLista();
+  const key = (reg.nome || '').toLowerCase().trim();
+  const i = lista.findIndex(x => (x.nome || '').toLowerCase().trim() === key && (x.valor || '') === (reg.valor || ''));
+  if(i >= 0){
+    lista[i] = Object.assign({}, lista[i], reg, {atualizado_em: new Date().toISOString()});
+  } else {
+    lista.unshift(Object.assign({criado_em: new Date().toISOString()}, reg));
+  }
+  salvarStatusLista(lista);
+  return lista;
+}
+
+function buildPatientLink(valor, nome){
   const url = new URL(getBaseUrl());
   url.searchParams.set('paciente', '1');
   url.searchParams.set('valor', valor);
+  if(nome) url.searchParams.set('nome', nome);
   return url.toString();
 }
 
 function atualizarHon(){
   const valor = v('valorHon');
+  const nome = v('nomeLink');
   $('honContrato').textContent = valor || 'a combinar diretamente com a Psicóloga';
-  $('linkGerado').value = valor ? buildPatientLink(valor) : '';
+  $('linkGerado').value = (valor && nome) ? buildPatientLink(valor, nome) : '';
   localStorage.setItem('ultimoHonorarioContrato', valor);
+  if(nome) localStorage.setItem('ultimoNomeLinkContrato', nome);
 }
 
 async function copiarLink(){
+  atualizarHon();
   const link = $('linkGerado').value;
+  const nome = v('nomeLink');
+  const valor = v('valorHon');
+  if(!nome){
+    alert('Digite o nome do paciente para registrar quem está pendente.');
+    return;
+  }
   if(!link){
     alert('Digite o valor dos honorários primeiro.');
     return;
   }
+  upsertStatus({
+    id: Date.now(),
+    nome: nome,
+    valor: valor,
+    link: link,
+    status: 'enviado',
+    enviado_em: new Date().toISOString(),
+    aberto_em: null,
+    assinado_em: null
+  });
   try{
     await navigator.clipboard.writeText(link);
   }catch(err){
@@ -334,21 +380,64 @@ async function copiarLink(){
     document.execCommand('copy');
   }
   $('msgCop').style.display = 'block';
-  setTimeout(() => $('msgCop').style.display = 'none', 1800);
+  setTimeout(() => $('msgCop').style.display = 'none', 2200);
+}
+
+async function notificarAberturaLink(){
+  const url = new URL(window.location.href);
+  if(url.searchParams.get('paciente') !== '1') return;
+  const nome = url.searchParams.get('nome') || 'Paciente (sem nome no link)';
+  const valor = url.searchParams.get('valor') || '—';
+  const chave = 'abriuContrato:' + nome + '|' + valor;
+  if(sessionStorage.getItem(chave)) return;
+  sessionStorage.setItem(chave, '1');
+  try{
+    const emailjsLib = await ensureEmailJSLoaded();
+    emailjsLib.init(EMAIL_CFG.publicKey);
+    const msg = [
+      'PACIENTE ABRIU O LINK (ainda nao assinou)',
+      '',
+      'Nome: ' + nome,
+      'Honorarios: ' + valor,
+      'Quando: ' + new Date().toLocaleString('pt-BR'),
+      'Pagina: ' + window.location.href
+    ].join('\n');
+    await emailjsLib.send(EMAIL_CFG.serviceId, EMAIL_CFG.templateId, {
+      to_name: 'Priscila Palomo',
+      to_email: EMAIL_CFG.toEmail,
+      email: EMAIL_CFG.toEmail,
+      from_name: nome,
+      reply_to: EMAIL_CFG.toEmail,
+      data_cadastro: new Date().toLocaleString('pt-BR'),
+      resumo_dados: msg,
+      message: msg,
+      patient_name: nome,
+      patient_email: '—',
+      patient_phone: '—',
+      honorarios: valor
+    });
+  }catch(err){
+    console.warn('Falha ao notificar abertura:', err);
+  }
 }
 
 function lerURL(){
   const url = new URL(window.location.href);
   const valor = url.searchParams.get('valor');
+  const nome = url.searchParams.get('nome') || '';
   const modoPaciente = emModoPaciente();
   if(modoPaciente){
     $('blocoHon')?.classList.add('hide');
+    notificarAberturaLink();
+  }
+  if(nome && !modoPaciente){
+    $('nomeLink').value = nome;
   }
   if(valor){
     $('valorHon').value = valor;
     $('honContrato').textContent = valor;
     if(!modoPaciente){
-      $('linkGerado').value = buildPatientLink(valor);
+      $('linkGerado').value = buildPatientLink(valor, v('nomeLink') || nome);
     }
     return;
   }
@@ -357,6 +446,8 @@ function lerURL(){
     return;
   }
   const salvo = localStorage.getItem('ultimoHonorarioContrato') || '';
+  const nomeSalvo = localStorage.getItem('ultimoNomeLinkContrato') || '';
+  if(nomeSalvo) $('nomeLink').value = nomeSalvo;
   if(salvo){
     $('valorHon').value = salvo;
     atualizarHon();
@@ -528,6 +619,14 @@ function arquivarContratoLocal(pac){
     semDup.unshift(reg);
     localStorage.setItem(chave, JSON.stringify(semDup.slice(0, 200)));
     localStorage.setItem('ultimoContratoPacienteFinalizado', JSON.stringify(pac));
+    upsertStatus({
+      nome: pac.nome,
+      valor: pac.honorarios,
+      status: 'assinado',
+      assinado_em: pac.dataHora || new Date().toISOString(),
+      email: pac.email,
+      tel: pac.tel
+    });
   }catch(e){ console.warn('Falha ao arquivar localmente', e); }
 }
 
@@ -708,7 +807,10 @@ window.addEventListener('load', () => {
   aplicarMascara('emgT', mascaraTel);
   aplicarMascara('cep', mascaraCEP);
   $('cep').addEventListener('blur', buscarCEP);
-  ['input','change','keyup','blur'].forEach(evt => $('valorHon').addEventListener(evt, atualizarHon));
+  ['input','change','keyup','blur'].forEach(evt => {
+    $('valorHon').addEventListener(evt, atualizarHon);
+    if($('nomeLink')) $('nomeLink').addEventListener(evt, atualizarHon);
+  });
   iniciarAssinatura();
   lerURL();
 });

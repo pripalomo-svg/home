@@ -24,21 +24,35 @@ textarea{width:100%;min-height:160px;border:1.5px solid #dde3ec;border-radius:10
 .ok{color:var(--ok);font-weight:600}.er{color:var(--er);font-weight:600}
 a{color:var(--az2)}
 .nav a{margin-right:12px;font-size:.85rem}
+.badge{display:inline-block;padding:.15rem .5rem;border-radius:999px;font-size:.72rem;font-weight:700}
+.b-env{background:#e8f0fe;color:#1a56db}.b-abe{background:#fef3c7;color:#92400e}.b-ass{background:#dcfce7;color:#166534}.b-pen{background:#fee2e2;color:#991b1b}
 </style>
 </head>
 <body>
 <p class="nav"><a href="links.html">← Links</a> <a href="contrato_paciente.html">Novo contrato</a> <a href="cadastro_pacientes.html">Pacientes</a></p>
 <h1>Contratos <em>assinados</em></h1>
-<p class="sub">Arquivo dos contratos enviados ao e-mail · pripalomo@gmail.com · atualizado 2026-07-20T13:51:48</p>
+<p class="sub">Arquivo dos contratos enviados ao e-mail · pripalomo@gmail.com · atualizado 2026-07-21T23:01:15</p>
 
 <div class="aviso">
-  <strong>EmailJS:</strong> 4 envios <code>200 OK</code> encontrados no histórico.
-  O log não traz o nome do paciente — isso está no Gmail. Clique em <em>Abrir no Gmail</em>,
-  copie o corpo do e-mail e cole abaixo para gerar o PDF.
+  <strong>Como saber o status</strong><br>
+  • <strong>Enviado</strong> — você copiou o link com o nome do paciente<br>
+  • <strong>Abriu</strong> — e-mail “PACIENTE ABRIU O LINK” (ainda não assinou)<br>
+  • <strong>Assinou</strong> — e-mail “Contrato assinado” / “NOVO CONTRATO…”<br>
+  • <strong>Pendente</strong> = enviado e ainda sem assinatura
 </div>
 
 <div class="card">
-  <h2>Arquivo (4)</h2>
+  <h2>Status neste navegador (enviados × pendentes)</h2>
+  <p class="meta">Lista salva ao copiar o link em <code>contrato_paciente.html</code> neste mesmo aparelho/navegador.</p>
+  <div id="statusResumo" class="meta" style="margin:8px 0 12px"></div>
+  <table>
+    <thead><tr><th>Paciente</th><th>Valor</th><th>Status</th><th>Enviado</th><th>Assinado</th><th></th></tr></thead>
+    <tbody id="statusBody"><tr><td colspan="6" class="vazio">Nenhum link gerado ainda neste navegador.</td></tr></tbody>
+  </table>
+</div>
+
+<div class="card">
+  <h2>Arquivo EmailJS / PDF (4)</h2>
   <table>
     <thead><tr><th>Paciente</th><th>Data</th><th>Honorários</th><th>Evento / WhatsApp</th><th>Site / E-mail</th><th>Fonte</th><th>PDF / Gmail</th></tr></thead>
     <tbody>
@@ -52,7 +66,7 @@ a{color:var(--az2)}
 
 <div class="card">
   <h2>Colar e-mail do EmailJS → gerar PDF</h2>
-  <p class="meta">Cole o corpo completo do e-mail (começa com NOVO CONTRATO DE PACIENTE FINALIZADO).</p>
+  <p class="meta">Cole o corpo completo do e-mail (começa com NOVO CONTRATO… ou PACIENTE ABRIU O LINK).</p>
   <textarea id="emailTxt" placeholder="NOVO CONTRATO DE PACIENTE FINALIZADO&#10;&#10;Nome: ..."></textarea>
   <button class="btn" type="button" onclick="gerarDoEmail()">Gerar e baixar PDF</button>
   <p id="status" class="meta"></p>
@@ -60,6 +74,48 @@ a{color:var(--az2)}
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <script>
+const STATUS_KEY = 'contratosStatusLista';
+function fmt(iso){
+  if(!iso) return '—';
+  try{ return new Date(iso).toLocaleString('pt-BR'); }catch(e){ return iso; }
+}
+function badge(st){
+  if(st==='assinado') return '<span class="badge b-ass">assinado</span>';
+  if(st==='aberto') return '<span class="badge b-abe">abriu (pendente)</span>';
+  if(st==='enviado') return '<span class="badge b-pen">enviado (pendente)</span>';
+  return '<span class="badge b-env">'+ (st||'—') +'</span>';
+}
+function carregarStatus(){
+  let lista = [];
+  try{ lista = JSON.parse(localStorage.getItem(STATUS_KEY)||'[]'); }catch(e){}
+  const body = document.getElementById('statusBody');
+  const resumo = document.getElementById('statusResumo');
+  if(!lista.length){
+    body.innerHTML = '<tr><td colspan="6" class="vazio">Nenhum link gerado ainda neste navegador.</td></tr>';
+    resumo.textContent = '';
+    return;
+  }
+  const pend = lista.filter(x => x.status !== 'assinado').length;
+  const ass = lista.filter(x => x.status === 'assinado').length;
+  resumo.innerHTML = '<strong>'+lista.length+'</strong> no total · <span class="er">'+pend+' pendente(s)</span> · <span class="ok">'+ass+' assinado(s)</span>';
+  body.innerHTML = lista.map((x,i) => '<tr>'+
+    '<td>'+(x.nome||'—')+'</td>'+
+    '<td>'+(x.valor||'—')+'</td>'+
+    '<td>'+badge(x.status)+'</td>'+
+    '<td>'+fmt(x.enviado_em||x.criado_em)+'</td>'+
+    '<td>'+fmt(x.assinado_em)+'</td>'+
+    '<td>'+(x.status!=='assinado'
+      ? '<button class="btn" style="margin:0;padding:6px 10px;font-size:.75rem" type="button" onclick="marcarAssinado('+i+')">Marcar assinado</button>'
+      : '—')+'</td></tr>').join('');
+}
+function marcarAssinado(i){
+  const lista = JSON.parse(localStorage.getItem(STATUS_KEY)||'[]');
+  if(!lista[i]) return;
+  lista[i].status = 'assinado';
+  lista[i].assinado_em = new Date().toISOString();
+  localStorage.setItem(STATUS_KEY, JSON.stringify(lista));
+  carregarStatus();
+}
 function campo(texto, lab){
   const re = new RegExp(lab + '\\s*:\\s*(.+)', 'i');
   const m = texto.match(re);
@@ -68,12 +124,35 @@ function campo(texto, lab){
 function gerarDoEmail(){
   const t = document.getElementById('emailTxt').value || '';
   const st = document.getElementById('status');
+  if(/PACIENTE ABRIU O LINK/i.test(t)){
+    const nome = campo(t, 'Nome');
+    if(nome){
+      let lista = [];
+      try{ lista = JSON.parse(localStorage.getItem(STATUS_KEY)||'[]'); }catch(e){}
+      const i = lista.findIndex(x => (x.nome||'').toLowerCase() === nome.toLowerCase());
+      if(i>=0){ lista[i].status = lista[i].status==='assinado'?'assinado':'aberto'; lista[i].aberto_em = new Date().toISOString(); }
+      else { lista.unshift({nome, status:'aberto', aberto_em:new Date().toISOString(), valor:campo(t,'Honorarios')||campo(t,'Honorários')}); }
+      localStorage.setItem(STATUS_KEY, JSON.stringify(lista));
+      carregarStatus();
+      st.innerHTML = '<span class="ok">Registrado: '+nome+' abriu o link (ainda pendente de assinatura).</span>';
+    } else st.innerHTML = '<span class="er">Nome não encontrado no e-mail de abertura.</span>';
+    return;
+  }
   if(!/NOVO CONTRATO|DADOS DO PACIENTE/i.test(t)){
     st.innerHTML = '<span class="er">Texto não parece um e-mail de contrato.</span>';
     return;
   }
   const nome = campo(t, 'Nome');
   if(!nome){ st.innerHTML = '<span class="er">Nome do paciente não encontrado.</span>'; return; }
+  // marca assinado no status local
+  try{
+    let lista = JSON.parse(localStorage.getItem(STATUS_KEY)||'[]');
+    const i = lista.findIndex(x => (x.nome||'').toLowerCase() === nome.toLowerCase());
+    if(i>=0){ lista[i].status='assinado'; lista[i].assinado_em=new Date().toISOString(); }
+    else { lista.unshift({nome, status:'assinado', assinado_em:new Date().toISOString()}); }
+    localStorage.setItem(STATUS_KEY, JSON.stringify(lista));
+    carregarStatus();
+  }catch(e){}
   const { jsPDF } = window.jspdf;
   const doc = new jsPDF({unit:'mm', format:'a4'});
   let y = 18; const M=16; const W=210-M*2;
@@ -93,8 +172,9 @@ function gerarDoEmail(){
   t.split(/\n/).forEach(ln => linha(ln, 5, 9));
   const fname = 'Contrato_Assinado_' + nome.replace(/\s+/g,'_') + '.pdf';
   doc.save(fname);
-  st.innerHTML = '<span class="ok">PDF baixado: ' + fname + '. Salve em documentos/contratos_assinados/ e rode o gerador.</span>';
+  st.innerHTML = '<span class="ok">PDF baixado: ' + fname + '. Marcado como assinado.</span>';
 }
+carregarStatus();
 </script>
 </body>
 </html>
