@@ -96,10 +96,18 @@ FORMATO DAS RESPOSTAS
 
 <script>
 function copiar(id,btn){
-  navigator.clipboard.writeText(document.getElementById(id).innerText).then(()=>{
-    const t=btn.innerText; btn.innerText='✅ Copiado!';
-    setTimeout(()=>btn.innerText=t,2000);
-  });
+  const texto=document.getElementById(id).innerText;
+  const ok=()=>{const t=btn.innerText;btn.innerText='✅ Copiado!';setTimeout(()=>btn.innerText=t,2000);};
+  const fallback=()=>{
+    const ta=document.createElement('textarea');
+    ta.value=texto;ta.style.position='fixed';ta.style.opacity='0';
+    document.body.appendChild(ta);ta.focus();ta.select();
+    try{document.execCommand('copy');ok();}catch(e){alert('Selecione o texto e copie com Ctrl+C');}
+    document.body.removeChild(ta);
+  };
+  if(navigator.clipboard&&navigator.clipboard.writeText){
+    navigator.clipboard.writeText(texto).then(ok).catch(fallback);
+  }else{fallback();}
 }
 </script>
 
