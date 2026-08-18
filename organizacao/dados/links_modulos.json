@@ -93,6 +93,11 @@
       "arquivo_pc": "reembolsos/index.html",
       "log": "reembolsos/reembolsos.db"
     },
+    "instagram": {
+      "titulo": "Prompt Instagram (leads)",
+      "link_painel": "{base}/organizacao/prompt_instagram.html",
+      "arquivo_pc": "organizacao/prompt_instagram.html"
+    },
     "notion": {
       "titulo": "Sincronização Notion",
       "link_painel": "{base}/organizacao/index.html#consultorio",
