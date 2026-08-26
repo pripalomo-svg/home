@@ -1,0 +1,15 @@
+{
+  "modulo": "arquivo",
+  "fonte": "foto",
+  "descricao_foto": "Termo de Titularidade e Responsabilidade de Certificado Digital de Pessoa Jurídica, e-CNPJ A1, emitido pela Safeweb em 24/08/2026.",
+  "registros": [
+    {
+      "titulo": "Termo de titularidade — e-CNPJ A1",
+      "caminho": "organizacao/documentos/certificados/2026-08-24-termo-titularidade-ecnpj-a1.jpg",
+      "categoria": "fiscal",
+      "data_arquivo": "2026-08-24",
+      "tipo_arquivo": "jpg",
+      "descricao": "Termo de titularidade e responsabilidade do certificado digital e-CNPJ A1. Não contém o arquivo do certificado nem a senha."
+    }
+  ]
+}
